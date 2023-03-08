@@ -1,0 +1,6 @@
+[submodule "libft_io"]
+	path = libft_io
+	url = git@github.com:JonathanDUFOUR/libft_io.git
+[submodule "libft_string"]
+	path = libft_string
+	url = git@github.com:JonathanDUFOUR/libft_string.git

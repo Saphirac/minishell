@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:35:35 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/02/28 16:12:38 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:55:06 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int	count_quotes(char *str, int i)
 		return (0);
 }
 
-void	ftft(int *const n)
+/*void	ftft(int *const n)
 {
 	for (int m = 0 ; m < 10 ; ++m)
 		++*n;
-}
+}*/
 
 int	count_tokens(char *str)
 {

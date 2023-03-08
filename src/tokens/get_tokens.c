@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:35:35 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 19:55:06 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:12:11 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	count_tokens(char *str)
 	int	i;
 	int	nb_tokens;
 
-	ftft(&i);
 	i = 0;
 	nb_tokens = 0;
 	while (str[i])

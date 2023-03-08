@@ -6,21 +6,20 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/07 21:14:13 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:26:10 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft.h"
-# include "builtins.h"
+# include "ft_io.h"
+# include "ft_string.h"
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>
-# include <libft.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 

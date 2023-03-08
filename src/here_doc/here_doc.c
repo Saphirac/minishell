@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:32:38 by maparigi          #+#    #+#             */
-/*   Updated: 2023/03/03 17:28:58 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:54:22 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ char	*get_hd(t_shell *shell, char *stop_signal)
 	free(shell->l_hd);
 	return (shell->stock_hd);
 }
-

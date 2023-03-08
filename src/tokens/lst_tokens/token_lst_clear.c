@@ -1,13 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   token_lst_clear.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/05 15:01:44 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 19:58:46 by mcourtoi         ###   ########.fr       */
+/*   Created: 2023/03/08 19:32:11 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/08 19:56:22 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	token_lst_clear(t_token_lst *const list)
+{
+	while (list->size)
+		list_del_one(list, list->head);
+}

@@ -6,103 +6,84 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:35:35 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 19:55:06 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/09 03:42:32 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_double_quotes(char *str, int i)
-{
-	int	len_token;
+/* All functions ft_add are there to protect
+from alloc errors and fit the norm */
 
-	len_token = 0;
-	if (str[i] == '"')
+int	ft_add_operator(t_shell *shell, int *i, int j)
+{
+	tmp = ft_get_operator(shell, &i, j);
+	if (!tmp)
+		return (EXIT_FAILURE);
+	if (token_lst_add_back(shell->tokens, T_OPERATOR,
+			tmp == EXIT_FAILURE))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	ft_add_word(t_shell *shell, int i, int j)
+{
+	tmp = ft_strndup((shell->line + j), (i - j));
+	if (!tmp)
+		return (EXIT_FAILURE);
+	if (token_lst_add_back(shell->tokens, T_WORD, tmp) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+/* ft_quotes iters i until encounter with the second quote. */
+
+int	ft_quotes(t_shell *shell, int *i)
+{
+	if (shell->line[*i] == '"')
+		while (shell->line[*i], shell->line[*i] != '"')
+			*++i;
+	if (shell->line[*i] == '\'')
+		while (shell->line[*i], shell->line[*i] != '\'')
+			*++i;
+	if (!shell->line[*i])
 	{
-		len_token++;
-		i++;
-		if (str[i] == '"')
-			return (len_token + 1);
-		while (str[i] && str[i] != '"')
-		{
-			len_token++;
-			i++;
-			if (str[i] == '"')
-				return (len_token + 1);
-		}
-		if (str[i] == '\0')
-			return (-1);
+		printf("Syntax error.\n");
+		return (EXIT_FAILURE);
 	}
-	return (len_token);
+	*++i;
+	return (EXIT_SUCCESS);
 }
 
-int	count_single_quotes(char *str, int i)
+/* Function browse line until it gets to a quote,
+an operator or a space. 
+It then calls the right function to get the corresponding tokens
+and then continue to browse */
+
+int	tokens_get(t_shell *shell)
 {
-	int	len_token;
+	int		i;
+	int		j;
+	char	*tmp;
 
-	len_token = 0;
-	if (str[i] == 39)
-	{
-		i++;
-		len_token++;
-		if (str[i] == 39)
-			return (len_token + 1);
-		while (str[i] && str[i] != 39)
-		{
-			len_token++;
-			i++;
-			if (str[i] == 39)
-				return (len_token + 1);
-		}
-		if (str[i] == '\0')
-			return (-1);
-	}
-	return (len_token);
-}
-
-int	count_quotes(char *str, int i)
-{
-	if (count_double_quotes(str, i) > 0)
-		return (count_double_quotes(str, i));
-	else if (count_single_quotes(str, i) > 0)
-		return (count_single_quotes(str, i));
-	else if (count_double_quotes(str, i) < 0 || count_single_quotes(str, i) < 0)
-		return (-1);
-	else
-		return (0);
-}
-
-/*void	ftft(int *const n)
-{
-	for (int m = 0 ; m < 10 ; ++m)
-		++*n;
-}*/
-
-int	count_tokens(char *str)
-{
-	int	i;
-	int	nb_tokens;
-
-	ftft(&i);
 	i = 0;
-	nb_tokens = 0;
-	while (str[i])
+	tmp = NULL;
+	while (shell->line[i])
 	{
-		while (str[i] && str[i] == 32)
+		while (shell->line[i] && shell->line[i] != ' ')
 			i++;
-		if (!str[i])
-			return (nb_tokens);
-		while (str[i] != ' ' && str[i] != '"' && str[i] != '\'' && str[i])
+		j = i;
+		while (ft_is_sep(shell->line[i]))
 			i++;
-		if (!str[i])
-			return (nb_tokens + 1);
-		if (str[i] == ' ')
-			nb_tokens++;
-		if (count_quotes(str, i) > 0)
-			nb_tokens++;
-		else if (count_quotes(str, i) < 0)
-			return (printf("Error : Invalid syntax.\n"), -1);
-		i += count_quotes(str, i);
+		if (!shell->line[i] || shell->line[i] == ' ')
+			if (ft_add_word(shell, &i, j) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		else if (ft_is_op(shell->line[i]) == 0)
+			if (ft_add_operator(shell, &i, j) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		else if (shell->line[i] == '"' || shell->line[i] == '\'')
+			ft_quotes(shell, &i);
 	}
-	return (nb_tokens);
+	free(tmp);
+	return (EXIT_SUCCESS);
 }

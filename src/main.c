@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 20:07:49 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/08 23:53:42 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,19 @@ void	prompt(t_shell *shell)
 	free(shell->line);
 }
 
+void	init_lst(t_shell *shell)
+{
+	ft_bzero(shell->tokens, sizeof(t_token_lst));
+	ft_bzero(shell->env, sizeof(t_env_lst));
+	//ft_get_env(shell->env);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_shell	shell;
 
 	(void)ac;
 	(void)av;
-	shell.env = env;
 	while (1)
 	{
 		signal_handle_interactive();

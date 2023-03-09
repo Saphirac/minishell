@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 00:29:36 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/09 03:46:52 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:43:20 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,16 @@ int	ft_is_sep(char c)
 	else if (ft_is_op(c) == 0)
 		return (0);
 	return (1);
+}
+
+void	print_tokens(t_token_lst *tokens)
+{
+	t_token const	*tmp = tokens->head;
+	
+	while (tmp)
+	{
+		printf("[Type] token : [%d] %s\n", tmp->type,
+			tmp->str);
+		tmp = tmp->next;
+	}
 }

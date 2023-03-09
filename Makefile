@@ -6,7 +6,7 @@
 #    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/09 03:45:54 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/09 14:19:22 by mcourtoi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,10 +118,7 @@ ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c
 	@${MKDIR} ${@D}
 	${CC} ${CFLAGS} $< ${OUTPUT_OPTION}
 
-${FT_IO_A}:
-	@${MAKE} ${@F} -C ${@D}
-
-${FT_STRING_A}:
+${FT_IO_A} ${FT_STRING_A}:
 	@${MAKE} ${@F} -C ${@D}
 
 clean:
@@ -136,3 +133,7 @@ re: clean all
 fre: fclean all
 
 .PHONY: all clean fclean re fre
+
+-include coffee.mk
+-include norm.mk
+-include valgrind.mk

@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/09 03:50:34 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:00:26 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_string.h"
 # include "list.h"
 # include "shell.h"
+# include "enum.h"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -44,6 +45,8 @@ char	*expand_dollar(char *token, char *tmp);
 int		ft_is_sep(char c);
 int		ft_is_op(char c);
 char	*ft_get_operator(t_shell *shell, int *i, int j);
+void	print_tokens(t_token_lst *tokens);
+int		tokens_get(t_shell *shell);
 
 // Utils //
 void	ft_free(char **tab);

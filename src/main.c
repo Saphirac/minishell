@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 23:53:42 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:56:16 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**mini_env(void)
 
 void	prompt(t_shell *shell)
 {
-	/*char	*tmp;*/
+	int		exit_code;
 
 	shell->line = readline("minishell $> ");
 	if (!shell->line)
@@ -54,24 +54,13 @@ void	prompt(t_shell *shell)
 		write(STDOUT_FILENO, "\nminishell $> ", 14);
 	if (ft_strlen(shell->line))
 		add_history(shell->line);
-	if (count_tokens(shell->line) > 0)
-	{
-		shell->tokens = tokens_tab(shell, 0);
-		test_tab(shell->tokens);
-		ft_free(shell->tokens);
-	}
-	/*tmp = search_env(shell->env, shell->tokens[1]);
-	if (tmp)
-		printf("%s\n", expand_dollar(shell->tokens[1], tmp));
-	free(tmp);*/
+	exit_code = tokens_get(shell);
+	if (exit_code == EXIT_FAILURE)
+		exit(EXIT_FAILURE);
+	if (exit_code == EXIT_SUCCESS)
+		print_tokens(&(shell->tokens));
+	token_lst_clear(&(shell->tokens));
 	free(shell->line);
-}
-
-void	init_lst(t_shell *shell)
-{
-	ft_bzero(shell->tokens, sizeof(t_token_lst));
-	ft_bzero(shell->env, sizeof(t_env_lst));
-	//ft_get_env(shell->env);
 }
 
 int	main(int ac, char **av, char **env)
@@ -80,6 +69,8 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	(void)env;
+	ft_bzero(&shell, sizeof(t_shell));
 	while (1)
 	{
 		signal_handle_interactive();

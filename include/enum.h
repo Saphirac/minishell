@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_new.c                                        :+:      :+:    :+:   */
+/*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 19:37:40 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/09 15:15:52 by mcourtoi         ###   ########.fr       */
+/*   Created: 2023/03/09 14:22:24 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/09 14:43:43 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ENUM_H
+# define ENUM_H
 
-t_token	*token_new(int const type, char *const str)
+# include "minishell.h"
+
+/* Used to classify each encountered tokens. */
+
+typedef enum e_token_type	t_token_type;
+
+enum	e_token_type
 {
-	t_token *const	output = malloc(sizeof(t_token));
+	T_WORD,
+	T_OPERATOR,
+	T_FILE,
+	T_PIPE,
+	T_INPUT,
+	T_HEREDOC,
+	T_OUTPUT_TRUNCATE,
+	T_OUTPUT_APPEND,
+	T_OPTION,
+	T_BUILTIN,
+	T_COMMAND,
+	T_ARGUMENT,
+	T_DELIMITER,
+	T_UNDEFINED,
+};
 
-	if (!output)
-		return (NULL);
-	output->type = type;
-	output->str = ft_strdup(str);
-	if (!output->str)
-		return (NULL);
-	output->next = NULL;
-	output->prev = NULL;
-	return (output);
-}
+#endif

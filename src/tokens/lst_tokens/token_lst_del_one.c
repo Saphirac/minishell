@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:34:03 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 20:00:26 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:06:01 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	token_lst_del_one(t_token_lst *const list, t_token *const node)
 		node->prev->next = node->next;
 	}
 	--list->size;
+	free(node->str);
 	free(node);
 }

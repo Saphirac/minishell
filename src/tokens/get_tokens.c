@@ -6,102 +6,104 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:35:35 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 20:12:11 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:42:14 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_double_quotes(char *str, int i)
-{
-	int	len_token;
+/* All functions ft_add are there to protect
+from alloc errors and fit the norm */
 
-	len_token = 0;
-	if (str[i] == '"')
-	{
-		len_token++;
-		i++;
-		if (str[i] == '"')
-			return (len_token + 1);
-		while (str[i] && str[i] != '"')
-		{
-			len_token++;
-			i++;
-			if (str[i] == '"')
-				return (len_token + 1);
-		}
-		if (str[i] == '\0')
-			return (-1);
-	}
-	return (len_token);
+int	ft_add_operator(t_shell *shell, int *i, int *j)
+{
+	char	*tmp;
+
+	tmp = ft_get_operator(shell, i, *j);
+	if (!tmp)
+		return (EXIT_FAILURE);
+	if (!ft_strlen(tmp))
+		return (free(tmp), EXIT_SUCCESS);
+	if (token_lst_add_back(&(shell->tokens), T_OPERATOR,
+			tmp) == EXIT_FAILURE)
+		return (free(tmp), EXIT_FAILURE);
+	*j = -1;
+	return (free(tmp), EXIT_SUCCESS);
 }
 
-int	count_single_quotes(char *str, int i)
+int	ft_add_word(t_shell *shell, int *i, int *j)
 {
-	int	len_token;
+	char	*tmp;
 
-	len_token = 0;
-	if (str[i] == 39)
-	{
-		i++;
-		len_token++;
-		if (str[i] == 39)
-			return (len_token + 1);
-		while (str[i] && str[i] != 39)
-		{
-			len_token++;
-			i++;
-			if (str[i] == 39)
-				return (len_token + 1);
-		}
-		if (str[i] == '\0')
-			return (-1);
-	}
-	return (len_token);
+	tmp = ft_strndup((shell->line + *j), (*i - *j));
+	if (!tmp)
+		return (EXIT_FAILURE);
+	if (!ft_strlen(tmp))
+		return (free(tmp), EXIT_SUCCESS);
+	if (token_lst_add_back(&(shell->tokens), T_WORD, tmp) == EXIT_FAILURE)
+		return (free(tmp), EXIT_FAILURE);
+	if (shell->line[*i] == ' ')
+		++*i;
+	*j = -1;
+	return (free(tmp), EXIT_SUCCESS);
 }
 
-int	count_quotes(char *str, int i)
+/* ft_quotes iters i until encounter with the second quote.
+return (2) : exit syntax. */
+
+int	ft_add_quotes(t_shell *shell, int *i, int *j)
 {
-	if (count_double_quotes(str, i) > 0)
-		return (count_double_quotes(str, i));
-	else if (count_single_quotes(str, i) > 0)
-		return (count_single_quotes(str, i));
-	else if (count_double_quotes(str, i) < 0 || count_single_quotes(str, i) < 0)
-		return (-1);
-	else
-		return (0);
+	char	type;
+
+	type = shell->line[*i];
+	(*i)++;
+	while (shell->line[*i] && shell->line[*i] != type)
+		++*i;
+	if (shell->line[*i] != type)
+		return (printf("Syntax error.\n"), 2);
+	++*i;
+	if (shell->line[*i] == '\0' || shell->line[*i] == ' '
+		|| ft_is_op(shell->line[*i]) == 0)
+		if (ft_add_word(shell, i, j) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-/*void	ftft(int *const n)
+int	use_add_tokens_functions(t_shell *shell, int *i, int *j)
 {
-	for (int m = 0 ; m < 10 ; ++m)
-		++*n;
-}*/
+	if (!shell->line[*i] || shell->line[*i] == ' ')
+		return (ft_add_word(shell, i, j));
+	else if (ft_is_op(shell->line[*i]) == 0)
+		return (ft_add_operator(shell, i, j));
+	else if (shell->line[*i] == '"' || shell->line[*i] == '\'')
+		return (ft_add_quotes(shell, i, j));
+	return (EXIT_SUCCESS);
+}
 
-int	count_tokens(char *str)
+/* Function browse line until it gets to a quote,
+an operator or a space.
+It then calls the right function to get the corresponding tokens
+and then continue to browse */
+
+int	tokens_get(t_shell *shell)
 {
 	int	i;
-	int	nb_tokens;
+	int	j;
+	int	exit_code;
 
 	i = 0;
-	nb_tokens = 0;
-	while (str[i])
+	j = -1;
+	while (shell->line[i])
 	{
-		while (str[i] && str[i] == 32)
+		while (shell->line[i] && shell->line[i] == ' ')
 			i++;
-		if (!str[i])
-			return (nb_tokens);
-		while (str[i] != ' ' && str[i] != '"' && str[i] != '\'' && str[i])
+		if (j == -1)
+			j = i;
+		while (ft_is_sep(shell->line[i]))
 			i++;
-		if (!str[i])
-			return (nb_tokens + 1);
-		if (str[i] == ' ')
-			nb_tokens++;
-		if (count_quotes(str, i) > 0)
-			nb_tokens++;
-		else if (count_quotes(str, i) < 0)
-			return (printf("Error : Invalid syntax.\n"), -1);
-		i += count_quotes(str, i);
+		exit_code = use_add_tokens_functions(shell, &i, &j);
+		if (exit_code != EXIT_SUCCESS)
+			return (exit_code);
 	}
-	return (nb_tokens);
+	return (EXIT_SUCCESS);
 }

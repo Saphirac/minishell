@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_push_front.c                                 :+:      :+:    :+:   */
+/*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 19:38:52 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 19:56:06 by mcourtoi         ###   ########.fr       */
+/*   Created: 2023/03/09 14:22:24 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/09 14:43:43 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ENUM_H
+# define ENUM_H
 
-void	token_lst_push_back(t_token_lst *const list, t_token *const node)
+# include "minishell.h"
+
+/* Used to classify each encountered tokens. */
+
+typedef enum e_token_type	t_token_type;
+
+enum	e_token_type
 {
-	if (!list->size)
-		list->head = node;
-	else
-	{
-		list->tail->next = node;
-		node->prev = list->tail;
-	}
-	list->tail = node;
-	++list->size;
-}
+	T_WORD,
+	T_OPERATOR,
+	T_FILE,
+	T_PIPE,
+	T_INPUT,
+	T_HEREDOC,
+	T_OUTPUT_TRUNCATE,
+	T_OUTPUT_APPEND,
+	T_OPTION,
+	T_BUILTIN,
+	T_COMMAND,
+	T_ARGUMENT,
+	T_DELIMITER,
+	T_UNDEFINED,
+};
+
+#endif

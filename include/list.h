@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/08 20:37:35 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:36:51 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ typedef struct s_token		t_token;
 typedef struct s_token_lst	t_token_lst;
 typedef struct s_env		t_env;
 typedef struct s_env_lst	t_env_lst;
-
-
 
 struct s_token_lst
 {

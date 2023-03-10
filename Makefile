@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/09 11:36:15 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/10 16:47:20 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,22 +51,31 @@ FT_STRING_A			:=	${addprefix ${FT_STRING_DIR}/, ${FT_STRING_A}}
 ######################################
 #            SOURCE FILES            #
 ######################################
-SRC					=		\
-	${addprefix here_doc/,	\
-		here_doc.c			\
-		here_tokens.c		\
-	}						\
-	${addprefix tokens/,	\
-		classify_tokens.c	\
-		expand_tokens.c		\
-		get_tokens.c		\
-	}						\
-	commands.c				\
-	main.c					\
-	parse.c					\
-	signals.c				\
-	utils_env.c				\
-	utils.c
+SRC					=			\
+	${addprefix builtin/,		\
+		${addprefix cd/,		\
+			core.c				\
+		}						\
+		${addprefix echo/,		\
+			core.c				\
+		}						\
+		${addprefix env/,		\
+			core.c				\
+		}						\
+		${addprefix exit/,		\
+			core.c				\
+		}						\
+		${addprefix export/,	\
+			core.c				\
+		}						\
+		${addprefix pwd/,		\
+			core.c				\
+		}						\
+		${addprefix unset/,		\
+			core.c				\
+		}						\
+	}							\
+	main.c
 
 ######################################
 #            OBJECT FILES            #

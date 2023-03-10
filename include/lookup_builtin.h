@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 20:29:22 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/08 20:45:03 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:36:35 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 typedef struct s_builtin	t_builtin;
-typedef int					(*t_func)(t_shell *const shell);
+typedef int					(*t_func)(t_env_lst *const, t_token const *const);
 
 struct s_builtin
 {
@@ -24,29 +24,29 @@ struct s_builtin
 	t_func const		func;
 };
 
-int	cd(t_shell *const shell)
+int	builtin_cd(t_env_lst *const env, t_token const *const token)
 	__attribute__((nonnull));
-int	echo(t_shell *const shell)
+int	builtin_echo(t_env_lst *const env, t_token const *const token)
 	__attribute__((nonnull));
-int	env(t_shell *const shell)
+int	builtin_env(t_env_lst *const env, t_token const *const token)
 	__attribute__((nonnull));
-int	exit(t_shell *const shell)
+int	builtin_exit(t_env_lst *const env, t_token const *const token)
+	__attribute__((nonnull (1)));
+int	builtin_export(t_env_lst *const env, t_token const *const token)
 	__attribute__((nonnull));
-int	export(t_shell *const shell)
-	__attribute__((nonnull));
-int	pwd(t_shell *const shell)
-	__attribute__((nonnull));
-int	unset(t_shell *const shell)
+int	builtin_pwd(t_env_lst *const env, t_token const *const token)
+	__attribute__((nonnull (1)));
+int	builtin_unset(t_env_lst *const env, t_token const *const token)
 	__attribute__((nonnull));
 
 static t_builtin const		g_builtin[] = {
-{"cd", cd},
-{"echo", echo},
-{"env", env},
-{"exit", exit},
-{"export", export},
-{"pwd", pwd},
-{"unset", unset},
+{"cd", builtin_cd},
+{"echo", builtin_echo},
+{"env", builtin_env},
+{"exit", builtin_exit},
+{"export", builtin_export},
+{"pwd", builtin_pwd},
+{"unset", builtin_unset},
 {0},
 };
 

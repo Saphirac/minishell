@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:53:18 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/09 14:59:56 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:01:57 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "minishell.h"
+/*
+
+#include "minishell.h"
 
 char	*check_access(char **env, char *cmd)
 {
@@ -69,4 +71,6 @@ char	**get_commands(t_shell *shell)
 	while (++i < tmp)
 		return_commands[i] = ft_strdup(shell->tokens[cmd++ + 1]);
 	return (return_commands);
-} */
+}
+
+*/

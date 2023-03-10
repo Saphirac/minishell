@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:32:38 by maparigi          #+#    #+#             */
-/*   Updated: 2023/03/09 13:18:16 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:04:40 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
 
 #include "minishell.h"
 
@@ -40,3 +42,5 @@ char	*get_hd(t_shell *shell, char *stop_signal)
 	free(shell->line_hd);
 	return (shell->stock_hd);
 }
+
+*/

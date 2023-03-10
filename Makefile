@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
+#    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/09 14:19:22 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/10 19:58:07 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,18 @@ FT_STRING_A			:=	${addprefix ${FT_STRING_DIR}/, ${FT_STRING_A}}
 #            SOURCE FILES            #
 ######################################
 SRC					=				\
+	${addprefix env/,				\
+		${addprefix env_lst/,		\
+			env_lst_add_back.c		\
+			env_lst_add_front.c		\
+			env_lst_clear.c			\
+			env_lst_del_one.c		\
+			env_lst_print.c			\
+			env_lst_push_back.c		\
+			env_lst_push_front.c	\
+			env_new.c				\
+		}							\
+	}								\
 	${addprefix here_doc/,			\
 		here_doc.c					\
 		here_tokens.c				\

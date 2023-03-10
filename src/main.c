@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/09 19:56:16 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:44:52 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ int	main(int ac, char **av, char **env)
 	{
 		signal_handle_interactive();
 		prompt(&shell);
-		/* get_hd(&shell, "stop");
-		printf("%s", shell.stock_hd); */
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/09 12:46:38 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:42:47 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ void	token_lst_push_back(t_token_lst *const list, t_token *const node)
 		__attribute__((nonnull));
 void	token_lst_push_front(t_token_lst *const list, t_token *const node)
 		__attribute__((nonnull));
-int		token_lst_add_back(t_token_lst *const list, int const type, char *const str)
+int		token_lst_add_back(t_token_lst *const list, int const type,
+			char *const str)
 		__attribute__((nonnull));
-int		token_lst_add_front(t_token_lst *const list, int const type, char *const str)
+int		token_lst_add_front(t_token_lst *const list, int const type,
+			char *const str)
 		__attribute__((nonnull));
 
 t_token	*token_new(int const type, char *const str);

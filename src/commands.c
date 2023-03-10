@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:53:18 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/04 20:34:50 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 01:40:22 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
 
 #include "minishell.h"
 
@@ -70,3 +72,5 @@ char	**get_commands(t_shell *shell)
 		return_commands[i] = ft_strdup(shell->tokens[cmd++ + 1]);
 	return (return_commands);
 }
+
+*/

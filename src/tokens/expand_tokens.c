@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:11:30 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/02/22 00:35:50 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:16:30 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 char	*expand_single_quotes(char *token)
 {
 	char	*ret;
@@ -108,3 +109,4 @@ char	*expand_dollar(char *token, char *tmp)
 	ret[i] = '\0';
 	return (ret);
 }
+*/

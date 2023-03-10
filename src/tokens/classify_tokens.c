@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   classify_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 05:28:05 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/02/28 05:05:45 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 01:41:49 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
 
 #include "minishell.h"
 
@@ -73,3 +75,5 @@ char	**tokens_tab(t_shell *shell, int i)
 	shell->tokens[count_tokens(shell->line)] = NULL;
 	return (shell->tokens);
 }
+
+*/

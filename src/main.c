@@ -6,39 +6,13 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 18:44:52 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:49:07 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exit_code = 0;
-
-void	test_tab(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return ;
-	while (str[i])
-	{
-		printf("token %d : %s\n", i, str[i]);
-		i++;
-	}
-}
-
-char	**mini_env(void)
-{
-	char	**env;
-
-	env = malloc(sizeof(char *) * 4);
-	env[0] = ft_strdup("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin");
-	env[1] = ft_strdup("PWD=/Users/minishell");
-	env[2] = ft_strdup("_=/usr/bin/env");
-	env[3] = NULL;
-	return (env);
-}
 
 void	prompt(t_shell *shell)
 {

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:01:30 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 00:09:23 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-extern int					g_exit_code;
+extern uint8_t	g_exit_code;
 
 void	free_tab(char **tab);
 void	handle_signal(int sig);

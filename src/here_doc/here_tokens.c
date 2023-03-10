@@ -54,16 +54,16 @@ char	*ft_strdup_hd(const char *s)
 
 char	*stock_hd(t_shell *shell)
 {
-	if (!shell->stock_hd && shell->l_hd)
+	if (!shell->stock_hd && shell->line_hd)
 	{
-		shell->stock_hd = ft_strdup_hd(shell->l_hd);
+		shell->stock_hd = ft_strdup_hd(shell->line_hd);
 		if (!shell->stock_hd)
 			return (NULL);
 		return (shell->stock_hd);
 	}
-	else if (shell->stock_hd && shell->l_hd)
+	else if (shell->stock_hd && shell->line_hd)
 	{
-		shell->stock_hd = ft_strjoin_hd(shell->stock_hd, shell->l_hd);
+		shell->stock_hd = ft_strjoin_hd(shell->stock_hd, shell->line_hd);
 		if (!shell->stock_hd)
 			return (NULL);
 		return (shell->stock_hd);

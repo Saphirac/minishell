@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 01:29:46 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:01:30 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "ft_io.h"
 # include "ft_string.h"
 # include "list.h"
+# include "shell.h"
+# include "enum.h"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -25,34 +27,6 @@
 # include <readline/history.h>
 
 extern int					g_exit_code;
-
-typedef struct s_shell		t_shell;
-typedef struct s_token		t_token;
-typedef struct s_token_lst	t_token_lst;
-
-struct s_shell
-{
-	char		*line;
-	char		**tokens;
-	t_env_lst	env;
-	char		*l_hd;
-	char		*stock_hd;
-};
-
-struct s_token_lst
-{
-	t_token	*head;
-	t_token	*tail;
-	size_t	size;
-};
-
-struct s_token
-{
-	char	*str;
-	int		type;
-	t_token	*next;
-	t_token	*prev;
-};
 
 void	free_tab(char **tab);
 void	handle_signal(int sig);
@@ -66,6 +40,13 @@ char	*expand_single_quotes(char *token);
 char	*expand_double_quotes(t_shell *shell, char *token);
 char	*search_env(char **env, char *token);
 char	*expand_dollar(char *token, char *tmp);
+
+// Tokens //
+int		ft_is_sep(char c);
+int		ft_is_op(char c);
+char	*ft_get_operator(t_shell *shell, int *i, int j);
+void	print_tokens(t_token_lst *tokens);
+int		tokens_get(t_shell *shell);
 
 // Utils //
 void	ft_free(char **tab);

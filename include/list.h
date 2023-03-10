@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 01:13:54 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:59:48 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,25 @@
 
 # include <stddef.h>
 
+typedef struct s_token		t_token;
+typedef struct s_token_lst	t_token_lst;
 typedef struct s_env		t_env;
 typedef struct s_env_lst	t_env_lst;
+
+struct s_token_lst
+{
+	t_token	*head;
+	t_token	*tail;
+	size_t	size;
+};
+
+struct s_token
+{
+	char	*str;
+	int		type;
+	t_token	*next;
+	t_token	*prev;
+};
 
 struct s_env_lst
 {
@@ -32,6 +49,25 @@ struct s_env
 	t_env	*next;
 	t_env	*prev;
 };
+
+/* lst functions for token_lst and token nodes */
+
+void	token_lst_clear(t_token_lst *const list)
+		__attribute__((nonnull));
+void	token_lst_del_one(t_token_lst *const list, t_token *const node)
+		__attribute__((nonnull));
+void	token_lst_push_back(t_token_lst *const list, t_token *const node)
+		__attribute__((nonnull));
+void	token_lst_push_front(t_token_lst *const list, t_token *const node)
+		__attribute__((nonnull));
+int		token_lst_add_back(t_token_lst *const list, int const type,
+			char *const str)
+		__attribute__((nonnull));
+int		token_lst_add_front(t_token_lst *const list, int const type,
+			char *const str)
+		__attribute__((nonnull));
+
+t_token	*token_new(int const type, char *const str);
 
 /* lst functions for env_lst and env nodes */
 

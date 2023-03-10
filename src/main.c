@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 01:56:22 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:03:42 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 
 inline static void	__prompt(t_shell *const shell)
 {
+	int		exit_code;
+
 	shell->line = readline("minishell $> ");
 	if (!shell->line)
 	{
@@ -63,6 +65,12 @@ inline static void	__prompt(t_shell *const shell)
 		write(STDOUT_FILENO, "\nminishell $> ", 14);
 	if (ft_strlen(shell->line))
 		add_history(shell->line);
+	exit_code = tokens_get(shell);
+	if (exit_code == EXIT_FAILURE)
+		exit(EXIT_FAILURE);
+	if (exit_code == EXIT_SUCCESS)
+		print_tokens(&(shell->tokens));
+	token_lst_clear(&(shell->tokens));
 	free(shell->line);
 }
 

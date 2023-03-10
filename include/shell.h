@@ -1,17 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/05 15:01:44 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:04:01 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/09 15:18:33 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
+#ifndef SHELL_H
+# define SHELL_H
 
-#include "minishell.h"
+# include "minishell.h"
 
-*/
+typedef struct s_shell		t_shell;
+
+struct s_shell
+{
+	t_token_lst	tokens;
+	t_env_lst	env;
+	char		*line;
+	char		*line_hd;
+	char		*stock_hd;
+};
+
+#endif

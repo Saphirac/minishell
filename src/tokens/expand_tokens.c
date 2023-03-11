@@ -3,32 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   expand_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:11:30 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:06:31 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:31:42 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
+
 
 #include "minishell.h"
 
-char	*expand_single_quotes(char *token)
+int	*expand_single_quotes(t_token *token, char *tmp)
 {
-	char	*ret;
-	int		i;
-
-	ret = malloc(sizeof(char) * (ft_strlen(token) - 2 + 1));
+	char *ret;
+	
+	ret = ft_strndup((token->str + 1), ft_strlen(token->str) - 2);
 	if (!ret)
-		return (NULL);
-	i = 0;
-	while (token[++i])
-		ret[i - 1] = token[i];
-	ret[i - 1] = '\0';
-	return (ret);
+		return (free(tmp), EXIT_FAILURE);
+	if (tmp)
+		tmp = ft_strjoin(tmp, ret);
+	else
+		tmp = ft_strdup(ret);
+	if (!tmp)
+		return (free(ret), EXIT_FAILURE);
+	return (free(ret), EXIT_SUCCESS);
 }
 
+/*
 char	*expand_double_quotes(t_shell *shell, char *token)
 {
 	char	*ret;

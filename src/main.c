@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:03:42 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 06:16:44 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_code = 0;
+uint8_t	g_exit_code = 0U;
 
 inline static int	__usage_error(char const *const prog_name)
 					__attribute__((nonnull(1)));
@@ -61,15 +61,19 @@ inline static void	__prompt(t_shell *const shell)
 		env_lst_clear(&shell->env);
 		exit(EXIT_FAILURE);
 	}
-	if (shell->line[0] == '\n')
-		write(STDOUT_FILENO, "\nminishell $> ", 14);
 	if (ft_strlen(shell->line))
 		add_history(shell->line);
 	exit_code = tokens_get(shell);
 	if (exit_code == EXIT_FAILURE)
 		exit(EXIT_FAILURE);
 	if (exit_code == EXIT_SUCCESS)
-		print_tokens(&(shell->tokens));
+	{
+		exit_code = classify_tokens(shell);
+		if (exit_code == EXIT_FAILURE)
+			exit(EXIT_FAILURE);
+		if (exit_code == EXIT_SUCCESS)
+			print_tokens(&shell->tokens);
+	}
 	token_lst_clear(&(shell->tokens));
 	free(shell->line);
 }

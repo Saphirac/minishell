@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 01:48:49 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/09 15:33:24 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:57:33 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_get_operator(t_shell *shell, int *i, int j)
 	char	*ret;
 
 	ret = NULL;
-	if (ft_is_sep(shell->line[*i - 1]))
+	if (*i > 0 && ft_is_sep(shell->line[*i - 1]))
 	{
 		ret = ft_strndup((shell->line + j), (*i - j));
 		if (!ret)

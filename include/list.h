@@ -6,14 +6,14 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 00:56:59 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 07:04:39 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIST_H
 # define LIST_H
 
-# include <stddef.h>
+# include "minishell.h"
 
 typedef struct s_token		t_token;
 typedef struct s_token_lst	t_token_lst;
@@ -29,10 +29,10 @@ struct s_token_lst
 
 struct s_token
 {
-	char	*str;
-	int		type;
-	t_token	*next;
-	t_token	*prev;
+	char			*str;
+	t_token_type	type;
+	t_token			*next;
+	t_token			*prev;
 };
 
 struct s_env_lst

@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/11 00:56:49 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/11 07:04:28 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,8 @@ SRC					=				\
 		get_tokens.c				\
 		tokens_operators.c			\
 		tokens_utils.c				\
+		classify_tokens.c			\
+		classify_tokens_utils.c		\
 	}								\
 	${addprefix tokens/lst_tokens/,	\
 		token_lst_add_back.c		\

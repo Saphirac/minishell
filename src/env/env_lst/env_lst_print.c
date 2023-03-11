@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_print.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:49:15 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 02:09:05 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:29:51 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_io.h"
-#include "list.h"
+#include "minishell.h"
 
 /**
  * @brief	Print the content of an env list to STDOUT_FILENO.

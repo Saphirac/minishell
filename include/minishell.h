@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 05:23:12 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/11 06:19:41 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 # define EXIT_ERROR 2
 
-extern int					g_exit_code;
+extern uint8_t	g_exit_code;
 
 void	free_tab(char **tab);
 void	handle_signal(int sig);

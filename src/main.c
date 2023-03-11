@@ -6,13 +6,13 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 02:50:45 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/11 06:16:44 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_code = 0;
+uint8_t	g_exit_code = 0U;
 
 inline static int	__usage_error(char const *const prog_name)
 					__attribute__((nonnull(1)));

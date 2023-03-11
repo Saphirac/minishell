@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:01:30 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 03:18:31 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 
 # include "ft_io.h"
 # include "ft_string.h"
+# include "enum.h"
 # include "list.h"
 # include "shell.h"
-# include "enum.h"
+# include "lookup_builtin.h"
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>
+# include <stddef.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define EXIT_ERROR 2
 extern int					g_exit_code;
 
 void	free_tab(char **tab);
@@ -47,6 +50,12 @@ int		ft_is_op(char c);
 char	*ft_get_operator(t_shell *shell, int *i, int j);
 void	print_tokens(t_token_lst *tokens);
 int		tokens_get(t_shell *shell);
+int 	classify_tokens(t_shell *shell);
+int		ft_if_pipe(t_token *tmp, bool *cmd);
+int		ft_if_heredoc(t_token *tmp, bool *cmd);
+int		ft_if_output_input(t_token *tmp, bool *cmd);
+int		ft_if_operator(t_token *tmp, bool *cmd);
+int		ft_if_command(t_token *tmp, bool *cmd);
 
 // Utils //
 void	ft_free(char **tab);

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_add_front.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:32:40 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 02:10:21 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:29:37 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include <stdlib.h>
+#include "minishell.h"
 
 /**
  * @brief	Create and prepend a new node to the beginning of an env list.

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
+#    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/10 19:58:07 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/11 03:23:02 by mcourtoi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,8 @@ SRC					=				\
 		get_tokens.c				\
 		tokens_operators.c			\
 		tokens_utils.c				\
+		classify_tokens.c			\
+		classify_tokens_utils.c		\
 	}								\
 	${addprefix tokens/lst_tokens/,	\
 		token_lst_add_back.c		\

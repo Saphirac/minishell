@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_push_front.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:01:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 02:09:28 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:29:58 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
+#include "minishell.h"
 
 /**
  * @brief	Prepend a node to the beginning of an env list.

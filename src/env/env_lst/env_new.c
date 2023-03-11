@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:09:10 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 02:09:40 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:30:01 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include "list.h"
-#include <stdlib.h>
+#include "minishell.h"
 
 /**
  * @brief	Create a new env node.

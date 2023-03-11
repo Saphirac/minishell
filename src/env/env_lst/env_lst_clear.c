@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_clear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:36:05 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 02:08:00 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:29:42 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
+#include "minishell.h"
 
 /**
  * @brief	Remove every node from an env list,

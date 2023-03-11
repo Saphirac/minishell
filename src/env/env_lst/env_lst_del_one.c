@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_del_one.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:37:46 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 02:08:20 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:29:45 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include <stdlib.h>
+#include "minishell.h"
 
 /**
  * @brief	Remove one node from an env list,

@@ -6,11 +6,11 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 19:42:53 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 07:10:16 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
+#include "minishell.h"
 #include <stdlib.h>
 
 /**

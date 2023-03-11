@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/11 07:04:28 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/11 07:05:28 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRC					=				\
 			env_lst_add_front.c		\
 			env_lst_clear.c			\
 			env_lst_del_one.c		\
+			env_lst_get_one.c		\
 			env_lst_print.c			\
 			env_lst_push_back.c		\
 			env_lst_push_front.c	\

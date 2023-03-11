@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 06:16:44 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/11 07:15:11 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 
 inline static void	__prompt(t_shell *const shell)
 {
-	int		exit_code;
+	int	exit_code;
 
 	shell->line = readline("minishell $> ");
 	if (!shell->line)

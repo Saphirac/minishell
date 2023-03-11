@@ -6,13 +6,13 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:03:42 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 00:09:55 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_code = 0;
+uint8_t	g_exit_code = 0U;
 
 inline static int	__usage_error(char const *const prog_name)
 					__attribute__((nonnull(1)));

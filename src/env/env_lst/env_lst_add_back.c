@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_add_back.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:02:59 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 02:10:11 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:31:23 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include <stdlib.h>
+#include "minishell.h"
 
 /**
  * @brief	Create and append a new node to the end of an env list.

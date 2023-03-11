@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 03:18:31 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/11 05:23:12 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <readline/history.h>
 
 # define EXIT_ERROR 2
+
 extern int					g_exit_code;
 
 void	free_tab(char **tab);
@@ -50,7 +51,7 @@ int		ft_is_op(char c);
 char	*ft_get_operator(t_shell *shell, int *i, int j);
 void	print_tokens(t_token_lst *tokens);
 int		tokens_get(t_shell *shell);
-int 	classify_tokens(t_shell *shell);
+int		classify_tokens(t_shell *shell);
 int		ft_if_pipe(t_token *tmp, bool *cmd);
 int		ft_if_heredoc(t_token *tmp, bool *cmd);
 int		ft_if_output_input(t_token *tmp, bool *cmd);

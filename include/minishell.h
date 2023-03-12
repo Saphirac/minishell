@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 06:19:41 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/12 19:37:06 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ int		count_tokens(char *str);
 int		count_quotes(char *str, int i);
 char	**tokens_tab(t_shell *shell, int i);
 char	**get_commands(t_shell *shell);
-char	*expand_single_quotes(char *token);
-char	*expand_double_quotes(t_shell *shell, char *token);
-char	*search_env(char **env, char *token);
 char	*expand_dollar(char *token, char *tmp);
 
 // Tokens //
@@ -57,6 +54,9 @@ int		ft_if_heredoc(t_token *tmp, bool *cmd);
 int		ft_if_output_input(t_token *tmp, bool *cmd);
 int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
+int		search_env(t_env_lst *env, char *token_str, char *tmp);
+int		ft_env_cmp(t_env *env, char *cmp);
+int		ft_env_cpy(t_env *env, char *tmp, char *cmp);
 
 // Utils //
 void	ft_free(char **tab);

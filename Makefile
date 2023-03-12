@@ -6,7 +6,7 @@
 #    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/11 03:23:02 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/12 18:57:58 by mcourtoi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRC					=				\
 		tokens_utils.c				\
 		classify_tokens.c			\
 		classify_tokens_utils.c		\
+		search_env.c				\
 	}								\
 	${addprefix tokens/lst_tokens/,	\
 		token_lst_add_back.c		\

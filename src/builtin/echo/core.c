@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 13:38:27 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 14:12:41 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
 	unsigned int	i;
 
 	*opt = 0U;
-	while (*token && (*token)->type == T_ARGUMENT)
+	while (*token && (*token)->type == T_ARGUMENT && *(*token)->str == '-')
 	{
 		i = __match_opt((*token)->str);
 		if (!g_opt[i].str)
@@ -91,7 +91,7 @@ inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	The updated exit status.
+ * @return	Always EXIT_SUCCESS.
  */
 int	builtin_echo(
 	t_env_lst *const env __attribute__((unused)),

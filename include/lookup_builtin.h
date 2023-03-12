@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 20:29:22 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/10 16:36:35 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 14:05:12 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ struct s_builtin
 	t_func const		func;
 };
 
-int	builtin_cd(t_env_lst *const env, t_token const *const token)
+int	builtin_cd(t_env_lst *const env, t_token const *token)
 	__attribute__((nonnull));
-int	builtin_echo(t_env_lst *const env, t_token const *const token)
+int	builtin_echo(t_env_lst *const env, t_token const *token)
 	__attribute__((nonnull));
-int	builtin_env(t_env_lst *const env, t_token const *const token)
+int	builtin_env(t_env_lst *const env, t_token const *token)
 	__attribute__((nonnull));
-int	builtin_exit(t_env_lst *const env, t_token const *const token)
+int	builtin_exit(t_env_lst *const env, t_token const *token)
 	__attribute__((nonnull (1)));
-int	builtin_export(t_env_lst *const env, t_token const *const token)
+int	builtin_export(t_env_lst *const env, t_token const *token)
 	__attribute__((nonnull));
-int	builtin_pwd(t_env_lst *const env, t_token const *const token)
+int	builtin_pwd(t_env_lst *const env, t_token const *token)
 	__attribute__((nonnull (1)));
-int	builtin_unset(t_env_lst *const env, t_token const *const token)
+int	builtin_unset(t_env_lst *const env, t_token const *token)
 	__attribute__((nonnull));
 
 static t_builtin const		g_builtin[] = {

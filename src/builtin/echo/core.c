@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/11 19:47:34 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:38:27 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ static t_opt const		g_opt[] = {
 {0},
 };
 
+/**
+ * @brief 	Try to match an encountered option with the supported options.
+ * 
+ * @param	str The encountered option to match.
+ * 
+ * @return	The index of the matched option in the array if any,
+ * 			or the index of the null element otherwise.
+ */
 inline static unsigned int	__match_opt(char const *const str)
 {
 	unsigned int	i;
@@ -44,21 +52,32 @@ inline static unsigned int	__match_opt(char const *const str)
 	return (i);
 }
 
-inline static uint8_t	__get_opt(t_token const **const token)
+/**
+ * @brief	Parse the first given tokens and save the encountered options
+ * 			in the given given bit field.
+ * 			If one of the following is encoutered:
+ * 			- an unknown option.
+ * 			- a non-argument token.
+ * 			- the end of the token list.
+ * 			Then the parsing stops and the function returns.
+ * 
+ * @param	token The first node of the linked list containing the arguments.
+ * @param	opt The bit field where the options shall be saved.
+ */
+inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
 {
-	uint8_t			opt;
 	unsigned int	i;
 
-	opt = 0U;
+	*opt = 0U;
 	while (*token && (*token)->type == T_ARGUMENT)
 	{
 		i = __match_opt((*token)->str);
 		if (!g_opt[i].str)
-			break ;
-		opt |= g_opt[i].bit;
+			return ;
+		*opt |= g_opt[i].bit;
 		*token = (*token)->next;
 	}
-	return (opt);
+	return ;
 }
 
 /**
@@ -80,7 +99,7 @@ int	builtin_echo(
 {
 	uint8_t	opt;
 
-	opt = __get_opt(&token);
+	__get_opt(&token, &opt);
 	while (token && token->type == T_ARGUMENT)
 	{
 		printf("%s", token->str);

@@ -6,111 +6,67 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:11:30 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 20:31:42 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/12 04:47:34 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "minishell.h"
 
-int	*expand_single_quotes(t_token *token, char *tmp)
+int	*expand_single_quotes(t_token *token, char *ret)
 {
-	char *ret;
+	char *tmp;
 	
-	ret = ft_strndup((token->str + 1), ft_strlen(token->str) - 2);
-	if (!ret)
-		return (free(tmp), EXIT_FAILURE);
-	if (tmp)
-		tmp = ft_strjoin(tmp, ret);
-	else
-		tmp = ft_strdup(ret);
+	tmp = ft_strndup((token->str + 1), ft_strlen(token->str) - 2);
 	if (!tmp)
 		return (free(ret), EXIT_FAILURE);
-	return (free(ret), EXIT_SUCCESS);
+	if (ret)
+		ret = ft_strjoin(ret, tmp);
+	else
+		ret = ft_strdup(tmp);
+	if (!ret)
+		return (free(tmp), EXIT_FAILURE);
+	return (free(tmp), EXIT_SUCCESS);
 }
 
-/*
-char	*expand_double_quotes(t_shell *shell, char *token)
+int	expand_double_quotes(t_shell *shell, t_token *token, char *ret)
 {
-	char	*ret;
-	int		i;
 	char	*tmp;
+	int		i;
 
-	i = 1;
-	while (token[i] && token[i] != '$')
+	i = 0;
+	while (token->str[i] && token->str[i] != '$')
 		i++;
-	if (token[i] == '$')
+	if (!token->str[i])
 	{
-		tmp = search_env(shell->env, token);
+		tmp = ft_strndup((token->str + 1), ft_strlen(token->str) - 2);
 		if (!tmp)
-			return (NULL);
-		ret = expand_dollar(token, tmp);
-		if (!ret)
-			return (NULL);
-		return (ret);
+			return (free(ret), EXIT_FAILURE);
 	}
-	return (NULL);
+	else if (token->str[i] == '$')
+		if (search_env(&shell->env, token, tmp) == EXIT_FAILURE)
+			return (free(ret), EXIT_FAILURE);
+	if (ret)
+		ret = ft_strjoin(ret, tmp);
+	else
+		ret = ft_strdup(tmp);
+	if (!ret)
+		return (free(tmp), EXIT_FAILURE);
+	return (free(tmp), EXIT_SUCCESS);
 }
 
-static int	compare_env_token(char *env, char *token)
+int	ft_env_cmp(t_env *env, t_token *token)
 {
-	int	i;
+	
+}
 
-	i = 0;
-	while (env[i])
+int	search_env(t_env_lst *env, t_token *token, char *tmp)
+{
+	t_env	tmp;
+
+	tmp = env->head;
+	while (tmp)
 	{
-		if (env[i] == '=' && token[i] == '\0')
-			return (i);
-		if (env[i] != token[i])
-			return (-1);
-		i++;
+		
 	}
-	return (-2);
+	return (EXIT_SUCCESS);
 }
-
-char	*search_env(char **env, char *token)
-{
-	int		i;
-	int		tmp;
-	char	*ret;
-	int		j;
-
-	j = 0;
-	while (token[j] && token[j] != '$')
-		j++;
-	i = -1;
-	tmp = -1;
-	while (env[++i] && tmp < 0)
-		tmp = compare_env_token(env[i], (token + j + 1));
-	if (env[i - 1] && tmp > 0)
-	{
-		ret = ft_strdup(env[i - 1] + (tmp + 1));
-		if (!ret)
-			return (NULL);
-		return (ret);
-	}
-	return (NULL);
-}
-
-char	*expand_dollar(char *token, char *tmp)
-{
-	char	*ret;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (token[i] && token[i] != '$')
-		i++;
-	ret = malloc(sizeof(char) * (i + ft_strlen(tmp) + 1));
-	i = -1;
-	while (token[++i] && token[i] != '$')
-		ret[i] = token[i];
-	j = -1;
-	while (tmp[++j])
-		ret[i++] = tmp[j];
-	ret[i] = '\0';
-	return (ret);
-}
-
-*/

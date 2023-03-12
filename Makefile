@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/11 07:05:28 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/12 20:43:26 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,9 @@ SRC					=				\
 		}							\
 		${addprefix export/,		\
 			core.c					\
+			modify_ones_value.c		\
+			process_one.c			\
+			surprise.c				\
 		}							\
 		${addprefix pwd/,			\
 			core.c					\

@@ -6,12 +6,11 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 16:05:25 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:09:46 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
 
 /**
  * @brief	Exit the shell, with either the given status code as argument,

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 07:07:16 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:16:05 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_free(char **tab);
 char	*access_path(char **paths, char *cmd);
 char	*add_path(char *str, char *av1, char c);
 char	*find_apath(char **env);
+int		surprise(void);
 
 // Heredoc
 char	*stock_hd(t_shell *shell);

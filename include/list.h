@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 07:05:34 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 20:43:59 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ struct s_env_lst
 
 struct s_env
 {
-	char	*name;
-	char	*value;
-	t_env	*next;
-	t_env	*prev;
+	char const	*name;
+	char const	*value;
+	t_env		*next;
+	t_env		*prev;
 };
 
 /* lst functions for token_lst and token nodes */

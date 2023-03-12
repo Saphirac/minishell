@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/12 19:37:06 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/12 22:34:53 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ int		ft_if_output_input(t_token *tmp, bool *cmd);
 int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
 int		search_env(t_env_lst *env, char *token_str, char *tmp);
-int		ft_env_cmp(t_env *env, char *cmp);
-int		ft_env_cpy(t_env *env, char *tmp, char *cmp);
+int		ft_env_cpy(char *env_value, char *tmp, char *cmp);
 
 // Utils //
 void	ft_free(char **tab);

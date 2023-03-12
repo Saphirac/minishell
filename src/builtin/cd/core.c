@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:04:44 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/11 07:09:59 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:03:53 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  * 
  * @return	The updated exit status.
  */
-int	builtin_cd(t_env_lst *const env, t_token const *const token)
+int	builtin_cd(t_env_lst *const env, t_token const *token)
 {
 	(void)env;
 	(void)token;

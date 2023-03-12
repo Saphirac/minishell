@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:47 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/11 07:10:24 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:03:47 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * 
  * @return	The updated exit status.
  */
-int	builtin_export(t_env_lst *const env, t_token const *const token)
+int	builtin_export(t_env_lst *const env, t_token const *token)
 {
 	(void)env;
 	(void)token;

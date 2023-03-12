@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:01 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/11 07:10:30 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:05:36 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * 
  * @return	The updated exit status.
  */
-int	builtin_pwd(t_env_lst *const env, t_token const *const token)
+int	builtin_pwd(t_env_lst *const env, t_token const *token)
 {
 	(void)env;
 	(void)token;

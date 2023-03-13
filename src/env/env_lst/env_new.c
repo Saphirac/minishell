@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:09:10 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/11 02:30:01 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:49:09 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@
  */
 t_env	*env_new(char const *const name, char const *const value)
 {
-	t_env *const	output = malloc(sizeof(t_env));
+	t_env *const	node = malloc(sizeof(t_env));
 
-	if (!output)
+	if (!node)
 		return (NULL);
-	output->name = ft_strdup(name);
-	output->value = ft_strdup(value);
-	if (!output->name || !output->value)
+	node->name = ft_strdup(name);
+	(value && (node->value = ft_strdup(value))) || (node->value = NULL);
+	if (!node->name || (value && !node->value))
 	{
-		free(output->name);
-		free(output->value);
-		free(output);
+		free((void *)node->name);
+		free((void *)node->value);
+		free(node);
 		return (NULL);
 	}
-	output->next = NULL;
-	output->prev = NULL;
-	return (output);
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }

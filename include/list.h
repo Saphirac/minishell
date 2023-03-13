@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 02:32:24 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:54:48 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ struct s_env_lst
 
 struct s_env
 {
-	char	*name;
-	char	*value;
-	t_env	*next;
-	t_env	*prev;
+	char const	*name;
+	char const	*value;
+	t_env		*next;
+	t_env		*prev;
 };
 
 /* lst functions for token_lst and token nodes */
@@ -75,7 +75,7 @@ void	env_lst_clear(t_env_lst *const list)
 		__attribute__((nonnull));
 void	env_lst_del_one(t_env_lst *const list, t_env *const node)
 		__attribute__((nonnull));
-void	env_lst_print(t_env_lst const *const list)
+void	env_lst_print_assigned(t_env_lst const *const list)
 		__attribute__((nonnull));
 void	env_lst_push_back(t_env_lst *const list, t_env *const node)
 		__attribute__((nonnull));
@@ -86,14 +86,16 @@ int		env_lst_add_back(
 			t_env_lst *const list,
 			char const *const name,
 			char const *const value)
-		__attribute__((nonnull));
+		__attribute__((nonnull (1, 2)));
 int		env_lst_add_front(
 			t_env_lst *const list,
 			char const *const name,
 			char const *const value)
-		__attribute__((nonnull));
+		__attribute__((nonnull (1, 2)));
 
-t_env	*env_new(char const *const name, char const *const value)
+t_env	*env_lst_get_one(t_env_lst const *const list, char const *const name)
 		__attribute__((nonnull));
+t_env	*env_new(char const *const name, char const *const value)
+		__attribute__((nonnull (1)));
 
 #endif

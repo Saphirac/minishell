@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/12 19:56:52 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/13 16:07:21 by jodufour          #+#    #+#             */
+/*   Updated: 2023/03/13 16:07:26 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_shell		t_shell;
-
-struct s_shell
+/**
+ * @brief	Output an iternal error message.
+ * 
+ * @param	str The details to output before the internal message error.
+ * 
+ * @return	Always EXIT_FAILURE.
+ */
+int	internal_error(char const *const str)
 {
-	t_token_lst	tokens;
-	t_env_lst	env;
-	char		*line;
-	char		*line_hd;
-	char		*stock_hd;
-};
-
-#endif
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd(": internal error", STDERR_FILENO);
+	return (EXIT_FAILURE);
+}

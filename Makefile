@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
+#    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/11 03:23:02 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/13 17:00:54 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,45 +51,74 @@ FT_STRING_A			:=	${addprefix ${FT_STRING_DIR}/, ${FT_STRING_A}}
 ######################################
 #            SOURCE FILES            #
 ######################################
-SRC					=				\
-	${addprefix env/,				\
-		${addprefix env_lst/,		\
-			env_lst_add_back.c		\
-			env_lst_add_front.c		\
-			env_lst_clear.c			\
-			env_lst_del_one.c		\
-			env_lst_print.c			\
-			env_lst_push_back.c		\
-			env_lst_push_front.c	\
-			env_new.c				\
-		}							\
-	}								\
-	${addprefix here_doc/,			\
-		here_doc.c					\
-		here_tokens.c				\
-	}								\
-	${addprefix tokens/,			\
-		expand_tokens.c				\
-		get_tokens.c				\
-		tokens_operators.c			\
-		tokens_utils.c				\
-		classify_tokens.c			\
-		classify_tokens_utils.c		\
-	}								\
-	${addprefix tokens/lst_tokens/,	\
-		token_lst_add_back.c		\
-		token_lst_add_front.c 		\
-		token_lst_clear.c			\
-		token_lst_del_one.c			\
-		token_lst_push_back.c		\
-		token_lst_push_front.c		\
-		token_new.c					\
-	}								\
-	commands.c						\
-	main.c							\
-	parse.c							\
-	signals.c						\
-	utils_env.c						\
+SRC					=					\
+	${addprefix builtin/,				\
+		${addprefix cd/,				\
+			core.c						\
+		}								\
+		${addprefix echo/,				\
+			core.c						\
+		}								\
+		${addprefix env/,				\
+			core.c						\
+		}								\
+		${addprefix exit/,				\
+			core.c						\
+		}								\
+		${addprefix export/,			\
+			core.c						\
+			process_one.c				\
+			surprise.c					\
+		}								\
+		${addprefix pwd/,				\
+			core.c						\
+		}								\
+		${addprefix unset/,				\
+			core.c						\
+		}								\
+	}									\
+	${addprefix env/,					\
+		${addprefix env_lst/,			\
+			env_lst_add_back.c			\
+			env_lst_add_front.c			\
+			env_lst_clear.c				\
+			env_lst_del_one.c			\
+			env_lst_get_one.c			\
+			env_lst_print_assigned.c	\
+			env_lst_push_back.c			\
+			env_lst_push_front.c		\
+			env_new.c					\
+		}								\
+	}									\
+	${addprefix here_doc/,				\
+		here_doc.c						\
+		here_tokens.c					\
+	}									\
+	${addprefix tokens/,				\
+		${addprefix lst_tokens/,		\
+			token_lst_add_back.c		\
+			token_lst_add_front.c 		\
+			token_lst_clear.c			\
+			token_lst_del_one.c			\
+			token_lst_push_back.c		\
+			token_lst_push_front.c		\
+			token_new.c					\
+		}								\
+		expand_tokens.c					\
+		get_tokens.c					\
+		tokens_operators.c				\
+		tokens_utils.c					\
+		classify_tokens.c				\
+		classify_tokens_utils.c			\
+	}									\
+	${addprefix util/,					\
+		error.c							\
+	}									\
+	commands.c							\
+	main.c								\
+	parse.c								\
+	signals.c							\
+	utils_env.c							\
 	utils.c
 
 ######################################

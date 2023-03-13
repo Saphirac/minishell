@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_del_one.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:37:46 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/11 02:29:45 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/12 20:44:37 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	env_lst_del_one(t_env_lst *const list, t_env *const node)
 		node->prev->next = node->next;
 	}
 	--list->size;
-	free(node->name);
-	free(node->value);
+	free((void *)node->name);
+	free((void *)node->value);
 	free(node);
 }

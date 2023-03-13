@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:34:59 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 15:38:24 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:54:48 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ int	builtin_env(t_env_lst *const env, t_token const *token)
 		ft_putstr_fd("env: too many arguments\n", STDOUT_FILENO);
 		return (EXIT_FAILURE);
 	}
-	env_lst_print(env);
+	env_lst_print_assigned(env);
 	return (EXIT_SUCCESS);
 }

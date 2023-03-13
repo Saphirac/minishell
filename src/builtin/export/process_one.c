@@ -6,14 +6,11 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:44:32 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 23:47:21 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:37:25 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	modify_ones_value(t_env *const node, char const *const value)
-	__attribute__((nonnull));
 
 /**
  * @brief	Check if the given identifier is valid.
@@ -37,19 +34,6 @@ inline static bool	__is_valid_identifier(char const **const ptr)
 }
 
 /**
- * @brief	Output an iternal error message.
- * 
- * @param	msg The message to output.
- * 
- * @return	Always EXIT_FAILURE.
- */
-inline static int	__internal_error(void)
-{
-	ft_putendl_fd("export: internal error", STDERR_FILENO);
-	return (EXIT_FAILURE);
-}
-
-/**
  * @brief	Ouput an error related to an invalid identifier.
  * 
  * @param	id The invalid identifier.
@@ -62,6 +46,27 @@ inline static int	__invalid_identifier_error(char const *const id)
 	ft_putstr_fd(id, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 	return (EXIT_FAILURE);
+}
+
+/**
+ * @brief 	Modify the value of the given env node.
+ * 			If an error occures during the modification,
+ * 			the previous value is kept unchanged.
+ * 
+ * @param	node The node to modify.
+ * @param	value The new value to set.
+ * 
+ * @return	EXIT_SUCCESS if the node was successfully modified, or
+ * 			EXIT_FAILURE if an error occured.
+ */
+inline static int	__modify_ones_value(t_env *const node, char const *value)
+{
+	value = ft_strdup(value);
+	if (!value)
+		return (EXIT_FAILURE);
+	free((void *)node->value);
+	node->value = value;
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -84,22 +89,17 @@ int	process_one(t_env_lst *const env, char const *const str)
 		return (__invalid_identifier_error(str));
 	id = ft_strndup(str, ptr - str);
 	if (!id)
-		return (__internal_error());
+		return (internal_error("export"));
 	node = env_lst_get_one(env, id);
 	if (node)
 	{
 		free((void *)id);
-		if (*ptr && modify_ones_value(node, ptr + 1))
-			return (__internal_error());
+		if (*ptr && __modify_ones_value(node, ptr + 1))
+			return (internal_error("export"));
+		return (EXIT_SUCCESS);
 	}
-	else
-	{
-		if (*ptr)
-			++ptr;
-		else
-			ptr = NULL;
-		if (env_lst_add_back(env, id, ptr))
-			return (free((void *)id), __internal_error());
-	}
+	(*ptr && ++ptr) || (ptr = NULL);
+	if (env_lst_add_back(env, id, ptr))
+		return (free((void *)id), internal_error("export"));
 	return (free((void *)id), EXIT_SUCCESS);
 }

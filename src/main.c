@@ -6,18 +6,13 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 07:15:11 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:14:07 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 uint8_t	g_exit_code = 0U;
-
-inline static int	__usage_error(char const *const prog_name)
-					__attribute__((nonnull(1)));
-inline static int	__init_env(t_env_lst *const env, char const *const *ep)
-					__attribute__((nonnull(1, 2)));
 
 inline static int	__usage_error(char const *const prog_name)
 {
@@ -72,7 +67,11 @@ inline static void	__prompt(t_shell *const shell)
 		if (exit_code == EXIT_FAILURE)
 			exit(EXIT_FAILURE);
 		if (exit_code == EXIT_SUCCESS)
+		{
 			print_tokens(&shell->tokens);
+			builtin_export(&shell->env, shell->tokens.head->next);
+			builtin_env(&shell->env, NULL);
+		}
 	}
 	token_lst_clear(&(shell->tokens));
 	free(shell->line);

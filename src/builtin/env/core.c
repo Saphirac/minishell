@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:34:59 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/13 16:54:48 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/13 20:58:49 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ int	builtin_env(t_env_lst *const env, t_token const *token)
 
 	if (__get_opt(&token, &opt))
 	{
-		ft_putstr_fd("env: ", STDERR_FILENO);
-		ft_putstr_fd(token->str, STDERR_FILENO);
-		ft_putstr_fd(": invalid option\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "env: %s: invalid option\n", token->str);
 		return (EXIT_FAILURE);
 	}
 	while (token && token->type == T_ARGUMENT)

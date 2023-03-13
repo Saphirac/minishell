@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:47 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 17:47:52 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/13 20:59:44 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,7 @@ int	builtin_export(t_env_lst *const env, t_token const *token)
 		return (surprise());
 	if (__get_opt(&token, &opt))
 	{
-		ft_putstr_fd("export: ", STDERR_FILENO);
-		ft_putstr_fd(token->str, STDERR_FILENO);
-		ft_putstr_fd(": invalid option\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "export: %s: invalid option\n", token->str);
 		return (EXIT_FAILURE);
 	}
 	ret = EXIT_SUCCESS;

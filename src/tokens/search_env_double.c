@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 19:36:10 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/13 00:10:06 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/13 05:08:55 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	search_env_double(t_env_lst *env, char *token_str, char *tmp)
 	i = 0;
 	while (cmp[i] && cmp[i] != '$')
 		i++;
+	tmp = ft_strndup(cmp, i);
 	if (cmp[i] == '$')
 	{
 		name = ft_strndup(cmp + i + 1, ft_strlen(cmp) - (i + 1));
@@ -46,24 +47,17 @@ int	search_env_double(t_env_lst *env, char *token_str, char *tmp)
 		{
 			tmp_env = env_lst_get_one(env, name);
 			if (tmp_env)
-			{	
-				if (ft_env_cpy(tmp_env->value, tmp, cmp) == EXIT_FAILURE)
-					return (free(cmp), free(name), EXIT_FAILURE);
-				else
-					return (free(cmp), free(name), EXIT_SUCCESS);
-			}
+				return (free(cmp), free(name), ft_env_cpy(tmp_env->value, tmp, cmp));
 		}
 		else
 		{
 			tmp = ft_strdup(cmp);
+			if (!tmp)
+				return (free(cmp), free(name), EXIT_FAILURE);
 			return (free(cmp), free(name), EXIT_SUCCESS);
 		}
 	}
-	if (i != 0)
-		tmp = ft_strndup(cmp, i);
 	if (!tmp)
 		return (free(cmp), free(name), EXIT_FAILURE);
-	if (i = 0)
-		tmp = NULL;
 	return (free(cmp), free(name), EXIT_SUCCESS);
 }

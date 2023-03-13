@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 14:12:41 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:44:49 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,10 @@ inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
 	{
 		i = __match_opt((*token)->str);
 		if (!g_opt[i].str)
-			return ;
+			break ;
 		*opt |= g_opt[i].bit;
 		*token = (*token)->next;
 	}
-	return ;
 }
 
 /**

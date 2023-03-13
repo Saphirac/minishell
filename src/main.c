@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/13 16:14:07 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/13 20:41:32 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 	return (EXIT_SUCCESS);
 }
 
+inline static void	__make_tests(t_shell *const shell)
+{
+	print_tokens(&shell->tokens);
+}
+
 inline static void	__prompt(t_shell *const shell)
 {
 	int	exit_code;
@@ -67,11 +72,7 @@ inline static void	__prompt(t_shell *const shell)
 		if (exit_code == EXIT_FAILURE)
 			exit(EXIT_FAILURE);
 		if (exit_code == EXIT_SUCCESS)
-		{
-			print_tokens(&shell->tokens);
-			builtin_export(&shell->env, shell->tokens.head->next);
-			builtin_env(&shell->env, NULL);
-		}
+			__make_tests(shell);
 	}
 	token_lst_clear(&(shell->tokens));
 	free(shell->line);

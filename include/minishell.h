@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/13 16:06:04 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/13 20:26:14 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "ft_io.h"
+# include "ft_colors.h"
 # include "ft_string.h"
 # include "enum.h"
 # include "list.h"

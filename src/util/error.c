@@ -6,11 +6,24 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:07:21 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/14 11:44:29 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:08:16 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief	Output a usage error message.
+ * 
+ * @param	prog_name The name of the program.
+ * 
+ * @return	Always EXIT_FAILURE.
+ */
+int	usage_error(char const *const prog_name)
+{
+	ft_dprintf(STDERR_FILENO, "Usage: %s\n", prog_name);
+	return (EXIT_FAILURE);
+}
 
 /**
  * @brief	Output an iternal error message.

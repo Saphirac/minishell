@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/13 17:00:54 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/14 16:25:58 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,12 +114,8 @@ SRC					=					\
 	${addprefix util/,					\
 		error.c							\
 	}									\
-	commands.c							\
 	main.c								\
-	parse.c								\
-	signals.c							\
-	utils_env.c							\
-	utils.c
+	signals.c
 
 ######################################
 #            OBJECT FILES            #

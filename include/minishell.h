@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/13 16:06:04 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:10:51 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	*access_path(char **paths, char *cmd);
 char	*add_path(char *str, char *av1, char c);
 char	*find_apath(char **env);
 int		surprise(void);
+int		usage_error(char const *const prog_name)
+		__attribute__((nonnull));
 int		internal_error(char const *const str)
 		__attribute__((nonnull));
 

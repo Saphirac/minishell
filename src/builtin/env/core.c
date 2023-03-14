@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:34:59 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/13 20:58:49 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:50:22 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,7 @@ int	builtin_env(t_env_lst *const env, t_token const *token)
 	uint8_t	opt;
 
 	if (__get_opt(&token, &opt))
-	{
-		ft_dprintf(STDERR_FILENO, "env: %s: invalid option\n", token->str);
-		return (EXIT_FAILURE);
-	}
+		return (invalid_option_error("env", token->str));
 	while (token && token->type == T_ARGUMENT)
 	{
 		ft_putstr_fd("env: too many arguments\n", STDOUT_FILENO);

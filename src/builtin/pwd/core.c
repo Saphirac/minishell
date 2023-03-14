@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:01 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/13 21:00:54 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:50:52 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,19 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
  * 
  * @return	The updated exit status.
  */
-int	builtin_pwd(t_env_lst *const env, t_token const *token)
+int	builtin_pwd(
+	t_env_lst *const env __attribute__((unused)),
+	t_token const *token)
 {
+	char	*cwd;
 	uint8_t	opt;
 
 	if (__get_opt(&token, &opt) == EXIT_FAILURE)
-	{
-		ft_dprintf(STDERR_FILENO, "pwd: %s: invalid option\n", token->str);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+		return (invalid_option_error("pwd", token->str));
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (internal_error("pwd: getcwd"));
+	if (printf("%s\n", cwd) < 0)
+		return (free(cwd), internal_error("pwd: printf"));
+	return (free(cwd), EXIT_SUCCESS);
 }

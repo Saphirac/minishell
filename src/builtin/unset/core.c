@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:19 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/13 20:56:44 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:45:21 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,7 @@ int	builtin_unset(t_env_lst *const env, t_token const *token)
 	t_env	*node;
 
 	if (__get_opt(&token, &opt) == EXIT_FAILURE)
-	{
-		ft_dprintf(STDERR_FILENO, "unset: %s: invalid option\n", token->str);
-		return (EXIT_FAILURE);
-	}
+		return (invalid_option_error("unset", token->str));
 	while (token && token->type == T_ARGUMENT)
 	{
 		node = env_lst_get_one(env, token->str);

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/13 19:44:49 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 21:00:28 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
 	unsigned int	i;
 
 	*opt = 0U;
-	while (*token && (*token)->type == T_ARGUMENT && *(*token)->str == '-')
+	while (*token && *(*token)->str == '-')
 	{
 		i = __match_opt((*token)->str);
 		if (!g_opt[i].str)
@@ -99,11 +99,11 @@ int	builtin_echo(
 	uint8_t	opt;
 
 	__get_opt(&token, &opt);
-	while (token && token->type == T_ARGUMENT)
+	while (token)
 	{
 		printf("%s", token->str);
 		token = token->next;
-		if (token && token->type == T_ARGUMENT)
+		if (token)
 			printf(" ");
 	}
 	if (!(opt & 1 << OPT_N))

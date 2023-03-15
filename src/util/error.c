@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:07:21 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/14 19:08:16 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 20:03:24 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,18 @@ int	internal_error(char const *const str)
 int	invalid_option_error(char const *const str, char const *const opt)
 {
 	ft_dprintf(STDERR_FILENO, "%s: %s: invalid option\n", str, opt);
+	return (EXIT_FAILURE);
+}
+
+/**
+ * @brief	Output a too many arguments error message.
+ * 
+ * @param	str The details to output before the too many arguments error message.
+ * 
+ * @return	Always EXIT_FAILURE.
+ */
+int	too_many_arguments_error(char const *const str)
+{
+	ft_dprintf(STDERR_FILENO, "%s: too many arguments\n", str);
 	return (EXIT_FAILURE);
 }

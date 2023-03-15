@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 19:08:09 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:31:09 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ inline static t_shell	*__shell(void)
 	return (&shell);
 }
 
+/**
+ * @brief	Initialize a linked list of environment variables
+ * 			from an array of strings.
+ * 
+ * @param	env The linked list to initialize.
+ * @param	ep The array of strings to use to initialize the linked list.
+ * 
+ * @return	EXIT_SUCCESS if the linked list was successfully initialized, or
+ * 			EXIT_FAILURE if an error occured.
+ */
 inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 {
 	char	*ptr;
@@ -48,37 +58,9 @@ inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 	return (EXIT_SUCCESS);
 }
 
-inline static void	__make_tests(t_shell *const shell)
-{
-	print_tokens(&shell->tokens);
-}
-
-inline static void	__prompt(t_shell *const shell)
-{
-	int	exit_code;
-
-	shell->line = readline("minishell $> ");
-	if (!shell->line)
-	{
-		exit(g_exit_code);
-	}
-	if (ft_strlen(shell->line))
-		add_history(shell->line);
-	exit_code = tokens_get(shell);
-	if (exit_code == EXIT_FAILURE)
-		exit(EXIT_FAILURE);
-	if (exit_code == EXIT_SUCCESS)
-	{
-		exit_code = classify_tokens(shell);
-		if (exit_code == EXIT_FAILURE)
-			exit(EXIT_FAILURE);
-		if (exit_code == EXIT_SUCCESS)
-			__make_tests(shell);
-	}
-	token_lst_clear(&shell->tokens);
-	ft_memdel(&shell->line);
-}
-
+/**
+ * @brief	Free the allocated memory of the shell context.
+ */
 inline static void	__clear_shell(void)
 {
 	t_shell *const	shell = __shell();
@@ -104,6 +86,6 @@ int	main(int const ac, char const *const *const av, char const *const *const ep)
 	while (true)
 	{
 		signal_handle_interactive();
-		__prompt(shell);
+		prompt(shell);
 	}
 }

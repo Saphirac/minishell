@@ -6,11 +6,31 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 16:09:46 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/15 00:29:53 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief	Check if the given string contains only numerical characters.
+ * 
+ * @param	str The string to check.
+ * 
+ * @return	Whether the given string contains only numerical characters.
+ */
+inline static bool	__is_numeric(char const *str)
+{
+	if (*str == '+')
+		++str;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		++str;
+	}
+	return (true);
+}
 
 /**
  * @brief	Exit the shell, with either the given status code as argument,
@@ -29,7 +49,29 @@
  */
 int	builtin_exit(t_env_lst *const env, t_token const *token)
 {
-	(void)env;
-	(void)token;
-	return (EXIT_SUCCESS);
+	char	*str;
+
+	if (!env_lst_get_one(env, "QUIET_EXIT"))
+		ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (token)
+	{
+		str = ft_strtrim(token->str, " \t");
+		if (!str)
+			return (internal_error("exit"));
+		if (!__is_numeric(str))
+		{
+			ft_dprintf(STDERR_FILENO, "exit: %s: numeric argument required\n",
+				str);
+			free(str);
+			exit(2);
+		}
+		if (token->next)
+		{
+			free(str);
+			return (too_many_arguments_error("exit"));
+		}
+		g_exit_code = ft_atohhu(str);
+		free(str);
+	}
+	exit(g_exit_code);
 }

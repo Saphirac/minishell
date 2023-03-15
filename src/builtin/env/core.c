@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:34:59 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/14 11:50:22 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 20:59:51 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
 	unsigned int	i;
 
 	*opt = 0U;
-	while (*token && (*token)->type == T_ARGUMENT && *(*token)->str == '-')
+	while (*token && *(*token)->str == '-')
 	{
 		i = __match_opt((*token)->str);
 		if (!g_opt[i].str)
@@ -97,11 +97,8 @@ int	builtin_env(t_env_lst *const env, t_token const *token)
 
 	if (__get_opt(&token, &opt))
 		return (invalid_option_error("env", token->str));
-	while (token && token->type == T_ARGUMENT)
-	{
-		ft_putstr_fd("env: too many arguments\n", STDOUT_FILENO);
-		return (EXIT_FAILURE);
-	}
+	if (token && token->type == T_ARGUMENT)
+		return (too_many_arguments_error("env"));
 	env_lst_print_assigned(env);
 	return (EXIT_SUCCESS);
 }

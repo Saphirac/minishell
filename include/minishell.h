@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 19:08:03 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 20:51:17 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 extern uint8_t	g_exit_code;
 
+void	prompt(t_shell *const shell)
+		__attribute__((nonnull));
 void	free_tab(char **tab);
 void	handle_signal(int sig);
 void	signal_handle_interactive(void);
@@ -70,6 +72,8 @@ int		usage_error(char const *const prog_name)
 int		internal_error(char const *const str)
 		__attribute__((nonnull));
 int		invalid_option_error(char const *const str, char const *const opt)
+		__attribute__((nonnull));
+int		too_many_arguments_error(char const *const str)
 		__attribute__((nonnull));
 
 // Heredoc

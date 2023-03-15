@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:47 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/14 11:50:35 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 20:04:11 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
 }
 
 /**
- * @brief	Add/Modify environment variables.
- * 			No options are supported.
+ * @brief	Add/Modify environment variables. No options are supported.
  * 			If any are given, current environment variables are kept unchanged,
  * 			and an error is output.
  * 

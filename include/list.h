@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/13 16:54:48 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:13:40 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct s_token		t_token;
 typedef struct s_token_lst	t_token_lst;
 typedef struct s_env		t_env;
 typedef struct s_env_lst	t_env_lst;
+typedef struct s_str		t_str;
+typedef struct s_str_lst	t_str_lst;
 
 struct s_token_lst
 {
@@ -50,6 +52,20 @@ struct s_env
 	t_env		*prev;
 };
 
+struct s_str_lst
+{
+	t_str	*head;
+	t_str	*tail;
+	size_t	size;
+};
+
+struct s_str
+{
+	char	*str;
+	t_str	*next;
+	t_str	*prev;
+};
+
 /* lst functions for token_lst and token nodes */
 
 void	token_lst_clear(t_token_lst *const list)
@@ -68,6 +84,16 @@ int		token_lst_add_front(t_token_lst *const list, int const type,
 		__attribute__((nonnull));
 
 t_token	*token_new(int const type, char *const str);
+
+/* lst functions for str_lst and str nodes */
+
+int		str_lst_add_back(t_str_lst *const list, char *const str);
+int		str_lst_add_front(t_str_lst *const list, char *const str);
+void	str_lst_clear(t_str_lst *const list);
+void	str_lst_del_one(t_str_lst *const list, t_str *const node);
+void	str_lst_push_back(t_str_lst *const list, t_str *const node);
+void	str_lst_push_front(t_str_lst *const list, t_str *const node);
+t_str	*str_new(char *const str);
 
 /* lst functions for env_lst and env nodes */
 

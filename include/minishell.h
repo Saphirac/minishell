@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 18:20:55 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:15:28 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>
+# include <stdbool.h>
 # include <stddef.h>
 # include <readline/readline.h>
 # include <readline/history.h>

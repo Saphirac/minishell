@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:09:10 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/13 16:49:09 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:51:06 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_env	*env_new(char const *const name, char const *const value)
 	if (!node)
 		return (NULL);
 	node->name = ft_strdup(name);
-	(value && (node->value = ft_strdup(value))) || (node->value = NULL);
+	(void)((value && (node->value = ft_strdup(value))) || (node->value = NULL));
 	if (!node->name || (value && !node->value))
 	{
 		free((void *)node->name);

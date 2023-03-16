@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:19 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/14 11:45:21 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/15 22:06:24 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	The updated exit status.
+ * @return	EXIT_SUCCES, or EXIT_FAILURE if an error occured.
  */
 int	builtin_unset(t_env_lst *const env, t_token const *token)
 {
@@ -99,7 +99,7 @@ int	builtin_unset(t_env_lst *const env, t_token const *token)
 
 	if (__get_opt(&token, &opt) == EXIT_FAILURE)
 		return (invalid_option_error("unset", token->str));
-	while (token && token->type == T_ARGUMENT)
+	while (token)
 	{
 		node = env_lst_get_one(env, token->str);
 		if (node)

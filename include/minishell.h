@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 20:51:17 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/22 03:44:19 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
 # include "shell.h"
 # include "lookup_builtin.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
 # include <signal.h>
 # include <stddef.h>
-# include <readline/readline.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <unistd.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 
 # define EXIT_ERROR 2
 
@@ -67,13 +68,27 @@ char	*access_path(char **paths, char *cmd);
 char	*add_path(char *str, char *av1, char c);
 char	*find_apath(char **env);
 int		surprise(void);
-int		usage_error(char const *const prog_name)
+char	*raw_curpath(t_env_lst const *const env, char const *const dir)
+		__attribute__((nonnull));
+int		canonicalize(char *const curpath)
+		__attribute__((nonnull));
+bool	is_directory(char const *const pathname)
+		__attribute__((nonnull));
+
+// Errors //
+int		home_not_set_error(char const *const str)
 		__attribute__((nonnull));
 int		internal_error(char const *const str)
 		__attribute__((nonnull));
 int		invalid_option_error(char const *const str, char const *const opt)
 		__attribute__((nonnull));
+int		no_such_file_or_directory_error(
+			char const *const str,
+			char const *const path)
+		__attribute__((nonnull));
 int		too_many_arguments_error(char const *const str)
+		__attribute__((nonnull));
+int		usage_error(char const *const prog_name)
 		__attribute__((nonnull));
 
 // Heredoc

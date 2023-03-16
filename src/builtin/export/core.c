@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:47 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/14 20:04:11 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/15 22:01:26 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
 	unsigned int	i;
 
 	*opt = 0U;
-	while (*token && (*token)->type == T_ARGUMENT && *(*token)->str == '-')
+	while (*token && *(*token)->str == '-')
 	{
 		i = __match_opt((*token)->str);
 		if (!g_opt[i].str)
@@ -104,7 +104,7 @@ int	builtin_export(t_env_lst *const env, t_token const *token)
 	if (__get_opt(&token, &opt))
 		return (invalid_option_error("export", token->str));
 	ret = EXIT_SUCCESS;
-	while (token && token->type == T_ARGUMENT)
+	while (token)
 	{
 		if (process_one(env, token->str))
 			ret = EXIT_FAILURE;

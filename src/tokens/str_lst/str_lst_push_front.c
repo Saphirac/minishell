@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_lst_print.c                                    :+:      :+:    :+:   */
+/*   str_lst_push_front.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 17:49:15 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/11 02:29:51 by mcourtoi         ###   ########.fr       */
+/*   Created: 2023/03/08 19:38:52 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/14 16:09:03 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief	Print the content of an env list to STDOUT_FILENO.
- * 
- * @param	list The list to print.
- */
-void	env_lst_print(t_env_lst const *const list)
+void	str_lst_push_front(t_str_lst *const list, t_str *const node)
 {
-	t_env	*curr;
-
-	curr = list->head;
-	while (curr)
+	if (!list->size)
+		list->tail = node;
+	else
 	{
-		ft_putstr_fd(curr->name, STDOUT_FILENO);
-		ft_putstr_fd("=", STDOUT_FILENO);
-		ft_putendl_fd(curr->value, STDOUT_FILENO);
-		curr = curr->next;
+		node->next = list->head;
+		list->head->prev = node;
 	}
+	list->head = node;
+	++list->size;
 }

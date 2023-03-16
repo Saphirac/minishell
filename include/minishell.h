@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/12 22:34:53 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:15:28 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>
+# include <stdbool.h>
 # include <stddef.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -62,6 +63,11 @@ void	ft_free(char **tab);
 char	*access_path(char **paths, char *cmd);
 char	*add_path(char *str, char *av1, char c);
 char	*find_apath(char **env);
+int		surprise(void);
+int		usage_error(char const *const prog_name)
+		__attribute__((nonnull));
+int		internal_error(char const *const str)
+		__attribute__((nonnull));
 
 // Heredoc
 char	*stock_hd(t_shell *shell);

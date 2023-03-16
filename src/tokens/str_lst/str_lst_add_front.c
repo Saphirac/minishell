@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_env.c                                        :+:      :+:    :+:   */
+/*   str_lst_add_front.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 18:18:12 by red               #+#    #+#             */
-/*   Updated: 2023/03/08 18:51:55 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/08 19:35:03 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/14 16:11:13 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_strintab(char *str, char **tab)
+int	str_lst_add_front(t_str_lst *const list, char *const str)
 {
-	int	i;
+	t_str *const	node = str_new(str);
 
-	i = -1;
-	while (tab[++i])
-		if (ft_strncmp(tab[i], str, ft_strlen(str)) == 0)
-			return (i);
-	return (-1);
-}
-
-int	tab_val(char **tab)
-{
-	int	i;
-
-	i = -1;
-	while (tab[++i])
-		;
-	return (i);
+	if (!node)
+		return (EXIT_FAILURE);
+	str_lst_push_front(list, node);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/14 18:20:51 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/18 03:00:19 by mcourtoi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,17 @@ SRC					=					\
 			token_lst_del_one.c			\
 			token_lst_push_back.c		\
 			token_lst_push_front.c		\
+			token_lst_add_after.c		\
 			token_new.c					\
+		}								\
+		${addprefix str_lst/,			\
+			str_lst_add_back.c			\
+			str_lst_add_front.c 		\
+			str_lst_clear.c				\
+			str_lst_del_one.c			\
+			str_lst_push_back.c			\
+			str_lst_push_front.c		\
+			str_new.c					\
 		}								\
 		expand_tokens.c					\
 		get_tokens.c					\

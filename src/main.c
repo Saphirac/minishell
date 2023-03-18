@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 17:52:25 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/18 02:58:14 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ inline static void	__prompt(t_shell *const shell)
 		if (exit_code == EXIT_SUCCESS)
 		{
 			print_tokens(&shell->tokens);
-			builtin_export(&shell->env, shell->tokens.head->next);
-			builtin_env(&shell->env, NULL);
+			token_lst_add_after(&shell->tokens, shell->tokens.head, T_WORD, "Test.");
+			print_tokens(&shell->tokens);
 		}
 	}
 	token_lst_clear(&shell->tokens);

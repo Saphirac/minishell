@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:44:32 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/13 16:37:25 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/18 03:15:21 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ int	process_one(t_env_lst *const env, char const *const str)
 			return (internal_error("export"));
 		return (EXIT_SUCCESS);
 	}
-	(*ptr && ++ptr) || (ptr = NULL);
+	if (*ptr)
+		++ptr;
+	else
+		ptr = NULL;
 	if (env_lst_add_back(env, id, ptr))
 		return (free((void *)id), internal_error("export"));
 	return (free((void *)id), EXIT_SUCCESS);

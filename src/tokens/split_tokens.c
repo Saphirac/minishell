@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:06:44 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/19 19:52:45 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/20 04:12:50 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	add_split_new_token(t_token_lst *const token_lst,
 	return (EXIT_SUCCESS);
 }
 
-int	do_split_on_str(t_token_lst *const token_lst, t_token *const token,
+int	do_split_on_str_head(t_token_lst *const token_lst, t_token *const token,
 	t_str_lst *const str, t_str *tmp)
 {
 	char	*split;
@@ -53,6 +53,27 @@ int	do_split_on_str(t_token_lst *const token_lst, t_token *const token,
 	else
 	{
 		token->str = ft_strdup(split[0]);
+		if (!token->str)
+			return (free_tab(split), EXIT_FAILURE);
+		if (add_split_new_token(token_lst, token, split) == EXIT_FAILURE)
+			return (free_tab(split), EXIT_FAILURE);
+	}
+	return (free_tab(split), EXIT_SUCCESS);
+}
+
+int	do_split_on_str_other(t_token_lst *const token_lst, t_token *const token,
+	t_str_lst *const str, t_str *tmp)
+{
+	char	*split;
+
+	split = ft_split(tmp->str, ' ');
+	if (!split)
+		return (EXIT_FAILURE);
+	if (split == NULL)
+		return (free_tab(split), EXIT_SUCCESS);
+	else
+	{
+		token->str = ft_strjoin(token->str, split[0]);
 		if (!token->str)
 			return (free_tab(split), EXIT_FAILURE);
 		if (add_split_new_token(token_lst, token, split) == EXIT_FAILURE)
@@ -74,9 +95,32 @@ int	add_str_head_to_token(t_token_lst *const token_lst, t_token *const token,
 		free(tmp->str);
 	}
 	else
-		return (do_split_on_str(token_lst, token, str, tmp));
+		return (do_split_on_str_head(token_lst, token, str, tmp));
 	return (EXIT_SUCCESS);
 }
+
+int	add_str_other_to_token(t_token_lst *const token_lst, t_token *const token,
+	t_str_lst *const str, t_str *tmp)
+{
+	if (tmp->str[0] == '\'' || tmp->str[0] == '"')
+	{
+		if (expand_quotes(tmp) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		token->str = ft_strjoin(token->str, tmp->str);
+		if (!token->str)
+			return (free(tmp->str), EXIT_FAILURE);
+		free(tmp->str);
+	}
+	else
+		return (do_split_on_str_other(token_lst, token, str, tmp));
+	return (EXIT_SUCCESS);
+}
+
+/* Parse the str_lst expanded
+Get the quotes off if there is any 
+if there is no quotes but there is a space, do a split
+and add each part of the split to new tokens and reclassify them
+do that for each node of str */
 
 int	add_str_to_token(t_token_lst *const token_lst, t_token *const token,
 	t_str_lst *const str)
@@ -86,5 +130,12 @@ int	add_str_to_token(t_token_lst *const token_lst, t_token *const token,
 	tmp = str->head;
 	if (add_str_head_to_token(token_lst, token, str, tmp) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	
+	while (tmp)
+	{
+		tmp = tmp->next;
+		if (add_str_other_to_token(token_lst, token, str, tmp) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	}
 }
+
+/* Need to create function that call str_lst then free it. */

@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:56:16 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/19 07:37:48 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/22 05:37:23 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,33 @@ typedef struct s_tmp_i_start
 	int	start;
 }	t_tmp_i_start;
 
-int	append_to_ret(char *ret, char *tmp, t_tmp_i_start *i)
+int	append_to_ret(char **ret, char *tmp, t_str *str, t_tmp_i_start *i)
 {
-	if (i->i == 0)
-		ret = ft_strndup();
-	if (!ret && !tmp)
-		ret = ft_strndup(str->str + i->start, i->i - 1);
-	else if (!ret)
-		ret = ft_strdup(tmp);
+	char	*tmp_2;
+
+	if (i->i == 0 && str->str[i->i + 1] == '\0')
+		*ret = ft_strdup(str->str);
+	else if (i->i == 0)
+		return (EXIT_SUCCESS);
+	else if (!*ret && !tmp)
+		*ret = ft_strndup(str->str + i->start, i->i - i->start);
+	else if (!*ret)
+		*ret = ft_strdup(tmp);
 	else if (!tmp)
 	{
-		tmp = ft_strndup(str->str + i->start, i->i - i->start);
-		if (!tmp)
-			return (ft_memdel(&ret), EXIT_FAILURE);
-		ret = ft_strjoin(ret, tmp);
+		tmp_2 = ft_strndup(str->str + i->start, i->i - i->start);
+		if (!tmp_2)
+			return (ft_memdel(ret), EXIT_FAILURE);
+		*ret = ft_strjoin(*ret, tmp_2);
+		if (!*ret)
+			return (free(tmp_2), EXIT_FAILURE);
+		return (free(tmp_2), EXIT_SUCCESS);
 	}
 	else
-		ret = ft_strjoin(ret, tmp);
-	if (!ret)
-		return (ft_memdel(&tmp), EXIT_FAILURE);
-	return (ft_memdel(&tmp), EXIT_SUCCESS);
+		*ret = ft_strjoin(*ret, tmp);
+	if (!*ret)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 /* Iters in the chain from a dollar to the next "stop" characters 
@@ -46,28 +53,30 @@ Check if name between that corresponds to an env value
 If true, copy the value 
 else return a NULL chain */
 
-int	ft_get_dollars(t_env_lst *env, t_str *str, char *ret, t_tmp_i_start *i)
+int	ft_get_dollars(t_env_lst *env, t_str *str, char **ret, t_tmp_i_start *i)
 {
-	t_env	tmp_env;
+	t_env	*tmp_env;
 	char	*name;
 
-	i->start = i;
-	while (str->str[i->i] && ft_alnum(str->str[i->i]) == true
-		|| str->str[i->i] == '_')
-		++(i->i);
-	name = ft_strndup(str->str + i->i + 1, i->i - i->start);
+	i->start = i->i;
+	while (str->str[i->i] && (ft_isalnum(str->str[i->i]) == true
+		|| str->str[i->i] == '_'))
+		++i->i;
+	name = ft_strndup(str->str + i->start, i->i - i->start);
 	if (!name)
-		return (free(ret), EXIT_FAILURE);
+		return (free(*ret), EXIT_FAILURE);
 	tmp_env = env_lst_get_one(env, name);
+	free(name);
 	if (tmp_env)
 	{
 		name = ft_strdup(tmp_env->value);
 		if (!name)
-			return (ft_memdel(&ret), EXIT_FAILURE);
-		if (append_to_ret(ret, name, i) == EXIT_FAILURE)
-			return (ft_memdel(&ret), EXIT_FAILURE);
+			return (ft_memdel(ret), EXIT_FAILURE);
+		if (append_to_ret(ret, name, str, i) == EXIT_FAILURE)
+			return (free(name), EXIT_FAILURE);
+		free(name);
 	}
-	return (ft_memdel(&name), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 /* Iters trough chain until finding a dollar 
@@ -77,23 +86,28 @@ Append correct value if exists in the env
 Else append NULL 
 Copy or append everything even the dollar if next character not correct */
 
-int	search_env_process_one(t_env_lst *env, t_str *str, t_tmp_i_start *i)
+// TODO : handle special case "?"
+int	search_env_process_one(t_env_lst *env, t_str *str, t_tmp_i_start *i, char **ret)
 {
 	i->start = i->i;
 	while (str->str[i->i] && str->str[i->i] != '$')
 		++i->i;
-	if (append_to_ret(ret, NULL, &i) == EXIT_FAILURE)
+	if (append_to_ret(ret, NULL, str, i) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (str->str[i->i] == '\0')
 		return (EXIT_SUCCESS);
 	++i->i;
 	if (str->str[i->i] == '\0')
-		return (append_to_ret(ret, NULL, &i));
+		return (append_to_ret(ret, NULL, str, i));
 	if (ft_isalnum(str->str[i->i]) == false && str->str[i->i] != '_')
+	{
 		++i->i;
+		return (append_to_ret(ret, NULL, str, i));
+	}
 	else
-		if (ft_get_dollars(env, str, ret, &i) == EXIT_FAILURE)
+		if (ft_get_dollars(env, str, ret, i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	search_env(t_env_lst *env, t_str *str)
@@ -104,9 +118,47 @@ int	search_env(t_env_lst *env, t_str *str)
 	i.i = 0;
 	ret = NULL;
 	while (str->str[i.i])
-		search_env_process_one(env, str, &i);
-	str->str = ft_strdup(ret);
-	if (!str->str)
-		return (EXIT_FAILURE);
-	return (ft_memdel(&ret), (EXIT_SUCCESS));
+		if (search_env_process_one(env, str, &i, &ret) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	if (ret)
+	{
+		str->str = ft_strdup(ret);
+		if (!str->str)
+			return (EXIT_FAILURE);
+	}
+	else
+		str->str = NULL;
+	return (ft_memdel(&ret), EXIT_SUCCESS);
+}
+
+/* Function parse a str_lst node and expand it via search_env
+after doing that with every node copy it without the quotes
+separate between two tokens on special case 
+if separated, new token will need to be re-classifyied 
+command token will become command + argument 
+argument token will become 2 arguments 
+will need to make a function to do that with every tokens*/
+
+int	expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst)
+{
+	t_str	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = str_lst->head;
+	while (tmp)
+	{
+		if (tmp->str[0] == '\'')
+			tmp = tmp->next;
+		else
+		{
+			while (tmp->str[i] && tmp->str[i] != '$')
+				i++;
+			if (tmp->str[i] == '$')
+				if (search_env(env_lst, tmp) == EXIT_FAILURE)
+					return (EXIT_FAILURE);
+			tmp = tmp->next;
+		}
+	}
+	return (EXIT_SUCCESS);
 }

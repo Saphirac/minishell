@@ -6,7 +6,7 @@
 #    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/18 03:00:19 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/22 02:31:05 by mcourtoi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,6 +115,9 @@ SRC					=					\
 			str_new.c					\
 		}								\
 		expand_tokens.c					\
+		create_str_lst.c				\
+		search_env.c					\
+		split_tokens.c					\
 		get_tokens.c					\
 		tokens_operators.c				\
 		tokens_utils.c					\

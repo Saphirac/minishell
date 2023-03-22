@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 23:15:28 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/22 02:31:22 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 extern uint8_t	g_exit_code;
 
-void	free_tab(char **tab);
 void	handle_signal(int sig);
 void	signal_handle_interactive(void);
 void	signal_handle_non_interactive(void);
@@ -55,8 +54,12 @@ int		ft_if_heredoc(t_token *tmp, bool *cmd);
 int		ft_if_output_input(t_token *tmp, bool *cmd);
 int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
-int		search_env(t_env_lst *env, char *token_str, char *tmp);
 int		ft_env_cpy(char *env_value, char *tmp, char *cmp);
+int		create_str_lst(t_token *token, t_str_lst *str_lst);
+int		expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst);
+int		add_str_to_token(t_token_lst *const token_lst, t_token *const token,
+			t_str_lst *const str);
+int		final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst);
 
 // Utils //
 void	ft_free(char **tab);

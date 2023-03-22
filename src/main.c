@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/18 02:58:14 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/22 03:11:33 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ inline static void	__prompt(t_shell *const shell)
 
 	shell->line = readline("minishell $> ");
 	if (!shell->line)
-	{
 		exit(g_exit_code);
-	}
 	if (ft_strlen(shell->line))
 		add_history(shell->line);
 	exit_code = tokens_get(shell);
@@ -67,12 +65,11 @@ inline static void	__prompt(t_shell *const shell)
 		exit_code = classify_tokens(shell);
 		if (exit_code == EXIT_FAILURE)
 			exit(EXIT_FAILURE);
+		exit_code = final_token_lst(&shell->tokens, &shell->env);
 		if (exit_code == EXIT_SUCCESS)
-		{
 			print_tokens(&shell->tokens);
-			token_lst_add_after(&shell->tokens, shell->tokens.head, T_WORD, "Test.");
-			print_tokens(&shell->tokens);
-		}
+		else
+			exit (exit_code);
 	}
 	token_lst_clear(&shell->tokens);
 	ft_memdel(&shell->line);

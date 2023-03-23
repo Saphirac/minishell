@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/23 03:03:34 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:24:30 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	prompt(t_shell *const shell)
 
 	shell->line = readline("minishell $> ");
 	if (!shell->line)
-		(void)(write(STDOUT_FILENO, (char [1]){'\n'}, 1LU)
-			&& builtin_exit(&shell->env, NULL));
+		write(STDOUT_FILENO, (char [1]){'\n'}, 1LU)
+			&& builtin_exit(&shell->env, NULL);
 	if (ft_strlen(shell->line))
 		add_history(shell->line);
 	exit_code = tokens_get(shell);

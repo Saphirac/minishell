@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/22 03:44:19 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/23 02:01:38 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@
 # include "shell.h"
 # include "lookup_builtin.h"
 
+# include <errno.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 # define EXIT_ERROR 2
 

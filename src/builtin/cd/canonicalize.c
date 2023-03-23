@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 17:36:17 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/22 03:05:33 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:51:00 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ inline static void	__remove_dot_components(char *curpath, char **const end)
  * @brief 	If the given destination path ends with a dot-dot component,
  * 			then check whether the previous component refers to a directory.
  * 			If it does, then the dot-dot component and its previous component
- * 			are removed.
+ * 			are removed. Otherwise, an error message is output on stderr,
+ * 			and the function ends.
  * 
  * @param	curpath The destination path
  * 			to remove trailing dot-dot component from.
@@ -87,7 +88,8 @@ inline static int	__remove_trailing_dot_dot_component(
  * @brief 	Whenever a dot-dot component is encountered,
  * 			check whether the previous component refers to a directory.
  * 			If it does, then the dot-dot component and its previous component
- * 			are removed.
+ * 			are removed. Otherwise, an error message is output on stderr,
+ * 			and the function ends.
  * 
  * @param	curpath The destination path
  * 			to remove dot-dot components from.
@@ -163,6 +165,9 @@ inline static void	__remove_unnecessary_slash_characters(
 
 /**
  * @brief 	Convert the given destination path to a canonical form.
+ * 			If an error occurs during the conversion,
+ * 			then the value of the `curpath` string is unspecified,
+ * 			and an error message is output on stderr.
  * 
  * @param	curpath The destination path to convert.
  * 

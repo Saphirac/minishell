@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/22 02:11:55 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/23 03:03:34 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 inline static void	__make_tests(t_shell *const shell)
 {
 	print_tokens(&shell->tokens);
-	builtin_cd(&shell->env, shell->tokens.head->next);
 }
 
 /**

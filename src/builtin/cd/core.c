@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:04:44 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/22 03:42:47 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/23 02:46:32 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,25 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
 }
 
 /**
+ * @brief	Output an error message related to a failure after a call to chdir.
+ * 
+ * @param	curpath The path that was given to chdir.
+ * 
+ * @return	Always EXIT_FAILURE.
+ */
+inline static int	__chdir_error(char const *const curpath)
+{
+	ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", curpath, strerror(errno));
+	free((void *)curpath);
+	return (EXIT_FAILURE);
+}
+
+/**
  * @brief	Proceed to change the current working directory to the provided
- * 			new one.
+ * 			new one. Change the `PWD` and the `OLDPWD` environment variables
+ * 			accordingly. If an error occurs during the process,
+ * 			then the current working directory is kept unchanged,
+ * 			and an error message is output on stderr.
  * 
  * @param	env The linked list containing the environment variables.
  * @param	dir The new working directory to go to.
@@ -95,10 +112,27 @@ inline static int	__goto_specific_directory(
 	char const *const dir)
 {
 	char *const	curpath = raw_curpath(env, dir);
+	t_env		*pwd;
+	t_env		*oldpwd;
 
 	if (!curpath || canonicalize(curpath))
 		return (free(curpath), EXIT_FAILURE);
-	return (free(curpath), EXIT_SUCCESS);
+	if (chdir(curpath))
+		return (__chdir_error(curpath));
+	pwd = env_lst_get_one(env, "PWD");
+	oldpwd = env_lst_get_one(env, "OLDPWD");
+	if (!pwd && env_lst_add_back(env, "PWD", NULL))
+		return (free(curpath), internal_error("cd: env_lst_add_back"));
+	if (!pwd)
+		pwd = env->tail;
+	if (!oldpwd && env_lst_add_back(env, "OLDPWD", NULL))
+		return (free(curpath), internal_error("cd: env_lst_add_back"));
+	if (!oldpwd)
+		oldpwd = env->tail;
+	free((void *)oldpwd->value);
+	oldpwd->value = pwd->value;
+	pwd->value = curpath;
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -107,7 +141,7 @@ inline static int	__goto_specific_directory(
  * 			if the first argument refers to an invalid path,
  * 			or if no argument is provided and the HOME environment variable
  * 			is not set, then the current working directory is kept unchanged,
- * 			and an error is output.
+ * 			and an error message is output on stderr.
  * 
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.

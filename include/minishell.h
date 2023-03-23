@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/23 02:01:38 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/23 23:25:00 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ void	ft_free(char **tab);
 char	*access_path(char **paths, char *cmd);
 char	*add_path(char *str, char *av1, char c);
 char	*find_apath(char **env);
-int		surprise(void);
 char	*raw_curpath(t_env_lst const *const env, char const *const dir)
 		__attribute__((nonnull));
+
+// Builtins //
+int		surprise(void);
 int		canonicalize(char *const curpath)
 		__attribute__((nonnull));
 bool	is_directory(char const *const pathname)

@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 00:29:36 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 18:45:20 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:36:27 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_tokens(t_token_lst *tokens)
 
 	while (tmp)
 	{
-		printf("[Type] token : [%d] %s\n", tmp->type,
+		printf("[Type] token : [%d] [%s]\n", tmp->type,
 			tmp->str);
 		tmp = tmp->next;
 	}

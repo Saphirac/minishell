@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:06:44 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/22 05:27:50 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/24 04:07:03 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,36 @@ int	expand_quotes(t_str *str)
 	return (EXIT_SUCCESS);
 }
 
-int	add_split_new_token(t_token_lst *const token_lst,
-	t_token *token, char **split)
+bool	check_spaces(char *str)
+(
+	if (str[0] == ' ' || str[ft_strlen(str)] == ' ')
+		return (true);
+	return (false);
+)
+
+int	strdup_or_join(t_token *const token, char *tmp)
 {
+	if (ft_strlen(token->str) == 0)
+		token->str = ft_strdup(str);
+	else
+		token->str = ft_strjoin(token->str, str);
+	if (!token->str)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	add_split_new_token(t_token_lst *const token_lst,
+	t_token *token, t_str *tmp)
+{
+	char	**split
 	char	*tmp_str;
 	int		i;
 
+	split = ft_split(tmp->str);
+	if (!split)
+		return (EXIT_FAILURE);
+	if (strdup_or_join(token, split[0]) == EXIT_FAILURE);
+		return (free(split), EXIT_FAILURE);
 	i = 0;
 	while (token && split[++i])
 	{
@@ -34,78 +58,60 @@ int	add_split_new_token(t_token_lst *const token_lst,
 			return (EXIT_FAILURE);
 		if (token_lst_add_after(token_lst, token,
 				T_ARGUMENT, tmp_str) == EXIT_FAILURE)
-			return (free(tmp_str), EXIT_FAILURE);
+			return (free(tmp_str), free(split), EXIT_FAILURE);
 		free(tmp_str);
 		token = token->next;
 	}
-	return (EXIT_SUCCESS);
+	return (ft_memdel(tmp_str), free(split), EXIT_SUCCESS);
 }
 
-int	do_split_on_str_head(t_token_lst *const token_lst, t_token *const token, t_str *tmp)
+/* If a space is found on the first character of tmp->str, 
+function creates a new token if the precedent one contain something 
+if split[0] == NULL, it mean that all the tmp is spaces or tab or newline, 
+in this case, it also creates a new token if token->str is full and tmp->next exists 
+if split exists but token->str is empty, it will add to it even if 1st char == space
+else, it will create a new token directly with the split
+if last char == space it will at the end create a new token but empty and switch on it
+(only if tmp->next exists)*/
+int	add_spaces_new_token(t_token_lst *const token_lst, t_token *const token, t_str *tmp)
 {
 	char	**split;
+	char	*tmp_str;
+	int		i;
 
-	split = ft_split(tmp->str, ' ');
+	split = ft_split(tmp->str);
 	if (!split)
 		return (EXIT_FAILURE);
-	if (split[0] == NULL)
-		token->str = NULL;
-	else
+	if (split[0] == NULL && tmp->next)
 	{
-		token->str = ft_strdup(split[0]);
-		if (!token->str || add_split_new_token(token_lst, token, split) == EXIT_FAILURE)
-			return (free(split), EXIT_FAILURE);
-	}
-	return (free(split), EXIT_SUCCESS);
-}
-
-int	do_split_on_str_other(t_token_lst *const token_lst, t_token *const token, t_str *tmp)
-{
-	char	**split;
-
-	split = ft_split(tmp->str, ' ');
-	if (!split)
-		return (EXIT_FAILURE);
-	if (split == NULL)
+		if (ft_strlen(token->str) != 0)
+			return (free(split), token_lst_add_after(token_lst, token, T_ARGUMENT, ""));
 		return (EXIT_SUCCESS);
+	}
 	else
 	{
-		token->str = ft_strjoin(token->str, split[0]);
-		if (!token->str)
-			return (free(split), EXIT_FAILURE);
-		if (add_split_new_token(token_lst, token, split) == EXIT_FAILURE)
-			return (free(split), EXIT_FAILURE);
-	}
-	return (free(split), EXIT_SUCCESS);
+		
+	}	
 }
 
-int	add_str_head_to_token(t_token_lst *const token_lst, t_token *const token, t_str *tmp)
+int	do_split_on_str(t_token_lst *const token_lst, t_token *const token, t_str *tmp)
+{
+	if (check_spaces(tmp->str) == true)
+		return (add_spaces_new_token(token_lst, token, tmp));
+	else
+		return (add_split_new_token(token_lst, token, tmp));
+}
+
+int	add_str_to_token(t_token_lst *const token_lst, t_token *const token, t_str *tmp)
 {
 	if (tmp->str[0] == '\'' || tmp->str[0] == '"')
 	{
 		if (expand_quotes(tmp) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		token->str = ft_strdup(tmp->str);
-		if (!token->str)
-			return (EXIT_FAILURE);
+		return (strdup_or_join(token, tmp->str));
 	}
 	else
-		return (do_split_on_str_head(token_lst, token, tmp));
-	return (EXIT_SUCCESS);
-}
-
-int	add_str_other_to_token(t_token_lst *const token_lst, t_token *const token, t_str *tmp)
-{
-	if (tmp->str[0] == '\'' || tmp->str[0] == '"')
-	{
-		if (expand_quotes(tmp) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-		token->str = ft_strjoin(token->str, tmp->str);
-		if (!token->str)
-			return (EXIT_FAILURE);
-	}
-	else
-		return (do_split_on_str_other(token_lst, token, tmp));
+		return (do_split_on_str(token_lst, token, tmp));
 	return (EXIT_SUCCESS);
 }
 
@@ -122,17 +128,14 @@ int	add_str_to_token(t_token_lst *const token_lst, t_token *const token,
 
 	tmp = str->head;
 	free(token->str);
-	if (tmp->str == NULL)
-		token->str = NULL;
-	else if (add_str_head_to_token(token_lst, token, tmp) == EXIT_FAILURE)
+	token->str = ft_strdup("");
+	if (!token->str)
 		return (EXIT_FAILURE);
-	tmp = tmp->next;
 	while (tmp)
 	{
-		if (tmp->str == NULL)
-			token->str = NULL;
-		else if (add_str_other_to_token(token_lst, token, tmp) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		if (ft_strlen(tmp->str) != 0)
+			if (add_str_to_token(token_lst, token, tmp) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
 		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);

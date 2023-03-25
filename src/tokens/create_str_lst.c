@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:11:30 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/22 04:45:03 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 06:21:37 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_cpy_normal(t_token *token, t_str_lst *str_lst, int i, int *j)
 
 	tmp = ft_strndup(token->str + *j, (i - *j));
 	if (!tmp)
-		return (str_lst_clear(str_lst), EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	if (str_lst_add_back(str_lst, tmp) == EXIT_FAILURE)
 		return (free(tmp), EXIT_FAILURE);
 	*j = i;
@@ -35,9 +35,9 @@ int	ft_cpy_quotes(t_token *token, t_str_lst *str_lst, int *i, int *j)
 	while (token->str[*i] && token->str[*i] != c)
 		++*i;
 	tmp = ft_strndup(token->str + *j, (*i - *j + 1));
-	++*i;
 	if (!tmp)
-		return (str_lst_clear(str_lst), EXIT_FAILURE);
+		return (EXIT_FAILURE);
+	++*i;
 	if (str_lst_add_back(str_lst, tmp) == EXIT_FAILURE)
 		return (free(tmp), EXIT_FAILURE);
 	return (free(tmp), EXIT_SUCCESS);

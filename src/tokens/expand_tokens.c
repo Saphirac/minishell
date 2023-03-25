@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 19:43:53 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/22 17:20:51 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 05:39:40 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst)
 			if (expand_dollars_str_lst(env_lst, &str) == EXIT_FAILURE)
 				return (str_lst_clear(&str), EXIT_FAILURE);
 			print_str_lst(&str);
-			if (add_str_to_token(token_lst, tmp, &str) == EXIT_FAILURE)
+			if (add_str_to_tokens(token_lst, &tmp, &str) == EXIT_FAILURE)
 				return (str_lst_clear(&str), EXIT_FAILURE);
 			str_lst_clear(&str);
 		}

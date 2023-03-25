@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:56:16 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/22 19:29:09 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 06:29:50 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_get_dollars(t_env_lst *env, t_str *str, char **ret, t_tmp_i_start *i)
 		if (!name)
 			return (ft_memdel(ret), EXIT_FAILURE);
 		if (append_to_ret(ret, name, str, i) == EXIT_FAILURE)
-			return (free(name), EXIT_FAILURE);
+			return (free(name), ft_memdel(ret), EXIT_FAILURE);
 		free(name);
 	}
 	return (EXIT_SUCCESS);
@@ -115,16 +115,16 @@ int	search_env(t_env_lst *env, t_str *str)
 	t_tmp_i_start	i;
 
 	i.i = 0;
-	ret = ft_strdup("");
+	ret = NULL;
 	while (str->str[i.i])
 		if (search_env_process_one(env, str, &i, &ret) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+			return (ft_memdel(&ret), EXIT_FAILURE);
 	if (ret)
 	{
 		printf("ret : %s\n", ret);
 		str->str = ft_strdup(ret);
 		if (!str->str)
-			return (EXIT_FAILURE);
+			return (ft_memdel(&ret), EXIT_FAILURE);
 	}
 	return (ft_memdel(&ret), EXIT_SUCCESS);
 }

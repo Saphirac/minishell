@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/23 23:25:00 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/23 23:34:06 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ int		ft_if_heredoc(t_token *tmp, bool *cmd);
 int		ft_if_output_input(t_token *tmp, bool *cmd);
 int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
+
+// Execution //
+int		execution(t_shell *const shell)
+		__attribute__((nonnull));
 
 // Utils //
 void	ft_free(char **tab);

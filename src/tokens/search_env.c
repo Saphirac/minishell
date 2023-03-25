@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:56:16 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 17:24:01 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:49:43 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,19 @@ Check if name between that corresponds to an env value
 If true, copy the value 
 else return a NULL chain */
 
+int	append_if_exit_code(char **ret, t_str *str, t_tmp_i_start *i)
+{
+	char	*tmp;
+
+	tmp = ft_itoa(g_exit_code);
+	if (!tmp)
+		return (EXIT_FAILURE);
+	if (append_to_ret(ret, tmp, str, i) == EXIT_FAILURE)
+		return (free(tmp), EXIT_FAILURE);
+	++i->i;
+	return (free(tmp), EXIT_SUCCESS); 
+}
+
 int	ft_get_dollars(t_env_lst *env, t_str *str, char **ret, t_tmp_i_start *i)
 {
 	t_env	*tmp_env;
@@ -67,6 +80,8 @@ int	ft_get_dollars(t_env_lst *env, t_str *str, char **ret, t_tmp_i_start *i)
 		++i->i;
 	c = str->str[i->i];
 	str->str[i->i] = 0;
+	if (c == '?' && str->str[i->i - 1] == '$')
+		return (append_if_exit_code(ret, str, i));
 	tmp_env = env_lst_get_one(env, str->str + i->start);
 	str->str[i->i] = c;
 	if (tmp_env && append_to_ret(ret, tmp_env->value, str, i) == EXIT_FAILURE)
@@ -90,7 +105,8 @@ int	search_env_process_one(t_env_lst *env, t_str *str, t_tmp_i_start *i, char **
 	if (str->str[i->i] == '\0')
 		return (append_to_ret(ret, NULL, str, i));
 	else if (str->str[i->i + 1] == '\0' ||
-			(ft_isalnum(str->str[i->i + 1]) == false && str->str[i->i + 1] != '_'))
+			(ft_isalnum(str->str[i->i + 1]) == false && str->str[i->i + 1] != '_'
+			&& str->str[i->i + 1] != '?'))
 	{
 		++i->i;
 		return (append_to_ret(ret, NULL, str, i));

@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:06:44 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 16:53:34 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:02:16 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ if split exists but token->str is empty, it will add to it even if 1st char == s
 else, it will create a new token directly with the split
 if last char == space it will at the end create a new token but empty and switch on it
 (only if tmp->next exists)*/
+
+//TODO : 1st space not working if str before contains quotes need to review all function.
 int	add_spaces_new_token(t_token_lst *const token_lst, t_token **token, t_str *tmp)
 {
 	char	**split;

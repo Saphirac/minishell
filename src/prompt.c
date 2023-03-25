@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/23 20:24:30 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:39:57 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	prompt(t_shell *const shell)
 		exit_code = classify_tokens(shell);
 		if (exit_code == EXIT_FAILURE)
 			exit(EXIT_FAILURE);
+		exit_code = final_token_lst(&shell->tokens, &shell->env);
 		if (exit_code == EXIT_SUCCESS)
 			__make_tests(shell);
 	}

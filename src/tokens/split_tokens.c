@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:06:44 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 06:07:50 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:53:34 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ int	expand_quotes(t_str *str)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @brief Check if 1st or last char of str is a space.
+ * Str cannot be null so ft_strlen(str) - 1 cannot segfault.
+ * 
+ * @param str 
+ * @return true 
+ * @return false 
+ */
 bool	check_spaces(char *str)
 {
 	return (str[0] == ' ' || str[ft_strlen(str) - 1] == ' ');
@@ -84,9 +92,13 @@ int	add_spaces_new_token(t_token_lst *const token_lst, t_token **token, t_str *t
 		return (EXIT_FAILURE);
 	if (split[0] == NULL && tmp->next)
 	{
+		free(split);
 		if (ft_strlen((*token)->str) != 0)
-			return (free(split), token_lst_add_after(token_lst, (*token), T_ARGUMENT, ""));
-		return (EXIT_SUCCESS);
+		{
+			if (token_lst_add_after(token_lst, (*token), T_ARGUMENT, "") == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+			(*token) = (*token)->next;
+		}
 	}
 	if (tmp->str[0] == ' ')
 	{
@@ -96,7 +108,8 @@ int	add_spaces_new_token(t_token_lst *const token_lst, t_token **token, t_str *t
 	}
 	else if (strdup_or_join(token, split[0]) == EXIT_FAILURE)
 				return (free(split), EXIT_FAILURE);
-	if (add_split(token_lst, token, split, (ft_strlen((*token)->str) != 0 && tmp->str[0] != ' ') * -1) == EXIT_FAILURE)
+	if (add_split(token_lst, token, split,
+		(ft_strlen((*token)->str) != 0 && tmp->str[0] != ' ') * -1) == EXIT_FAILURE)
 			return (free(split), EXIT_FAILURE);
 	if (tmp->str[ft_strlen(tmp->str) - 1] == ' ' && tmp->next)
 	{

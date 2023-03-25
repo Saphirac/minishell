@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 05:47:24 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:36:26 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ extern uint8_t	g_exit_code;
 void	handle_signal(int sig);
 void	signal_handle_interactive(void);
 void	signal_handle_non_interactive(void);
-int		count_tokens(char *str);
-int		count_quotes(char *str, int i);
-char	**tokens_tab(t_shell *shell, int i);
-char	**get_commands(t_shell *shell);
-char	*expand_dollar(char *token, char *tmp);
 
 // Tokens //
 int		ft_is_sep(char c);
@@ -63,9 +58,6 @@ int		final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst);
 
 // Utils //
 void	ft_free(char **tab);
-char	*access_path(char **paths, char *cmd);
-char	*add_path(char *str, char *av1, char c);
-char	*find_apath(char **env);
 int		surprise(void);
 int		usage_error(char const *const prog_name)
 		__attribute__((nonnull));

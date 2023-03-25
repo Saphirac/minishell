@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 06:11:22 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:02:26 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ inline static void	__prompt(t_shell *const shell)
 			exit (EXIT_FAILURE);
 	}
 	token_lst_clear(&shell->tokens);
-	env_lst_clear(&shell->env);
 	ft_memdel(&shell->line);
 }
 

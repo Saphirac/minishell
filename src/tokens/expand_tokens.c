@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 19:43:53 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 05:39:40 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:53:25 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_str_lst(t_str_lst *str)
 	tmp = str->head;
 	while (tmp)
 	{
-		printf("str : %s\n", tmp->str);
+		printf("str : [%s]\n", tmp->str);
 		tmp = tmp->next;
 	}
 }

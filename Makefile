@@ -6,7 +6,7 @@
 #    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/22 02:31:05 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/25 18:08:06 by mcourtoi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,83 +51,94 @@ FT_STRING_A			:=	${addprefix ${FT_STRING_DIR}/, ${FT_STRING_A}}
 ######################################
 #            SOURCE FILES            #
 ######################################
-SRC					=					\
-	${addprefix builtin/,				\
-		${addprefix cd/,				\
-			core.c						\
-		}								\
-		${addprefix echo/,				\
-			core.c						\
-		}								\
-		${addprefix env/,				\
-			core.c						\
-		}								\
-		${addprefix exit/,				\
-			core.c						\
-		}								\
-		${addprefix export/,			\
-			core.c						\
-			process_one.c				\
-			surprise.c					\
-		}								\
-		${addprefix pwd/,				\
-			core.c						\
-		}								\
-		${addprefix unset/,				\
-			core.c						\
-		}								\
-	}									\
-	${addprefix env/,					\
-		${addprefix env_lst/,			\
-			env_lst_add_back.c			\
-			env_lst_add_front.c			\
-			env_lst_clear.c				\
-			env_lst_del_one.c			\
-			env_lst_get_one.c			\
-			env_lst_print_assigned.c	\
-			env_lst_push_back.c			\
-			env_lst_push_front.c		\
-			env_new.c					\
-		}								\
-	}									\
-	${addprefix here_doc/,				\
-		here_doc.c						\
-		here_tokens.c					\
-	}									\
-	${addprefix tokens/,				\
-		${addprefix lst_tokens/,		\
-			token_lst_add_back.c		\
-			token_lst_add_front.c 		\
-			token_lst_clear.c			\
-			token_lst_del_one.c			\
-			token_lst_push_back.c		\
-			token_lst_push_front.c		\
-			token_lst_add_after.c		\
-			token_new.c					\
-		}								\
-		${addprefix str_lst/,			\
-			str_lst_add_back.c			\
-			str_lst_add_front.c 		\
-			str_lst_clear.c				\
-			str_lst_del_one.c			\
-			str_lst_push_back.c			\
-			str_lst_push_front.c		\
-			str_new.c					\
-		}								\
-		expand_tokens.c					\
-		create_str_lst.c				\
-		search_env.c					\
-		split_tokens.c					\
-		get_tokens.c					\
-		tokens_operators.c				\
-		tokens_utils.c					\
-		classify_tokens.c				\
-		classify_tokens_utils.c			\
-	}									\
-	${addprefix util/,					\
-		error.c							\
-	}									\
-	main.c								\
+SRC					=							\
+	${addprefix builtin/,						\
+		${addprefix cd/,						\
+			canonicalize.c						\
+			core.c								\
+			raw_curpath.c						\
+		}										\
+		${addprefix echo/,						\
+			core.c								\
+		}										\
+		${addprefix env/,						\
+			core.c								\
+		}										\
+		${addprefix exit/,						\
+			core.c								\
+		}										\
+		${addprefix export/,					\
+			core.c								\
+			process_one.c						\
+			surprise.c							\
+		}										\
+		${addprefix pwd/,						\
+			core.c								\
+		}										\
+		${addprefix unset/,						\
+			core.c								\
+		}										\
+	}											\
+	${addprefix env/,							\
+		${addprefix env_lst/,					\
+			env_lst_add_back.c					\
+			env_lst_add_front.c					\
+			env_lst_clear.c						\
+			env_lst_del_one.c					\
+			env_lst_get_one.c					\
+			env_lst_print_assigned.c			\
+			env_lst_push_back.c					\
+			env_lst_push_front.c				\
+			env_new.c							\
+		}										\
+	}											\
+	${addprefix here_doc/,						\
+		here_doc.c								\
+		here_tokens.c							\
+	}											\
+	${addprefix tokens/,						\
+		${addprefix lst_tokens/,				\
+			token_lst_add_back.c				\
+			token_lst_add_front.c 				\
+			token_lst_clear.c					\
+			token_lst_del_one.c					\
+			token_lst_push_back.c				\
+			token_lst_push_front.c				\
+			token_lst_add_after.c				\
+			token_new.c							\
+		}										\
+		${addprefix str_lst/,					\
+			str_lst_add_back.c					\
+			str_lst_add_front.c 				\
+			str_lst_clear.c						\
+			str_lst_del_one.c					\
+			str_lst_push_back.c					\
+			str_lst_push_front.c				\
+			str_new.c							\
+		}										\
+		expand_tokens.c							\
+		create_str_lst.c						\
+		search_env.c							\
+		split_tokens.c							\
+		get_tokens.c							\
+		tokens_operators.c						\
+		tokens_utils.c							\
+		classify_tokens.c						\
+		classify_tokens_utils.c					\
+	}											\
+	${addprefix util/,							\
+		${addprefix error/,						\
+			home_not_set_error.c				\
+			internal_error.c					\
+			invalid_option_error.c				\
+			no_such_file_or_directory_error.c	\
+			too_many_arguments_error.c			\
+			usage_error.c						\
+		}										\
+		is_directory.c							\
+	}											\
+	main.c										\
+	prompt.c									\
 	signals.c
 
 ######################################

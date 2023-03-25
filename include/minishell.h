@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 15:36:26 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:08:39 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,30 @@
 # define MINISHELL_H
 
 # include "ft_io.h"
+# include "ft_colors.h"
 # include "ft_string.h"
 # include "enum.h"
 # include "list.h"
 # include "shell.h"
 # include "lookup_builtin.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
+# include <errno.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stddef.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
 # define EXIT_ERROR 2
 
 extern uint8_t	g_exit_code;
 
+void	prompt(t_shell *const shell)
+		__attribute__((nonnull));
 void	handle_signal(int sig);
 void	signal_handle_interactive(void);
 void	signal_handle_non_interactive(void);
@@ -56,12 +61,31 @@ int		add_str_to_tokens(t_token_lst *const token_lst, t_token **token,
 			t_str_lst *const str);
 int		final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst);
 
-// Utils //
-void	ft_free(char **tab);
+// Builtins //
+int		canonicalize(char *const curpath)
+		__attribute__((nonnull));
 int		surprise(void);
-int		usage_error(char const *const prog_name)
+
+bool	is_directory(char const *const pathname)
+		__attribute__((nonnull));
+
+char	*raw_curpath(t_env_lst const *const env, char const *const dir)
+		__attribute__((nonnull));
+
+// Errors //
+int		home_not_set_error(char const *const str)
 		__attribute__((nonnull));
 int		internal_error(char const *const str)
+		__attribute__((nonnull));
+int		invalid_option_error(char const *const str, char const *const opt)
+		__attribute__((nonnull));
+int		no_such_file_or_directory_error(
+			char const *const str,
+			char const *const path)
+		__attribute__((nonnull));
+int		too_many_arguments_error(char const *const str)
+		__attribute__((nonnull));
+int		usage_error(char const *const prog_name)
 		__attribute__((nonnull));
 
 // Heredoc

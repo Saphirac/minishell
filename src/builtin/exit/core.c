@@ -6,11 +6,31 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 16:09:46 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:43:50 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief	Check whether the given string represents a positive integer.
+ * 
+ * @param	str The string to check.
+ * 
+ * @return	Whether the given string represents a positive integer.
+ */
+inline static bool	__is_positive(char const *str)
+{
+	if (*str == '+')
+		++str;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		++str;
+	}
+	return (true);
+}
 
 /**
  * @brief	Exit the shell, with either the given status code as argument,
@@ -25,11 +45,34 @@
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	The updated exit status.
+ * @return	The function shall call `exit` and therefore shall never return,
+ * 			except in case of error where EXIT_FAILURE is returned.
  */
 int	builtin_exit(t_env_lst *const env, t_token const *token)
 {
-	(void)env;
-	(void)token;
-	return (EXIT_SUCCESS);
+	char	*str;
+
+	if (!env_lst_get_one(env, "QUIET_EXIT"))
+		ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (token)
+	{
+		str = ft_strtrim(token->str, " \t");
+		if (!str)
+			return (internal_error("exit: ft_strtrim()"));
+		if (!__is_positive(str))
+		{
+			ft_dprintf(STDERR_FILENO, "exit: %s: numeric argument required\n",
+				str);
+			free(str);
+			exit(2);
+		}
+		if (token->next)
+		{
+			free(str);
+			return (too_many_arguments_error("exit"));
+		}
+		g_exit_code = ft_atohhu(str);
+		free(str);
+	}
+	exit(g_exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 17:02:26 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:09:00 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ inline static t_shell	*__shell(void)
 	return (&shell);
 }
 
+/**
+ * @brief	Initialize a linked list of environment variables
+ * 			from an array of strings.
+ * 
+ * @param	env The linked list to initialize.
+ * @param	ep The array of strings to use to initialize the linked list.
+ * 
+ * @return	EXIT_SUCCESS if the linked list was successfully initialized, or
+ * 			EXIT_FAILURE if an error occured.
+ */
 inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 {
 	char	*ptr;
@@ -100,6 +110,6 @@ int	main(int const ac, char const *const *const av, char const *const *const ep)
 	while (true)
 	{
 		signal_handle_interactive();
-		__prompt(shell);
+		prompt(shell);
 	}
 }

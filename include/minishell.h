@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/23 23:34:06 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:55:39 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,9 @@ extern uint8_t	g_exit_code;
 
 void	prompt(t_shell *const shell)
 		__attribute__((nonnull));
-void	free_tab(char **tab);
 void	handle_signal(int sig);
 void	signal_handle_interactive(void);
 void	signal_handle_non_interactive(void);
-int		count_tokens(char *str);
-int		count_quotes(char *str, int i);
-char	**tokens_tab(t_shell *shell, int i);
-char	**get_commands(t_shell *shell);
-char	*expand_single_quotes(char *token);
-char	*expand_double_quotes(t_shell *shell, char *token);
-char	*search_env(char **env, char *token);
-char	*expand_dollar(char *token, char *tmp);
 
 // Tokens //
 int		ft_is_sep(char c);
@@ -68,18 +59,16 @@ int		execution(t_shell *const shell)
 		__attribute__((nonnull));
 
 // Utils //
-void	ft_free(char **tab);
-char	*access_path(char **paths, char *cmd);
-char	*add_path(char *str, char *av1, char c);
-char	*find_apath(char **env);
-char	*raw_curpath(t_env_lst const *const env, char const *const dir)
-		__attribute__((nonnull));
 
 // Builtins //
-int		surprise(void);
 int		canonicalize(char *const curpath)
 		__attribute__((nonnull));
+int		surprise(void);
+
 bool	is_directory(char const *const pathname)
+		__attribute__((nonnull));
+
+char	*raw_curpath(t_env_lst const *const env, char const *const dir)
 		__attribute__((nonnull));
 
 // Errors //

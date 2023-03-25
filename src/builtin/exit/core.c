@@ -6,20 +6,20 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/24 22:06:17 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:56:36 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Check if the given string contains only numerical characters.
+ * @brief	Check whether the given string represents a positive integer.
  * 
  * @param	str The string to check.
  * 
- * @return	Whether the given string contains only numerical characters.
+ * @return	Whether the given string represents a positive integer.
  */
-inline static bool	__is_numeric(char const *str)
+inline static bool	__is_positive(char const *str)
 {
 	if (*str == '+')
 		++str;
@@ -45,7 +45,8 @@ inline static bool	__is_numeric(char const *str)
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	The function calls `exit`, and therefore never returns.
+ * @return	The function calls `exit`, and therefore never returns,
+ * 			except in case of error where EXIT_FAILURE is returned.
  */
 int	builtin_exit(t_env_lst *const env, t_token const *token)
 {
@@ -58,7 +59,7 @@ int	builtin_exit(t_env_lst *const env, t_token const *token)
 		str = ft_strtrim(token->str, " \t");
 		if (!str)
 			return (internal_error("exit: ft_strtrim()"));
-		if (!__is_numeric(str))
+		if (!__is_positive(str))
 		{
 			ft_dprintf(STDERR_FILENO, "exit: %s: numeric argument required\n",
 				str);

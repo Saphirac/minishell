@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:34:59 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/15 21:56:54 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:35:33 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
 /**
  * @brief	Print all the current environment variables to the standard output.
  * 			Neither options nor arguments are supported.
- * 			If any are given, an error is output.
+ * 			If any are given, an error message is output on stderr.
  * 
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.

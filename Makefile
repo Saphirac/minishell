@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/14 16:25:58 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/22 03:43:25 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,70 +51,81 @@ FT_STRING_A			:=	${addprefix ${FT_STRING_DIR}/, ${FT_STRING_A}}
 ######################################
 #            SOURCE FILES            #
 ######################################
-SRC					=					\
-	${addprefix builtin/,				\
-		${addprefix cd/,				\
-			core.c						\
-		}								\
-		${addprefix echo/,				\
-			core.c						\
-		}								\
-		${addprefix env/,				\
-			core.c						\
-		}								\
-		${addprefix exit/,				\
-			core.c						\
-		}								\
-		${addprefix export/,			\
-			core.c						\
-			process_one.c				\
-			surprise.c					\
-		}								\
-		${addprefix pwd/,				\
-			core.c						\
-		}								\
-		${addprefix unset/,				\
-			core.c						\
-		}								\
-	}									\
-	${addprefix env/,					\
-		${addprefix env_lst/,			\
-			env_lst_add_back.c			\
-			env_lst_add_front.c			\
-			env_lst_clear.c				\
-			env_lst_del_one.c			\
-			env_lst_get_one.c			\
-			env_lst_print_assigned.c	\
-			env_lst_push_back.c			\
-			env_lst_push_front.c		\
-			env_new.c					\
-		}								\
-	}									\
-	${addprefix here_doc/,				\
-		here_doc.c						\
-		here_tokens.c					\
-	}									\
-	${addprefix tokens/,				\
-		${addprefix lst_tokens/,		\
-			token_lst_add_back.c		\
-			token_lst_add_front.c 		\
-			token_lst_clear.c			\
-			token_lst_del_one.c			\
-			token_lst_push_back.c		\
-			token_lst_push_front.c		\
-			token_new.c					\
-		}								\
-		expand_tokens.c					\
-		get_tokens.c					\
-		tokens_operators.c				\
-		tokens_utils.c					\
-		classify_tokens.c				\
-		classify_tokens_utils.c			\
-	}									\
-	${addprefix util/,					\
-		error.c							\
-	}									\
-	main.c								\
+SRC					=							\
+	${addprefix builtin/,						\
+		${addprefix cd/,						\
+			canonicalize.c						\
+			core.c								\
+			raw_curpath.c						\
+		}										\
+		${addprefix echo/,						\
+			core.c								\
+		}										\
+		${addprefix env/,						\
+			core.c								\
+		}										\
+		${addprefix exit/,						\
+			core.c								\
+		}										\
+		${addprefix export/,					\
+			core.c								\
+			process_one.c						\
+			surprise.c							\
+		}										\
+		${addprefix pwd/,						\
+			core.c								\
+		}										\
+		${addprefix unset/,						\
+			core.c								\
+		}										\
+	}											\
+	${addprefix env/,							\
+		${addprefix env_lst/,					\
+			env_lst_add_back.c					\
+			env_lst_add_front.c					\
+			env_lst_clear.c						\
+			env_lst_del_one.c					\
+			env_lst_get_one.c					\
+			env_lst_print_assigned.c			\
+			env_lst_push_back.c					\
+			env_lst_push_front.c				\
+			env_new.c							\
+		}										\
+	}											\
+	${addprefix here_doc/,						\
+		here_doc.c								\
+		here_tokens.c							\
+	}											\
+	${addprefix tokens/,						\
+		${addprefix lst_tokens/,				\
+			token_lst_add_back.c				\
+			token_lst_add_front.c 				\
+			token_lst_clear.c					\
+			token_lst_del_one.c					\
+			token_lst_push_back.c				\
+			token_lst_push_front.c				\
+			token_new.c							\
+		}										\
+		expand_tokens.c							\
+		get_tokens.c							\
+		tokens_operators.c						\
+		tokens_utils.c							\
+		classify_tokens.c						\
+		classify_tokens_utils.c					\
+	}											\
+	${addprefix util/,							\
+		${addprefix error/,						\
+			home_not_set_error.c				\
+			internal_error.c					\
+			invalid_option_error.c				\
+			no_such_file_or_directory_error.c	\
+			too_many_arguments_error.c			\
+			usage_error.c						\
+		}										\
+		is_directory.c							\
+	}											\
+	main.c										\
+	prompt.c									\
 	signals.c
 
 ######################################

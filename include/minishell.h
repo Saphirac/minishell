@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 16:10:51 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:38:11 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,32 @@
 # define MINISHELL_H
 
 # include "ft_io.h"
+# include "ft_colors.h"
 # include "ft_string.h"
 # include "enum.h"
 # include "list.h"
 # include "shell.h"
 # include "lookup_builtin.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
+# include <errno.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stddef.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
 # define EXIT_ERROR 2
 
 extern uint8_t	g_exit_code;
 
-void	free_tab(char **tab);
+void	prompt(t_shell *const shell)
+		__attribute__((nonnull));
 void	handle_signal(int sig);
 void	signal_handle_interactive(void);
 void	signal_handle_non_interactive(void);
-int		count_tokens(char *str);
-int		count_quotes(char *str, int i);
-char	**tokens_tab(t_shell *shell, int i);
-char	**get_commands(t_shell *shell);
-char	*expand_single_quotes(char *token);
-char	*expand_double_quotes(t_shell *shell, char *token);
-char	*search_env(char **env, char *token);
-char	*expand_dollar(char *token, char *tmp);
 
 // Tokens //
 int		ft_is_sep(char c);
@@ -59,14 +55,32 @@ int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
 
 // Utils //
-void	ft_free(char **tab);
-char	*access_path(char **paths, char *cmd);
-char	*add_path(char *str, char *av1, char c);
-char	*find_apath(char **env);
+
+// Builtins //
+int		canonicalize(char *const curpath)
+		__attribute__((nonnull));
 int		surprise(void);
-int		usage_error(char const *const prog_name)
+
+bool	is_directory(char const *const pathname)
+		__attribute__((nonnull));
+
+char	*raw_curpath(t_env_lst const *const env, char const *const dir)
+		__attribute__((nonnull));
+
+// Errors //
+int		home_not_set_error(char const *const str)
 		__attribute__((nonnull));
 int		internal_error(char const *const str)
+		__attribute__((nonnull));
+int		invalid_option_error(char const *const str, char const *const opt)
+		__attribute__((nonnull));
+int		no_such_file_or_directory_error(
+			char const *const str,
+			char const *const path)
+		__attribute__((nonnull));
+int		too_many_arguments_error(char const *const str)
+		__attribute__((nonnull));
+int		usage_error(char const *const prog_name)
 		__attribute__((nonnull));
 
 // Heredoc

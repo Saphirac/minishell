@@ -6,22 +6,23 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 01:51:11 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/24 21:49:14 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/26 01:44:01 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Release every resource contained in the given token list
- * 			from the given `begin` node included
- * 			to the given `end` node excluded.
- * 			Giving any node which is not part of the list
+ * @brief	Remove a range of nodes from a token list,
+ * 			releasing their related memory.
+ * 
+ * @details	Giving a node which is not part of the list or
+ * 			giving a `begin` node which is not before the `end` node
  * 			causes undefined behavior.
  * 
- * @param	list The token list to clear.
- * @param	begin The token node to start clearing from.
- * @param	node The token node to clear the list up to.
+ * @param	list The list to remove the range from.
+ * @param	begin The first node of the range to remove.
+ * @param	end The post-last node of the range to remove.
  */
 void	token_lst_del_range(
 	t_token_lst *const list,

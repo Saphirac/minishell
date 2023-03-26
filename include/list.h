@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/24 23:31:27 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/26 06:59:53 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ struct s_pid
 
 void	token_lst_clear(t_token_lst *const list)
 		__attribute__((nonnull));
-void	token_lst_del_one(t_token_lst *const list, t_token *const node)
+void	token_lst_del_one(t_token_lst *const list, t_token const *const node)
 		__attribute__((nonnull));
 void	token_lst_del_range(
 			t_token_lst *const list,
 			t_token const *begin,
 			t_token const *const end)
-		__attribute__((nonnull (1, 2)));
+		__attribute__((nonnull (1)));
 void	token_lst_push_back(t_token_lst *const list, t_token *const node)
 		__attribute__((nonnull));
 void	token_lst_push_front(t_token_lst *const list, t_token *const node)
@@ -128,5 +128,25 @@ t_env	*env_new(char const *const name, char const *const value)
 		__attribute__((nonnull (1)));
 
 /* functions for pid list and pid nodes */
+
+void	pid_lst_clear(t_pid_lst *const list)
+		__attribute__((nonnull));
+void	pid_lst_del_one(t_pid_lst *const list, t_pid *const node)
+		__attribute__((nonnull));
+void	pid_lst_push_back(t_pid_lst *const list, t_pid *const node)
+		__attribute__((nonnull));
+void	pid_lst_push_front(t_pid_lst *const list, t_pid *const node)
+		__attribute__((nonnull));
+
+int		pid_lst_add_back(t_pid_lst *const list, int const pid)
+		__attribute__((nonnull));
+int		pid_lst_add_front(t_pid_lst *const list, int const pid)
+		__attribute__((nonnull));
+int		pid_lst_kill(t_pid_lst *const list, int const sig)
+		__attribute__((nonnull));
+int		pid_lst_wait(t_pid_lst const *const list)
+		__attribute__((nonnull));
+
+t_pid	*pid_new(int const pid);
 
 #endif

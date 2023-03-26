@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   pid_lst_push_back.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/26 01:19:54 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/25 18:23:46 by jodufour          #+#    #+#             */
+/*   Updated: 2023/03/25 18:24:03 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_shell	t_shell;
-
-struct s_shell
+/**
+ * @brief	Append a node to the end of a pid list.
+ * 
+ * @param	list The list to append the node to.
+ * @param	node The node to append to the list.
+ */
+void	pid_lst_push_back(t_pid_lst *const list, t_pid *const node)
 {
-	t_token_lst	tokens;
-	t_env_lst	env;
-	t_pid_lst	pids;
-	char		*line;
-	char		*line_hd;
-	char		*stock_hd;
-	int			stdin_backup;
-};
-
-#endif
+	if (!list->size)
+		list->head = node;
+	else
+	{
+		list->tail->next = node;
+		node->prev = list->tail;
+	}
+	list->tail = node;
+	++list->size;
+}

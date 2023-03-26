@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_lst_del_one.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:34:03 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/09 15:06:01 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/25 22:25:08 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	token_lst_del_one(t_token_lst *const list, t_token *const node)
+void	token_lst_del_one(t_token_lst *const list, t_token const *const node)
 {
 	if (list->size == 1)
 	{
@@ -36,5 +36,5 @@ void	token_lst_del_one(t_token_lst *const list, t_token *const node)
 	}
 	--list->size;
 	free(node->str);
-	free(node);
+	free((void *)node);
 }

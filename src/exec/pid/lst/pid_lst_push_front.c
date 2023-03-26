@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   pid_lst_push_front.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/26 01:19:54 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/25 18:27:23 by jodufour          #+#    #+#             */
+/*   Updated: 2023/03/25 18:27:54 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_shell	t_shell;
-
-struct s_shell
+/**
+ * @brief	Prepend a node to the beginning of a pid list.
+ * 
+ * @param	list The list to prepend the node to.
+ * @param	node The node to prepend to the list.
+ */
+void	pid_lst_push_front(t_pid_lst *const list, t_pid *const node)
 {
-	t_token_lst	tokens;
-	t_env_lst	env;
-	t_pid_lst	pids;
-	char		*line;
-	char		*line_hd;
-	char		*stock_hd;
-	int			stdin_backup;
-};
-
-#endif
+	if (!list->size)
+		list->tail = node;
+	else
+	{
+		node->next = list->head;
+		list->head->prev = node;
+	}
+	list->head = node;
+	++list->size;
+}

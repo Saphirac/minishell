@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   pid_lst_clear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/26 01:19:54 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/25 18:18:16 by jodufour          #+#    #+#             */
+/*   Updated: 2023/03/25 18:18:50 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_shell	t_shell;
-
-struct s_shell
+/**
+ * @brief	Remove every node from a pid list,
+ * 			clearing its stored data, and releasing its related memory.
+ * 
+ * @param	list The list to clear.
+ */
+void	pid_lst_clear(t_pid_lst *const list)
 {
-	t_token_lst	tokens;
-	t_env_lst	env;
-	t_pid_lst	pids;
-	char		*line;
-	char		*line_hd;
-	char		*stock_hd;
-	int			stdin_backup;
-};
-
-#endif
+	while (list->size)
+		pid_lst_del_one(list, list->head);
+}

@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/24 21:51:46 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/26 06:47:14 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,22 @@ SRC					=							\
 		}										\
 	}											\
 	${addprefix exec/,							\
+		${addprefix pid/,						\
+			${addprefix lst/,					\
+				pid_lst_add_back.c				\
+				pid_lst_add_front.c				\
+				pid_lst_clear.c					\
+				pid_lst_del_one.c				\
+				pid_lst_kill.c					\
+				pid_lst_push_back.c				\
+				pid_lst_push_front.c			\
+				pid_lst_wait.c					\
+				pid_new.c						\
+			}									\
+		}										\
 		core.c									\
+		redirections.c							\
+		run.c									\
 	}											\
 	${addprefix here_doc/,						\
 		here_doc.c								\
@@ -121,6 +136,7 @@ SRC					=							\
 	}											\
 	${addprefix util/,							\
 		${addprefix error/,						\
+			command_not_found_error.c			\
 			home_not_set_error.c				\
 			internal_error.c					\
 			invalid_option_error.c				\

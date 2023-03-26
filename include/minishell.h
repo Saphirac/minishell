@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 17:55:39 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/26 05:17:58 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 # define EXIT_ERROR 2
@@ -57,8 +58,10 @@ int		ft_if_command(t_token *tmp, bool *cmd);
 // Execution //
 int		execution(t_shell *const shell)
 		__attribute__((nonnull));
-
-// Utils //
+int		redirections(t_token_lst *const tokens, int const fd)
+		__attribute__((nonnull));
+int		run(t_shell *const shell)
+		__attribute__((nonnull));
 
 // Builtins //
 int		canonicalize(char *const curpath)
@@ -72,6 +75,8 @@ char	*raw_curpath(t_env_lst const *const env, char const *const dir)
 		__attribute__((nonnull));
 
 // Errors //
+int		command_not_found_error(char const *const cmd)
+		__attribute__((nonnull));
 int		home_not_set_error(char const *const str)
 		__attribute__((nonnull));
 int		internal_error(char const *const str)

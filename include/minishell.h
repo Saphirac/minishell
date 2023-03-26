@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/26 05:17:58 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/26 22:54:19 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int		invalid_option_error(char const *const str, char const *const opt)
 int		no_such_file_or_directory_error(
 			char const *const str,
 			char const *const path)
+		__attribute__((nonnull (2)));
+int		permission_denied_error(char const *const str)
 		__attribute__((nonnull));
 int		too_many_arguments_error(char const *const str)
 		__attribute__((nonnull));

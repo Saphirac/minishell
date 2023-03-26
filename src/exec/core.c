@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 23:08:53 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/26 03:38:09 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/27 00:00:25 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
  * @param	node The first node of the token list containing a pipe.
  * @param	fd The file descriptor of the pipe's output.
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	In the subprocess, the function calls `exit()`,
+ * 			and therefore never returns.
+ * 			In the parent process, the function returns EXIT_SUCCESS,
+ * 			or EXIT_FAILURE if an error occured.
  */
 inline static int	__subprocess(
 	t_shell *const shell,
@@ -42,8 +45,9 @@ inline static int	__subprocess(
 	if (close(shell->stdin_backup) || (fds[0] != STDIN_FILENO && close(fds[0])))
 		return (internal_error("close()"));
 	token_lst_del_range(&shell->tokens, node, NULL);
-	if (redirections(&shell->tokens, fds[1]) || run(shell))
-		return (EXIT_FAILURE);
+	pid_lst_clear(&shell->pids);
+	if (!redirections(&shell->tokens, fds[1]))
+		run(shell);
 	exit(g_exit_code);
 }
 

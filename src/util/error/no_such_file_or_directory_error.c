@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:31:38 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/18 02:36:41 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/26 23:48:34 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	no_such_file_or_directory_error(
 	char const *const str,
 	char const *const path)
 {
-	ft_dprintf(STDERR_FILENO, "%s: %s: No such file or directory\n", str, path);
-	return (EXIT_FAILURE);
+	if (str)
+		return (ft_dprintf(STDERR_FILENO, "%s: %s: No such file or directory\n",
+				str, path), EXIT_FAILURE);
+	return (ft_dprintf(STDERR_FILENO, "%s: No such file or directory\n", path),
+		EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/26 06:47:14 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/27 01:41:33 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ SRC					=							\
 			env_lst_print_assigned.c			\
 			env_lst_push_back.c					\
 			env_lst_push_front.c				\
+			env_lst_to_string_array.c			\
 			env_new.c							\
 		}										\
 	}											\
@@ -125,6 +126,7 @@ SRC					=							\
 			token_lst_is_first_builtin.c		\
 			token_lst_push_back.c				\
 			token_lst_push_front.c				\
+			token_lst_to_string_array.c			\
 			token_new.c							\
 		}										\
 		expand_tokens.c							\
@@ -141,6 +143,7 @@ SRC					=							\
 			internal_error.c					\
 			invalid_option_error.c				\
 			no_such_file_or_directory_error.c	\
+			permission_denied_error.c			\
 			too_many_arguments_error.c			\
 			usage_error.c						\
 		}										\

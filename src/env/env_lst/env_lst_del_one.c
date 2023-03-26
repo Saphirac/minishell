@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:37:46 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/26 05:59:15 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/26 22:01:14 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void	env_lst_del_one(t_env_lst *const list, t_env *const node)
 	}
 	--list->size;
 	free((void *)node->name);
-	free(node->value);
+	free((void *)node->value);
 	free(node);
 }

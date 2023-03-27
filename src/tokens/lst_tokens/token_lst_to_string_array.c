@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 00:16:04 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/27 01:32:57 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:36:09 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,5 @@ char	**token_lst_to_string_array(t_token_lst const *const list)
 	if (!array)
 		return (free(sizes), NULL);
 	array = __fill(array, (char *)(array + list->size + 1), list->head, sizes);
-	free(sizes);
-	return (array);
+	return (free(sizes), array);
 }

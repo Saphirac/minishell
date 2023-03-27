@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 01:48:49 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 02:57:33 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:41:07 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_get_operator(t_shell *shell, int *i, int j)
 			return (NULL);
 		if (token_lst_add_back(&(shell->tokens), T_WORD, ret) == EXIT_FAILURE)
 			return (NULL);
-		ret = NULL;
+		ft_memdel(&ret);
 	}
 	if (shell->line[*i] == '|')
 		ret = ft_strdup("|");

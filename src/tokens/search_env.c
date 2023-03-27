@@ -6,48 +6,11 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:56:16 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 18:49:43 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:11:37 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
-
-typedef struct s_tmp_i_start
-{
-	int	i;
-	int	start;
-}	t_tmp_i_start;
-
-// TODO : Remake the ret = ft_strjoin to have no leaks.
-int	append_to_ret(char **ret, char const *const tmp, t_str *str, t_tmp_i_start *i)
-{
-	char	*tmp_2;
-
-	if (i->i == 0 && str->str[i->i + 1] == '\0')
-		*ret = ft_strdup(str->str);
-	else if (i->i == 0)
-		*ret = ft_strdup("");
-	else if (!*ret && !tmp)
-		*ret = ft_strndup(str->str + i->start, i->i - i->start);
-	else if (!*ret)
-		*ret = ft_strdup(tmp);
-	else if (!tmp)
-	{
-		tmp_2 = ft_strndup(str->str + i->start, i->i - i->start);
-		if (!tmp_2)
-			return (EXIT_FAILURE);
-		*ret = ft_strjoin(*ret, tmp_2);
-		if (!*ret)
-			return (free(tmp_2), EXIT_FAILURE);
-		return (free(tmp_2), EXIT_SUCCESS);
-	}
-	else
-		*ret = ft_strjoin(*ret, tmp);
-	if (!*ret)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
 
 /* Iters in the chain from a dollar to the next "stop" characters 
 (non alphanumeric character and non '_') 
@@ -65,7 +28,7 @@ int	append_if_exit_code(char **ret, t_str *str, t_tmp_i_start *i)
 	if (append_to_ret(ret, tmp, str, i) == EXIT_FAILURE)
 		return (free(tmp), EXIT_FAILURE);
 	++i->i;
-	return (free(tmp), EXIT_SUCCESS); 
+	return (free(tmp), EXIT_SUCCESS);
 }
 
 int	ft_get_dollars(t_env_lst *env, t_str *str, char **ret, t_tmp_i_start *i)
@@ -76,7 +39,7 @@ int	ft_get_dollars(t_env_lst *env, t_str *str, char **ret, t_tmp_i_start *i)
 	++i->i;
 	i->start = i->i;
 	while (str->str[i->i] && (ft_isalnum(str->str[i->i]) == true
-		|| str->str[i->i] == '_'))
+			|| str->str[i->i] == '_'))
 		++i->i;
 	c = str->str[i->i];
 	str->str[i->i] = 0;
@@ -85,7 +48,7 @@ int	ft_get_dollars(t_env_lst *env, t_str *str, char **ret, t_tmp_i_start *i)
 	tmp_env = env_lst_get_one(env, str->str + i->start);
 	str->str[i->i] = c;
 	if (tmp_env && append_to_ret(ret, tmp_env->value, str, i) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -95,26 +58,25 @@ Then check if the name after the dollar is correct
 Append correct value if exists in the env 
 Else append NULL 
 Copy or append everything even the dollar if next character not correct */
-
-// TODO : handle special case "?"
-int	search_env_process_one(t_env_lst *env, t_str *str, t_tmp_i_start *i, char **ret)
+int	search_env_process_one(t_env_lst *env, t_str *str,
+		t_tmp_i_start *i, char **ret)
 {
 	i->start = i->i;
 	while (str->str[i->i] && str->str[i->i] != '$')
 		++i->i;
 	if (str->str[i->i] == '\0')
 		return (append_to_ret(ret, NULL, str, i));
-	else if (str->str[i->i + 1] == '\0' ||
-			(ft_isalnum(str->str[i->i + 1]) == false && str->str[i->i + 1] != '_'
-			&& str->str[i->i + 1] != '?'))
+	else if (str->str[i->i + 1] == '\0'
+		|| (ft_isalnum(str->str[i->i + 1]) == false
+			&& str->str[i->i + 1] != '_' && str->str[i->i + 1] != '?'))
 	{
 		++i->i;
 		return (append_to_ret(ret, NULL, str, i));
 	}
 	else if (append_to_ret(ret, NULL, str, i) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	else if (ft_get_dollars(env, str, ret, i) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -141,7 +103,8 @@ command token will become command + argument
 argument token will become 2 arguments 
 will need to make a function to do that with every tokens*/
 
-int	expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst)
+int	expand_dollars_str_lst(t_env_lst *env_lst,
+	t_str_lst *str_lst, t_token *token)
 {
 	t_str	*tmp;
 	int		i;
@@ -149,7 +112,7 @@ int	expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst)
 	tmp = str_lst->head;
 	while (tmp)
 	{
-		if (tmp->str[0] != '\'')
+		if (tmp->str[0] != '\'' && token->type != T_DELIMITER)
 		{
 			i = 0;
 			while (tmp->str[i] && tmp->str[i] != '$')

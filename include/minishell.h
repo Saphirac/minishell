@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 18:08:39 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:11:18 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@
 
 extern uint8_t	g_exit_code;
 
+typedef struct s_tmp_i_start
+{
+	int	i;
+	int	start;
+}	t_tmp_i_start;
+
 void	prompt(t_shell *const shell)
 		__attribute__((nonnull));
 void	handle_signal(int sig);
@@ -56,10 +62,21 @@ int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
 int		ft_env_cpy(char *env_value, char *tmp, char *cmp);
 int		create_str_lst(t_token *token, t_str_lst *str_lst);
-int		expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst);
+int		expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst,
+			t_token *token);
 int		add_str_to_tokens(t_token_lst *const token_lst, t_token **token,
 			t_str_lst *const str);
 int		final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst);
+bool	is_white_spaces(char const c);
+bool	check_white_spaces(char const *const str);
+int		add_spaces_new_token(t_token_lst *const token_lst,
+			t_token **token, t_str *tmp);
+int		strdup_or_join(t_token *const *const token,
+			char const *const tmp);
+int		add_split(t_token_lst *const token_lst,
+			t_token **const token, char **split, int i);
+int		append_to_ret(char **ret, char const *const tmp,
+			t_str *str, t_tmp_i_start *i);
 
 // Builtins //
 int		canonicalize(char *const curpath)

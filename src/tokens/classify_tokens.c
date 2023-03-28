@@ -6,27 +6,11 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 05:28:05 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 03:22:29 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:50:44 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* inline static t_token_type __ft_cmd_or_builtin(t_token const *const tmp,
-												bool *cmd)
-{
-	unsigned int i;
-
-	i = 0U;
-	*cmd = true;
-	while (g_builtin[i].name)
-	{
-		if (ft_strcmp(tmp->str, g_builtin[i].name) == 0)
-			return (T_BUILTIN);
-		++i;
-	}
-	return (T_COMMAND);
-} */
 
 /* TODO : check whether t_word is t_command or t_builtin */
 

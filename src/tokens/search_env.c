@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:56:16 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/27 21:11:37 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/29 02:33:03 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	append_if_exit_code(char **ret, t_str *str, t_tmp_i_start *i)
 {
 	char	*tmp;
 
-	tmp = ft_itoa(g_exit_code);
+	tmp = ft_hhutoa(g_exit_code);
 	if (!tmp)
 		return (EXIT_FAILURE);
 	if (append_to_ret(ret, tmp, str, i) == EXIT_FAILURE)

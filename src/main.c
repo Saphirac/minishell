@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/25 18:41:56 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/29 02:31:34 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @brief	Free the allocated memory of the shell context.
+ */
 inline static void	__clear_shell(void)
 {
 	t_shell *const	shell = __shell();

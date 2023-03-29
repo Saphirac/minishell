@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 21:07:41 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/27 22:39:04 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/29 02:31:05 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static inline char	*__leak_free_join(char const *const str0,
 	return (free((void *)str0), result);
 }
 
-// TODO : Remake the ret = ft_strjoin to have no leaks.
 int	append_to_ret(char **ret, char const *const tmp,
 		t_str *str, t_tmp_i_start *i)
 {

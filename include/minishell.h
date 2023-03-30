@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/27 21:11:18 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:38:15 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		add_split(t_token_lst *const token_lst,
 			t_token **const token, char **split, int i);
 int		append_to_ret(char **ret, char const *const tmp,
 			t_str *str, t_tmp_i_start *i);
+void	final_classification(t_token_lst *token_lst, bool *is_pipeline);
 
 // Builtins //
 int		canonicalize(char *const curpath)

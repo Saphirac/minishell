@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/29 02:31:34 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 02:07:36 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ inline static void	__clear_shell(void)
 	env_lst_clear(&shell->env);
 	token_lst_clear(&shell->tokens);
 	ft_memdel(&shell->line);
-	ft_memdel(&shell->line_hd);
-	ft_memdel(&shell->stock_hd);
 }
 
 int	main(int const ac, char const *const *const av, char const *const *const ep)

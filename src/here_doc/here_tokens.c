@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 char	*ft_strjoin_hd(char const *s1, char const *s2)
 {
 	char	*dest;
@@ -69,4 +69,4 @@ char	*stock_hd(t_shell *shell)
 		return (shell->stock_hd);
 	}
 	return (NULL);
-}
+}*/

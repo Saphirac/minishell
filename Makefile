@@ -6,7 +6,7 @@
 #    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/27 21:11:55 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/28 20:37:04 by mcourtoi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,6 +128,7 @@ SRC					=							\
 		tokens_utils.c							\
 		classify_tokens.c						\
 		classify_tokens_utils.c					\
+		final_classification.c					\
 	}											\
 	${addprefix util/,							\
 		${addprefix error/,						\

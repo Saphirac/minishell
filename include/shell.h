@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 16:05:35 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:30:08 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ struct s_shell
 	t_token_lst	tokens;
 	t_env_lst	env;
 	char		*line;
-	char		*line_hd;
-	char		*stock_hd;
+	bool		is_pipeline;
 };
 
 #endif

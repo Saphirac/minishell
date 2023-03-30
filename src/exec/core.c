@@ -6,11 +6,29 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 23:08:53 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/27 21:38:31 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:34:48 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief	Execute a builtin with no pipes in the same process as the shell.
+ * 			If an error occurs, an error message is output.
+ * 
+ * @param	shell The context which contains the program's data.
+ * 
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ */
+inline static int	__builtin_alone(t_shell *const shell)
+{
+	size_t	i;
+
+	i = 0LU;
+	while (ft_strcmp(g_builtin[i].name, shell->tokens.head->str))
+		++i;
+	return (g_builtin[i].func(&shell->env, shell->tokens.head->next));
+}
 
 /**
  * @brief	Create a subprocess, apply pipes redirections,
@@ -90,24 +108,6 @@ inline static int	__pipeline(t_shell *const shell, t_token const *node)
 }
 
 /**
- * @brief	Execute a builtin with no pipes in the same process as the shell.
- * 			If an error occurs, an error message is output.
- * 
- * @param	shell The context which contains the program's data.
- * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
- */
-inline static int	__builtin_alone(t_shell *const shell)
-{
-	size_t	i;
-
-	i = 0LU;
-	while (ft_strcmp(g_builtin[i].name, shell->tokens.head->str))
-		++i;
-	return (g_builtin[i].func(&shell->env, shell->tokens.head->next));
-}
-
-/**
  * @brief	Proceed to the execution of the given commands/builtins,
  * 			using subprocess except when running a builtin with no pipes,
  * 			applying input, output, and pipes redirections.
@@ -119,22 +119,17 @@ inline static int	__builtin_alone(t_shell *const shell)
  */
 int	execution(t_shell *const shell)
 {
-	t_token const *const	node
-		= token_lst_find_first_by_type(&shell->tokens, T_PIPE);
-
-	if (node || !token_lst_is_first_builtin(&shell->tokens))
-	{
-		shell->stdin_backup = dup(STDIN_FILENO);
-		if (shell->stdin_backup == -1)
-			return (internal_error("dup()"));
-		if (__pipeline(shell, node))
-			return (dup2(shell->stdin_backup, STDIN_FILENO),
-				close(shell->stdin_backup), EXIT_FAILURE);
-		if (dup2(shell->stdin_backup, STDIN_FILENO) == -1)
-			return (close(shell->stdin_backup), internal_error("dup2()"));
-		if (close(shell->stdin_backup))
-			return (internal_error("close()"));
-		return (EXIT_SUCCESS);
-	}
-	return (__builtin_alone(shell));
+	if (!shell->is_pipeline && token_lst_is_first_builtin(&shell->tokens))
+		return (__builtin_alone(shell));
+	shell->stdin_backup = dup(STDIN_FILENO);
+	if (shell->stdin_backup == -1)
+		return (internal_error("dup()"));
+	if (__pipeline(shell, token_lst_find_first_by_type(&shell->tokens, T_PIPE)))
+		return (dup2(shell->stdin_backup, STDIN_FILENO),
+			close(shell->stdin_backup), EXIT_FAILURE);
+	if (dup2(shell->stdin_backup, STDIN_FILENO) == -1)
+		return (close(shell->stdin_backup), internal_error("dup2()"));
+	if (close(shell->stdin_backup))
+		return (internal_error("close()"));
+	return (EXIT_SUCCESS);
 }

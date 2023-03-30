@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 02:54:09 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:55:47 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ struct s_pid
 };
 
 /* functions for token list and token nodes */
+
 void	token_lst_clear(t_token_lst *const list)
 		__attribute__((nonnull));
 void	token_lst_del_one(t_token_lst *const list, t_token const *const node)
@@ -114,9 +115,9 @@ t_token	*token_lst_find_first_by_type(
 			t_token_lst const *const list,
 			t_token_type const type)
 		__attribute__((nonnull));
-t_token	*token_new(int const type, char *const str);
+t_token	*token_new(t_token_type const type, char *const str);
 
-/* lst functions for str_lst and str nodes */
+/* functions for str list and str nodes */
 
 int		str_lst_add_back(t_str_lst *const list, char *const str,
 			bool is_quoted);

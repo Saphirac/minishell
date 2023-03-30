@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/27 01:41:22 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/30 02:54:09 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct s_token		t_token;
 typedef struct s_token_lst	t_token_lst;
 typedef struct s_env		t_env;
 typedef struct s_env_lst	t_env_lst;
+typedef struct s_str		t_str;
+typedef struct s_str_lst	t_str_lst;
 typedef struct s_pid		t_pid;
 typedef struct s_pid_lst	t_pid_lst;
 
@@ -52,6 +54,21 @@ struct s_env
 	t_env		*prev;
 };
 
+struct s_str_lst
+{
+	t_str	*head;
+	t_str	*tail;
+	size_t	size;
+};
+
+struct s_str
+{
+	char	*str;
+	bool	is_quoted;
+	t_str	*next;
+	t_str	*prev;
+};
+
 struct s_pid_lst
 {
 	t_pid	*head;
@@ -67,7 +84,6 @@ struct s_pid
 };
 
 /* functions for token list and token nodes */
-
 void	token_lst_clear(t_token_lst *const list)
 		__attribute__((nonnull));
 void	token_lst_del_one(t_token_lst *const list, t_token const *const node)
@@ -81,12 +97,14 @@ void	token_lst_push_back(t_token_lst *const list, t_token *const node)
 		__attribute__((nonnull));
 void	token_lst_push_front(t_token_lst *const list, t_token *const node)
 		__attribute__((nonnull));
-
-int		token_lst_add_back(t_token_lst *const list, int const type,
+int		token_lst_add_back(t_token_lst *const list, t_token_type const type,
 			char *const str)
 		__attribute__((nonnull));
-int		token_lst_add_front(t_token_lst *const list, int const type,
+int		token_lst_add_front(t_token_lst *const list, t_token_type const type,
 			char *const str)
+		__attribute__((nonnull));
+int		token_lst_add_after(t_token_lst *const lst, t_token *const node,
+			t_token_type const type, char *const str)
 		__attribute__((nonnull));
 
 bool	token_lst_is_first_builtin(t_token_lst const *const list)
@@ -97,6 +115,18 @@ t_token	*token_lst_find_first_by_type(
 			t_token_type const type)
 		__attribute__((nonnull));
 t_token	*token_new(int const type, char *const str);
+
+/* lst functions for str_lst and str nodes */
+
+int		str_lst_add_back(t_str_lst *const list, char *const str,
+			bool is_quoted);
+int		str_lst_add_front(t_str_lst *const list, char *const str,
+			bool is_quoted);
+void	str_lst_clear(t_str_lst *const list);
+void	str_lst_del_one(t_str_lst *const list, t_str *const node);
+void	str_lst_push_back(t_str_lst *const list, t_str *const node);
+void	str_lst_push_front(t_str_lst *const list, t_str *const node);
+t_str	*str_new(char *const str, bool is_quoted);
 
 char	**token_lst_to_string_array(t_token_lst const *const list)
 		__attribute__((nonnull));

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/26 22:54:19 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/30 02:55:12 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -35,6 +36,12 @@
 # define EXIT_ERROR 2
 
 extern uint8_t	g_exit_code;
+
+typedef struct s_tmp_i_start
+{
+	int	i;
+	int	start;
+}	t_tmp_i_start;
 
 void	prompt(t_shell *const shell)
 		__attribute__((nonnull));
@@ -54,6 +61,24 @@ int		ft_if_heredoc(t_token *tmp, bool *cmd);
 int		ft_if_output_input(t_token *tmp, bool *cmd);
 int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
+int		ft_env_cpy(char *env_value, char *tmp, char *cmp);
+int		create_str_lst(t_token *token, t_str_lst *str_lst);
+int		expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst,
+			t_token *token);
+int		add_str_to_tokens(t_token_lst *const token_lst, t_token **token,
+			t_str_lst *const str);
+int		final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst);
+bool	is_white_spaces(char const c);
+bool	check_white_spaces(char const *const str);
+int		add_spaces_new_token(t_token_lst *const token_lst,
+			t_token **token, t_str *tmp);
+int		strdup_or_join(t_token *const *const token,
+			char const *const tmp);
+int		add_split(t_token_lst *const token_lst,
+			t_token **const token, char **split, int i);
+int		append_to_ret(char **ret, char const *const tmp,
+			t_str *str, t_tmp_i_start *i);
+void	final_classification(t_token_lst *token_lst, bool *is_pipeline);
 
 // Execution //
 int		execution(t_shell *const shell)

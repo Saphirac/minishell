@@ -3,112 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   expand_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 23:11:30 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:06:31 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/21 19:43:53 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/29 17:54:38 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-
 #include "minishell.h"
 
-char	*expand_single_quotes(char *token)
-{
-	char	*ret;
-	int		i;
-
-	ret = malloc(sizeof(char) * (ft_strlen(token) - 2 + 1));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (token[++i])
-		ret[i - 1] = token[i];
-	ret[i - 1] = '\0';
-	return (ret);
-}
-
-char	*expand_double_quotes(t_shell *shell, char *token)
-{
-	char	*ret;
-	int		i;
-	char	*tmp;
-
-	i = 1;
-	while (token[i] && token[i] != '$')
-		i++;
-	if (token[i] == '$')
-	{
-		tmp = search_env(shell->env, token);
-		if (!tmp)
-			return (NULL);
-		ret = expand_dollar(token, tmp);
-		if (!ret)
-			return (NULL);
-		return (ret);
-	}
-	return (NULL);
-}
-
-static int	compare_env_token(char *env, char *token)
+static inline bool	__need_to_expand(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (str[i])
 	{
-		if (env[i] == '=' && token[i] == '\0')
-			return (i);
-		if (env[i] != token[i])
-			return (-1);
+		if (str[i] == '\'' || str[i] == '$' || str[i] == '"')
+			return (true);
 		i++;
 	}
-	return (-2);
+	return (false);
 }
 
-char	*search_env(char **env, char *token)
+inline static void	__clean_final_lst(t_token_lst *token_lst)
 {
-	int		i;
-	int		tmp;
-	char	*ret;
-	int		j;
+	t_token	*tmp;
+	t_token	*del;
 
-	j = 0;
-	while (token[j] && token[j] != '$')
-		j++;
-	i = -1;
-	tmp = -1;
-	while (env[++i] && tmp < 0)
-		tmp = compare_env_token(env[i], (token + j + 1));
-	if (env[i - 1] && tmp > 0)
+	del = token_lst->head;
+	while (del)
 	{
-		ret = ft_strdup(env[i - 1] + (tmp + 1));
-		if (!ret)
-			return (NULL);
-		return (ret);
+		tmp = del->next;
+		if (del->type == T_TO_SUPPR)
+			token_lst_del_one(token_lst, del);
+		del = tmp;
 	}
-	return (NULL);
 }
 
-char	*expand_dollar(char *token, char *tmp)
+int	final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst)
 {
-	char	*ret;
-	int		i;
-	int		j;
+	t_token		*tmp;
+	t_str_lst	str;
 
-	i = 0;
-	while (token[i] && token[i] != '$')
-		i++;
-	ret = malloc(sizeof(char) * (i + ft_strlen(tmp) + 1));
-	i = -1;
-	while (token[++i] && token[i] != '$')
-		ret[i] = token[i];
-	j = -1;
-	while (tmp[++j])
-		ret[i++] = tmp[j];
-	ret[i] = '\0';
-	return (ret);
+	tmp = token_lst->head;
+	ft_bzero(&str, sizeof(t_str_lst));
+	while (tmp)
+	{
+		if (__need_to_expand(tmp->str) == true)
+		{
+			if (create_str_lst(tmp, &str) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+			if (expand_dollars_str_lst(env_lst, &str, tmp) == EXIT_FAILURE)
+				return (str_lst_clear(&str), EXIT_FAILURE);
+			if (add_str_to_tokens(token_lst, &tmp, &str) == EXIT_FAILURE)
+				return (str_lst_clear(&str), EXIT_FAILURE);
+			str_lst_clear(&str);
+		}
+		tmp = tmp->next;
+	}
+	__clean_final_lst(token_lst);
+	return (str_lst_clear(&str), EXIT_SUCCESS);
 }
-
-*/

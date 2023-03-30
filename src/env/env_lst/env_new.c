@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:09:10 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 18:09:25 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 01:02:41 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ t_env	*env_new(char const *const name, char const *const value)
 	if (!node)
 		return (NULL);
 	node->name = ft_strdup(name);
-	if (value)
-		node->value = ft_strdup(value);
-	else
-		node->value = NULL;
+	(value && (node->value = ft_strdup(value))) || (node->value = NULL);
 	if (!node->name || (value && !node->value))
 	{
 		free((void *)node->name);

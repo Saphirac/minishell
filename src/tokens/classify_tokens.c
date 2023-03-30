@@ -6,13 +6,11 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 05:28:05 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/28 20:50:44 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 02:07:54 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* TODO : check whether t_word is t_command or t_builtin */
 
 int	classify_tokens(t_shell *shell)
 {

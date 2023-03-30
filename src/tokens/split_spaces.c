@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:50:26 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/27 21:06:38 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 00:55:26 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	split_is_null(t_token_lst *const token_lst,
 		t_token **const token, t_str const *const tmp)
 {
-	if (ft_strlen((*token)->str))
+	if (*(*token)->str || (tmp->prev && tmp->prev->is_quoted == true))
 	{
 		if (tmp->next)
 		{
@@ -23,14 +23,17 @@ int	split_is_null(t_token_lst *const token_lst,
 				return (EXIT_FAILURE);
 			(*token) = (*token)->next;
 		}
-	}			
+	}
+	else if (!tmp->next)
+		(*token)->type = T_TO_SUPPR;
 	return (EXIT_SUCCESS);
 }
 
+// If first chain is empty, doesn't join to it.
 int	add_spaces(t_token_lst *const token_lst, t_token **token,
 		t_str *tmp, char **split)
 {
-	if (ft_strlen((*token)->str))
+	if (*(*token)->str || (tmp->prev && tmp->prev->is_quoted == true))
 	{
 		if (add_split(token_lst, token, split, -1))
 			return (free(split), EXIT_FAILURE);
@@ -40,7 +43,7 @@ int	add_spaces(t_token_lst *const token_lst, t_token **token,
 		return (free(split), EXIT_FAILURE);
 	if (is_white_spaces(tmp->str[ft_strlen(tmp->str) - 1]))
 	{
-		if (tmp->next && ft_strlen((*token)->str))
+		if (tmp->next && *(*token)->str)
 		{
 			if (token_lst_add_after(token_lst, (*token), T_ARGUMENT, ""))
 				return (free(split), EXIT_FAILURE);

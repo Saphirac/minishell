@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/30 02:57:36 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 00:41:51 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ inline static void	__make_tests(t_shell *const shell)
 }
 
 /**
- * @brief	Display the prompt and get the user inpuredirectionst.
+ * @brief	Display the prompt and get the user input.
  * 			Then, when the user press enter, the input is processed.
  * 
  * @param	shell The context which contains the program's data.

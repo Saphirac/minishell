@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_new.c                                        :+:      :+:    :+:   */
+/*   str_lst_add_front.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 19:37:40 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/19 19:04:00 by mcourtoi         ###   ########.fr       */
+/*   Created: 2023/03/08 19:35:03 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/27 17:28:42 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*token_new(t_token_type const type, char *const str)
+int	str_lst_add_front(t_str_lst *const list, char *const str, bool is_quoted)
 {
-	t_token *const	output = malloc(sizeof(t_token));
+	t_str *const	node = str_new(str, is_quoted);
 
-	if (!output)
-		return (NULL);
-	output->type = type;
-	output->str = ft_strdup(str);
-	if (!output->str)
-		return (NULL);
-	output->next = NULL;
-	output->prev = NULL;
-	return (output);
+	if (!node)
+		return (EXIT_FAILURE);
+	str_lst_push_front(list, node);
+	return (EXIT_SUCCESS);
 }

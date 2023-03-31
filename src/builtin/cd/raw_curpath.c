@@ -6,11 +6,26 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 03:42:21 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/23 01:54:55 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 01:38:18 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief	Check whether the given path has to be searched in CDPATH.
+ * 
+ * @param	path The path to check.
+ * 
+ * @return	True if the given path has to be searched in CDPATH,
+ * 			or false if not.
+ */
+inline static bool	__is_possibly_cdpath(char const *path)
+{
+	*path == '.' && ++path;
+	*path == '.' && ++path;
+	return (*path && *path != '/');
+}
 
 /**
  * @brief	Allocate and set a new absolute path
@@ -146,6 +161,7 @@ inline static char	*__prepend_cwd_pathname(
  * 			If an error occurs during the process,
  * 			then an error message is output on stderr.
  * 
+ * @param	env The linked list containing the environment variables.
  * @param	dir The string representing the new current working directory.
  * 
  * @return	The raw value of the string representing the new current working
@@ -166,8 +182,7 @@ char	*raw_curpath(
 			return (internal_error("cd: ft_strdup()"), NULL);
 		return (curpath);
 	}
-	if (ft_strncmp(dir, "./", 2LU) && ft_strncmp(dir, "../", 3LU)
-		&& __try_cdpath(env, dir, dir_len, &curpath))
+	if (__is_possibly_cdpath(dir) && __try_cdpath(env, dir, dir_len, &curpath))
 		return (NULL);
 	if (curpath)
 		return (curpath);

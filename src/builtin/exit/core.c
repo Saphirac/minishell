@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 17:43:50 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/27 00:04:23 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ inline static bool	__is_positive(char const *str)
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	The function shall call `exit` and therefore shall never return,
- * 			except in case of error where EXIT_FAILURE is returned.
+ * @return	The function calls `exit()`, and therefore never returns,
+ * 			except if an error occured, and then EXIT_FAILURE is returned.
  */
 int	builtin_exit(t_env_lst *const env, t_token const *token)
 {

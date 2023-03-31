@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+         #
+#    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/28 20:37:04 by mcourtoi         ###   ########.fr        #
+#    Updated: 2023/03/30 02:50:48 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,8 +89,27 @@ SRC					=							\
 			env_lst_print_assigned.c			\
 			env_lst_push_back.c					\
 			env_lst_push_front.c				\
+			env_lst_to_string_array.c			\
 			env_new.c							\
 		}										\
+	}											\
+	${addprefix exec/,							\
+		${addprefix pid/,						\
+			${addprefix lst/,					\
+				pid_lst_add_back.c				\
+				pid_lst_add_front.c				\
+				pid_lst_clear.c					\
+				pid_lst_del_one.c				\
+				pid_lst_kill.c					\
+				pid_lst_push_back.c				\
+				pid_lst_push_front.c			\
+				pid_lst_wait.c					\
+				pid_new.c						\
+			}									\
+		}										\
+		core.c									\
+		redirections.c							\
+		run.c									\
 	}											\
 	${addprefix here_doc/,						\
 		here_doc.c								\
@@ -98,13 +117,17 @@ SRC					=							\
 	}											\
 	${addprefix tokens/,						\
 		${addprefix lst_tokens/,				\
+			token_lst_add_after.c				\
 			token_lst_add_back.c				\
 			token_lst_add_front.c 				\
 			token_lst_clear.c					\
 			token_lst_del_one.c					\
+			token_lst_del_range.c				\
+			token_lst_find_first_by_type.c		\
+			token_lst_is_first_builtin.c		\
 			token_lst_push_back.c				\
 			token_lst_push_front.c				\
-			token_lst_add_after.c				\
+			token_lst_to_string_array.c			\
 			token_new.c							\
 		}										\
 		${addprefix str_lst/,					\
@@ -132,10 +155,12 @@ SRC					=							\
 	}											\
 	${addprefix util/,							\
 		${addprefix error/,						\
+			command_not_found_error.c			\
 			home_not_set_error.c				\
 			internal_error.c					\
 			invalid_option_error.c				\
 			no_such_file_or_directory_error.c	\
+			permission_denied_error.c			\
 			too_many_arguments_error.c			\
 			usage_error.c						\
 		}										\

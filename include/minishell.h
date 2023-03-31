@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/28 20:38:15 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 02:55:12 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 # define EXIT_ERROR 2
@@ -79,6 +80,14 @@ int		append_to_ret(char **ret, char const *const tmp,
 			t_str *str, t_tmp_i_start *i);
 void	final_classification(t_token_lst *token_lst, bool *is_pipeline);
 
+// Execution //
+int		execution(t_shell *const shell)
+		__attribute__((nonnull));
+int		redirections(t_token_lst *const tokens, int const fd)
+		__attribute__((nonnull));
+int		run(t_shell *const shell)
+		__attribute__((nonnull));
+
 // Builtins //
 int		canonicalize(char *const curpath)
 		__attribute__((nonnull));
@@ -91,6 +100,8 @@ char	*raw_curpath(t_env_lst const *const env, char const *const dir)
 		__attribute__((nonnull));
 
 // Errors //
+int		command_not_found_error(char const *const cmd)
+		__attribute__((nonnull));
 int		home_not_set_error(char const *const str)
 		__attribute__((nonnull));
 int		internal_error(char const *const str)
@@ -100,6 +111,8 @@ int		invalid_option_error(char const *const str, char const *const opt)
 int		no_such_file_or_directory_error(
 			char const *const str,
 			char const *const path)
+		__attribute__((nonnull (2)));
+int		permission_denied_error(char const *const str)
 		__attribute__((nonnull));
 int		too_many_arguments_error(char const *const str)
 		__attribute__((nonnull));

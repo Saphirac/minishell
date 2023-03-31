@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/28 20:51:23 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/31 00:41:51 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 inline static void	__make_tests(t_shell *const shell)
 {
 	print_tokens(&shell->tokens);
-	printf("pipeline : %d\n", shell->is_pipeline);
+	if (execution(shell))
+		exit(EXIT_FAILURE);
 }
 
 /**
@@ -29,10 +30,9 @@ void	prompt(t_shell *const shell)
 	int	exit_code;
 
 	shell->line = readline("minishell $> ");
-	if (!shell->line)
-		write(STDOUT_FILENO, (char [1]){'\n'}, 1LU)
-				&& builtin_exit(&shell->env, NULL);
-	if (ft_strlen(shell->line))
+	if (!shell->line && write(STDOUT_FILENO, (char [1]){'\n'}, 1LU))
+		builtin_exit(&shell->env, NULL);
+	if (*shell->line)
 		add_history(shell->line);
 	exit_code = tokens_get(shell);
 	if (exit_code == EXIT_FAILURE)

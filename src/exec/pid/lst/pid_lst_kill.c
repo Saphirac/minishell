@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   internal_error.c                                   :+:      :+:    :+:   */
+/*   pid_lst_kill.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 02:27:35 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/24 22:10:31 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/25 18:49:52 by jodufour          #+#    #+#             */
+/*   Updated: 2023/03/25 20:50:49 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Output an iternal error message.
+ * @brief	Iterate over a pid list and kill every process it contains.
  * 
- * @param	str The details to output before the internal error message.
+ * @param	list The list to iterate over.
+ * @param	sig The signal to send to the processes.
  * 
- * @return	Always EXIT_FAILURE.
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
  */
-int	internal_error(char const *const str)
+int	pid_lst_kill(t_pid_lst *const list, int const sig)
 {
-	ft_dprintf(STDERR_FILENO, "%s: %s\n", str, strerror(errno));
-	return (EXIT_FAILURE);
+	t_pid const	*node = list->head;
+
+	while (node)
+	{
+		if (kill(node->pid, sig))
+			return (EXIT_FAILURE);
+		node = node->next;
+	}
+	return (EXIT_SUCCESS);
 }

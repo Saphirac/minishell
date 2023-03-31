@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:44:32 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/30 01:04:11 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 02:59:27 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ inline static int	__invalid_identifier_error(char const *const id)
 }
 
 /**
- * @brief	 Modify the value of the given env node.
- *			 If an error occures during the modification,
- *			 the previous value is kept unchanged.
+ * @brief	Modify the value of the given env node.
+ * 		 	If an error occures during the modification,
+ * 		 	the previous value is kept unchanged.
  * 
  * @param	node The node to modify.
  * @param	value The new value to set.
  * 
  * @return	EXIT_SUCCESS if the node was successfully modified, or
- *			 EXIT_FAILURE if an error occured.
+ * 			EXIT_FAILURE if an error occured.
  */
 inline static int	__modify_ones_value(t_env *const node, char const *value)
 {
@@ -71,11 +71,11 @@ inline static int	__modify_ones_value(t_env *const node, char const *value)
 
 /**
  * @brief	Process one environment variable to add/modify.
- *			 If the identifier syntax is invalid, an error is output.
+ * 			If the identifier syntax is invalid, an error is output.
  * 
  * @param	env The linked list containing the environment variables.
  * @param	str The variable to add/modify and its new value as a raw string,
- *			 formatted as "identifier=value".
+ * 			formatted as "identifier=value".
  * 
  * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
  */

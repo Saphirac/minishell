@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   internal_error.c                                   :+:      :+:    :+:   */
+/*   pid_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 02:27:35 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/24 22:10:31 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/25 15:12:16 by jodufour          #+#    #+#             */
+/*   Updated: 2023/03/25 18:16:23 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Output an iternal error message.
+ * @brief	Allocate a new pid node and initialize its attributes.
  * 
- * @param	str The details to output before the internal error message.
+ * @param	pid The process id to store in the node.
  * 
- * @return	Always EXIT_FAILURE.
+ * @return	A pointer to the newly allocated node, or NULL if an error occured. 
  */
-int	internal_error(char const *const str)
+t_pid	*pid_new(int const pid)
 {
-	ft_dprintf(STDERR_FILENO, "%s: %s\n", str, strerror(errno));
-	return (EXIT_FAILURE);
+	t_pid *const	node = malloc(sizeof(t_pid));
+
+	if (!node)
+		return (NULL);
+	node->pid = pid;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   permission_denied_error.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 02:56:23 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/26 22:51:39 by jodufour          #+#    #+#             */
+/*   Updated: 2023/03/26 22:53:37 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_shell	t_shell;
-
-struct s_shell
+/**
+ * @brief	Output a permission denied error message.
+ * 
+ * @param	str The details to output before the permission denied error message.
+ * 
+ * @return	Always EXIT_FAILURE.
+ */
+int	permission_denied_error(char const *const str)
 {
-	t_token_lst	tokens;
-	t_env_lst	env;
-	t_pid_lst	pids;
-	char		*line;
-	int			stdin_backup;
-	bool		is_pipeline;
-};
-
-#endif
+	ft_dprintf(STDERR_FILENO, "%s: Permission denied\n", str);
+	return (EXIT_FAILURE);
+}

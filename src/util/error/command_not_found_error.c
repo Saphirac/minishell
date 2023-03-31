@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   command_not_found_error.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 02:56:23 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/26 05:13:29 by jodufour          #+#    #+#             */
+/*   Updated: 2023/03/26 06:47:42 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_shell	t_shell;
-
-struct s_shell
+/**
+ * @brief	Output an error message related to a command
+ * 			which has not been found.
+ * 
+ * @param	cmd The name of the command which has not been found.
+ * 
+ * @return	Always EXIT_FAILURE.
+ */
+int	command_not_found_error(char const *const cmd)
 {
-	t_token_lst	tokens;
-	t_env_lst	env;
-	t_pid_lst	pids;
-	char		*line;
-	int			stdin_backup;
-	bool		is_pipeline;
-};
-
-#endif
+	ft_dprintf(STDERR_FILENO, "%s: command not found\n", cmd);
+	return (EXIT_FAILURE);
+}

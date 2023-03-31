@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 02:07:36 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 02:56:53 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ inline static void	__clear_shell(void)
 
 	env_lst_clear(&shell->env);
 	token_lst_clear(&shell->tokens);
+	pid_lst_clear(&shell->pids);
 	ft_memdel(&shell->line);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 }
 
 int	main(int const ac, char const *const *const av, char const *const *const ep)

@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/27 01:41:33 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/31 04:18:37 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -145,7 +145,6 @@ SRC					=							\
 			no_such_file_or_directory_error.c	\
 			permission_denied_error.c			\
 			too_many_arguments_error.c			\
-			usage_error.c						\
 		}										\
 		is_directory.c							\
 	}											\

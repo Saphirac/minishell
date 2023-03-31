@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 23:08:53 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/27 21:38:31 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 04:29:46 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ inline static int	__subprocess(
 		return (internal_error("close()"));
 	token_lst_del_range(&shell->tokens, node, NULL);
 	pid_lst_clear(&shell->pids);
-	if (!redirections(&shell->tokens, fds[1]))
+	if (!redirections(&shell->tokens, fds[1]) && shell->tokens.size)
 		run(shell);
 	exit(g_exit_code);
 }

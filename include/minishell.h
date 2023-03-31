@@ -6,12 +6,14 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/26 22:54:19 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 04:18:46 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define _GNU_SOURCE
 
 # include "ft_io.h"
 # include "ft_colors.h"
@@ -22,6 +24,7 @@
 # include "lookup_builtin.h"
 
 # include <errno.h>
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -90,8 +93,6 @@ int		no_such_file_or_directory_error(
 int		permission_denied_error(char const *const str)
 		__attribute__((nonnull));
 int		too_many_arguments_error(char const *const str)
-		__attribute__((nonnull));
-int		usage_error(char const *const prog_name)
 		__attribute__((nonnull));
 
 // Heredoc

@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/31 04:18:37 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/31 05:33:01 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,6 +117,7 @@ SRC					=							\
 	}											\
 	${addprefix tokens/,						\
 		${addprefix lst_tokens/,				\
+			token_lst_add_after.c				\
 			token_lst_add_back.c				\
 			token_lst_add_front.c 				\
 			token_lst_clear.c					\
@@ -129,12 +130,28 @@ SRC					=							\
 			token_lst_to_string_array.c			\
 			token_new.c							\
 		}										\
+		${addprefix str_lst/,					\
+			str_lst_add_back.c					\
+			str_lst_add_front.c 				\
+			str_lst_clear.c						\
+			str_lst_del_one.c					\
+			str_lst_push_back.c					\
+			str_lst_push_front.c				\
+			str_new.c							\
+		}										\
 		expand_tokens.c							\
+		create_str_lst.c						\
+		search_env.c							\
+		split_tokens.c							\
+		split_spaces.c							\
+		split_utils.c							\
+		append_to_ret.c							\
 		get_tokens.c							\
 		tokens_operators.c						\
 		tokens_utils.c							\
 		classify_tokens.c						\
 		classify_tokens_utils.c					\
+		final_classification.c					\
 	}											\
 	${addprefix util/,							\
 		${addprefix error/,						\

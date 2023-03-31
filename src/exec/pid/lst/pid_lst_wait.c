@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 01:56:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/26 03:34:50 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 00:23:58 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ static t_signaled_str const		g_signaled_str[] = {
 {0}
 };
 
+/**
+ * @brief	Set the exit code to the signal number + 128,
+ * 			and output the corresponding message on stderr.
+ * 			If an error occurs, an error message is output on stderr.
+ * 
+ * @param	status The raw status returned by waitpid().
+ * 
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ */
 inline static int	__signaled_suprocess(int const status)
 {
 	unsigned int	i;

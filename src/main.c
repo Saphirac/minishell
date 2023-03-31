@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 04:23:18 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 05:33:32 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ inline static void	__clear_shell(void)
 	token_lst_clear(&shell->tokens);
 	pid_lst_clear(&shell->pids);
 	ft_memdel(&shell->line);
-	ft_memdel(&shell->line_hd);
-	ft_memdel(&shell->stock_hd);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);

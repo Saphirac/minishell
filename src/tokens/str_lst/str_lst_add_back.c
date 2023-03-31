@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   str_lst_add_back.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 20:36:31 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 02:56:23 by jodufour         ###   ########.fr       */
+/*   Created: 2023/03/08 19:43:54 by mcourtoi          #+#    #+#             */
+/*   Updated: 2023/03/27 17:28:30 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "minishell.h"
 
-# include "minishell.h"
-
-typedef struct s_shell	t_shell;
-
-struct s_shell
+int	str_lst_add_back(t_str_lst *const list, char *const str, bool is_quoted)
 {
-	t_token_lst	tokens;
-	t_env_lst	env;
-	t_pid_lst	pids;
-	char		*line;
-	int			stdin_backup;
-	bool		is_pipeline;
-};
+	t_str *const	node = str_new(str, is_quoted);
 
-#endif
+	if (!node)
+		return (EXIT_FAILURE);
+	str_lst_push_back(list, node);
+	return (EXIT_SUCCESS);
+}

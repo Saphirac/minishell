@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:22:24 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 01:15:40 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:44:38 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ enum	e_token_type
 	T_COMMAND,
 	T_ARGUMENT,
 	T_DELIMITER,
+	T_DELIMITER_QUOTED,
 	T_UNDEFINED,
+	T_TO_SUPPR,
 };
 
 #endif

@@ -6,19 +6,21 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:23:46 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 18:24:03 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 06:38:26 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Append a node to the end of a pid list.
+ * @brief	Insert a node to the end of a pid list.
  * 
- * @param	list The list to append the node to.
- * @param	node The node to append to the list.
+ * @param	list The list to insert the node to.
+ * @param	node The node to insert.
+ * 
+ * @return	A pointer to the inserted node.
  */
-void	pid_lst_push_back(t_pid_lst *const list, t_pid *const node)
+t_pid	*pid_lst_push_back(t_pid_lst *const list, t_pid *const node)
 {
 	if (!list->size)
 		list->head = node;
@@ -29,4 +31,5 @@ void	pid_lst_push_back(t_pid_lst *const list, t_pid *const node)
 	}
 	list->tail = node;
 	++list->size;
+	return (node);
 }

@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/30 02:50:48 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/31 06:46:52 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ SRC					=							\
 		}										\
 	}											\
 	${addprefix env/,							\
-		${addprefix env_lst/,					\
+		${addprefix lst/,						\
 			env_lst_add_back.c					\
 			env_lst_add_front.c					\
 			env_lst_clear.c						\

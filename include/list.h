@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 06:15:31 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 06:39:46 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,20 +170,20 @@ void	pid_lst_clear(t_pid_lst *const list)
 		__attribute__((nonnull));
 void	pid_lst_del_one(t_pid_lst *const list, t_pid *const node)
 		__attribute__((nonnull));
-void	pid_lst_push_back(t_pid_lst *const list, t_pid *const node)
-		__attribute__((nonnull));
-void	pid_lst_push_front(t_pid_lst *const list, t_pid *const node)
-		__attribute__((nonnull));
 
-int		pid_lst_add_back(t_pid_lst *const list, int const pid)
-		__attribute__((nonnull));
-int		pid_lst_add_front(t_pid_lst *const list, int const pid)
-		__attribute__((nonnull));
 int		pid_lst_kill(t_pid_lst *const list, int const sig)
 		__attribute__((nonnull));
 int		pid_lst_wait(t_pid_lst const *const list)
 		__attribute__((nonnull));
 
+t_pid	*pid_lst_add_back(t_pid_lst *const list, int const pid)
+		__attribute__((nonnull));
+t_pid	*pid_lst_add_front(t_pid_lst *const list, int const pid)
+		__attribute__((nonnull));
+t_pid	*pid_lst_push_back(t_pid_lst *const list, t_pid *const node)
+		__attribute__((nonnull));
+t_pid	*pid_lst_push_front(t_pid_lst *const list, t_pid *const node)
+		__attribute__((nonnull));
 t_pid	*pid_new(int const pid);
 
 #endif

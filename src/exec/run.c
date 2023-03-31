@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 00:12:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/27 21:37:12 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 06:15:31 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ inline static int	__run_builtin(t_shell *const shell)
 {
 	unsigned int	i;
 
-	if (env_lst_add_back(&shell->env, "QUIET_EXIT", NULL))
+	if (!env_lst_add_back(&shell->env, "QUIET_EXIT", NULL))
 		return (internal_error("env_lst_add_back()"));
 	i = 0U;
 	while (ft_strcmp(shell->tokens.head->str, g_builtin[i].name))

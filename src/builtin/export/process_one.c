@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:44:32 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/30 02:59:27 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 06:15:22 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	process_one(t_env_lst *const env, char const *const str)
 		return (EXIT_SUCCESS);
 	}
 	(*ptr && ++ptr) || (ptr = NULL);
-	if (env_lst_add_back(env, id, ptr))
+	if (!env_lst_add_back(env, id, ptr))
 		return (free((void *)id), internal_error("export: env_lst_add_back()"));
 	return (free((void *)id), EXIT_SUCCESS);
 }

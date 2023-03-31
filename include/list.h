@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 06:39:46 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 07:13:30 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,26 +94,38 @@ void	token_lst_del_range(
 			t_token const *begin,
 			t_token const *const end)
 		__attribute__((nonnull (1)));
-void	token_lst_push_back(t_token_lst *const list, t_token *const node)
-		__attribute__((nonnull));
-void	token_lst_push_front(t_token_lst *const list, t_token *const node)
-		__attribute__((nonnull));
-int		token_lst_add_back(t_token_lst *const list, t_token_type const type,
-			char *const str)
-		__attribute__((nonnull));
-int		token_lst_add_front(t_token_lst *const list, t_token_type const type,
-			char *const str)
-		__attribute__((nonnull));
-int		token_lst_add_after(t_token_lst *const lst, t_token *const node,
-			t_token_type const type, char *const str)
-		__attribute__((nonnull));
 
 bool	token_lst_is_first_builtin(t_token_lst const *const list)
 		__attribute__((nonnull));
 
+t_token	*token_lst_add_back(
+			t_token_lst *const list,
+			t_token_type const type,
+			char *const str)
+		__attribute__((nonnull));
+t_token	*token_lst_add_front(
+			t_token_lst *const list,
+			t_token_type const type,
+			char *const str)
+		__attribute__((nonnull));
+t_token	*token_lst_add_after(
+			t_token_lst *const lst,
+			t_token *const prev,
+			t_token_type const type,
+			char *const str)
+		__attribute__((nonnull));
 t_token	*token_lst_find_first_by_type(
 			t_token_lst const *const list,
 			t_token_type const type)
+		__attribute__((nonnull));
+t_token	*token_lst_push_after(
+			t_token_lst *const list,
+			t_token *const prev,
+			t_token *const node)
+		__attribute__((nonnull));
+t_token	*token_lst_push_back(t_token_lst *const list, t_token *const node)
+		__attribute__((nonnull));
+t_token	*token_lst_push_front(t_token_lst *const list, t_token *const node)
 		__attribute__((nonnull));
 t_token	*token_new(t_token_type const type, char *const str);
 

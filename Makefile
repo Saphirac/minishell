@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/03/31 06:46:52 by jodufour         ###   ########.fr        #
+#    Updated: 2023/03/31 07:16:45 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,6 +125,7 @@ SRC					=							\
 			token_lst_del_range.c				\
 			token_lst_find_first_by_type.c		\
 			token_lst_is_first_builtin.c		\
+			token_lst_push_after.c				\
 			token_lst_push_back.c				\
 			token_lst_push_front.c				\
 			token_lst_to_string_array.c			\

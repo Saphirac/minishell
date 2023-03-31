@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   str_lst_push_front.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:38:52 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/14 16:09:03 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:09:56 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	str_lst_push_front(t_str_lst *const list, t_str *const node)
+t_str	*str_lst_push_front(t_str_lst *const list, t_str *const node)
 {
 	if (!list->size)
 		list->tail = node;
@@ -23,4 +23,5 @@ void	str_lst_push_front(t_str_lst *const list, t_str *const node)
 	}
 	list->head = node;
 	++list->size;
+	return (node);
 }

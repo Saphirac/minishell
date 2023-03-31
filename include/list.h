@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 07:13:30 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:13:07 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,15 +131,25 @@ t_token	*token_new(t_token_type const type, char *const str);
 
 /* functions for str list and str nodes */
 
-int		str_lst_add_back(t_str_lst *const list, char *const str,
-			bool is_quoted);
-int		str_lst_add_front(t_str_lst *const list, char *const str,
-			bool is_quoted);
 void	str_lst_clear(t_str_lst *const list);
 void	str_lst_del_one(t_str_lst *const list, t_str *const node);
-void	str_lst_push_back(t_str_lst *const list, t_str *const node);
-void	str_lst_push_front(t_str_lst *const list, t_str *const node);
-t_str	*str_new(char *const str, bool is_quoted);
+
+t_str	*str_lst_add_back(
+			t_str_lst *const list,
+			char *const str,
+			bool is_quoted)
+		__attribute__((nonnull));
+t_str	*str_lst_add_front(
+			t_str_lst *const list,
+			char *const str,
+			bool is_quoted)
+		__attribute__((nonnull));
+t_str	*str_lst_push_back(t_str_lst *const list, t_str *const node)
+		__attribute__((nonnull));
+t_str	*str_lst_push_front(t_str_lst *const list, t_str *const node)
+		__attribute__((nonnull));
+t_str	*str_new(char *const str, bool is_quoted)
+		__attribute__((nonnull));
 
 char	**token_lst_to_string_array(t_token_lst const *const list)
 		__attribute__((nonnull));
@@ -152,7 +162,6 @@ void	env_lst_del_one(t_env_lst *const list, t_env *const node)
 		__attribute__((nonnull));
 void	env_lst_print_assigned(t_env_lst const *const list)
 		__attribute__((nonnull));
-
 
 t_env	*env_lst_add_back(
 			t_env_lst *const list,

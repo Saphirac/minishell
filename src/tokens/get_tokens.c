@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:35:35 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 07:14:53 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:17:51 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	ft_add_operator(t_shell *shell, int *i, int *j)
 		return (EXIT_FAILURE);
 	if (!ft_strlen(tmp))
 		return (free(tmp), EXIT_SUCCESS);
-	if (token_lst_add_back(&(shell->tokens), T_OPERATOR,
-			tmp) == NULL)
+	if (token_lst_add_back(&(shell->tokens), T_OPERATOR, tmp) == NULL)
 		return (free(tmp), EXIT_FAILURE);
 	*j = -1;
 	return (free(tmp), EXIT_SUCCESS);

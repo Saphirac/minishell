@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:09:10 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/30 01:02:41 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/31 06:32:33 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Create a new env node.
+ * @brief	Allocate a new env node and initialize its attributes.
  * 
  * @param	name The `name` attribute of the new node. 
  * @param	value The `value` attribute of the new node. 

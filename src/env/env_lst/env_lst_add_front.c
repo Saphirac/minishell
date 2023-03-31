@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_add_front.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:32:40 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/11 02:29:37 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/31 06:31:30 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Create and prepend a new node to the beginning of an env list.
+ * @brief	Allocate a new env node, initialize its attributes,
+ * 			and insert it to the beginning of a pid list.
  * 
- * @param	list The list to prepend the new node to.
- * @param	name The `name` attribute of the new node. 
- * @param	value The `value` attribute of the new node. 
+ * @param	list The list to insert the new node to.
+ * @param	name The `name` attribute of the new node.
+ * @param	value The `value` attribute of the new node.
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	A pointer to the newly created and inserted node,
+ * 			or NULL if an error occured.
  */
-int	env_lst_add_front(
+t_env	*env_lst_add_front(
 	t_env_lst *const list,
 	char const *const name,
 	char const *const value)
@@ -29,7 +31,6 @@ int	env_lst_add_front(
 	t_env *const	node = env_new(name, value);
 
 	if (!node)
-		return (EXIT_FAILURE);
-	env_lst_push_front(list, node);
-	return (EXIT_SUCCESS);
+		return (NULL);
+	return (env_lst_push_front(list, node));
 }

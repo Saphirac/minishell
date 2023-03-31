@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 02:56:53 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 06:20:48 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 		ptr = ft_strchr(*ep, '=');
 		if (!ptr)
 		{
-			env_lst_clear(env);
-			return (EXIT_FAILURE);
+			if (!env_lst_add_back(env, *ep, NULL))
+				return (EXIT_FAILURE);
 		}
-		*ptr = 0;
-		++ptr;
-		if (env_lst_add_back(env, *ep, ptr))
+		else
 		{
-			env_lst_clear(env);
-			return (EXIT_FAILURE);
+			*ptr = 0;
+			++ptr;
+			if (!env_lst_add_back(env, *ep, ptr))
+				return (EXIT_FAILURE);
 		}
 		++ep;
 	}

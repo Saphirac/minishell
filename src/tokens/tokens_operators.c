@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_operators.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 01:48:49 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/27 21:41:07 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/31 07:15:09 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_get_operator(t_shell *shell, int *i, int j)
 		ret = ft_strndup((shell->line + j), (*i - j));
 		if (!ret)
 			return (NULL);
-		if (token_lst_add_back(&(shell->tokens), T_WORD, ret) == EXIT_FAILURE)
+		if (token_lst_add_back(&(shell->tokens), T_WORD, ret) == NULL)
 			return (NULL);
 		ft_memdel(&ret);
 	}

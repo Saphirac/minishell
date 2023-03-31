@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 23:08:53 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/30 19:34:48 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 06:41:30 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ inline static int	__subprocess(
 		return (internal_error("fork()"));
 	if (pid)
 	{
-		if (pid_lst_add_back(&shell->pids, pid))
+		if (!pid_lst_add_back(&shell->pids, pid))
 			return (internal_error("pid_lst_add_back()"));
 		return (EXIT_SUCCESS);
 	}

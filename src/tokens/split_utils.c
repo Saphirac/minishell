@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:48:05 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/27 21:50:34 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:19:40 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	add_split(t_token_lst *const token_lst,
 		tmp_str = ft_strdup(split[i]);
 		if (!tmp_str)
 			return (EXIT_FAILURE);
-		if (token_lst_add_after(token_lst, (*token),
-				T_ARGUMENT, tmp_str) == EXIT_FAILURE)
+		if (token_lst_add_after(token_lst, (*token), T_ARGUMENT, tmp_str)
+			== NULL)
 			return (free(tmp_str), EXIT_FAILURE);
 		free(tmp_str);
 		(*token) = (*token)->next;

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 20:29:22 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 16:23:07 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 05:16:17 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include "minishell.h"
 
 typedef struct s_builtin	t_builtin;
-typedef int					(*t_func)(t_env_lst *const, t_token const *const);
+typedef int					(*t_func0)(t_env_lst *const, t_token const *const);
 
 struct s_builtin
 {
 	char const *const	name;
-	t_func const		func;
+	t_func0 const		func;
 };
 
 int	builtin_cd(t_env_lst *const env, t_token const *token)

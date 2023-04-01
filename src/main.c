@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 06:20:48 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 00:33:48 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,18 @@ inline static void	__clear_shell(void)
 	close(STDERR_FILENO);
 }
 
-int	main(int const ac, char const *const *const av, char const *const *const ep)
+int	main(
+	int const ac,
+	char *const *const av __attribute__((unused)),
+	char const *const *const ep)
 {
 	t_shell *const	shell = __shell();
 
 	if (ac != 1)
-		return (usage_error(av[0]));
+	{
+		ft_putendl_fd("Error: invalid number of arguments", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	if (__init_env(&shell->env, ep))
 	{
 		ft_putendl_fd("Error: failed to initialize environment", STDERR_FILENO);

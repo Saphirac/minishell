@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:47 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/15 22:01:26 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 04:56:45 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,23 +92,21 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments. 
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
 int	builtin_export(t_env_lst *const env, t_token const *token)
 {
 	uint8_t	opt;
-	int		ret;
 
 	if (!token)
 		return (surprise());
 	if (__get_opt(&token, &opt))
 		return (invalid_option_error("export", token->str));
-	ret = EXIT_SUCCESS;
 	while (token)
 	{
 		if (process_one(env, token->str))
-			ret = EXIT_FAILURE;
+			return (EXIT_FAILURE);
 		token = token->next;
 	}
-	return (ret);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 17:39:49 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 05:07:45 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
 int	builtin_echo(
 	t_env_lst *const env __attribute__((unused)),
@@ -103,12 +103,12 @@ int	builtin_echo(
 	while (token)
 	{
 		if (printf("%s", token->str) < 0)
-			return (internal_error("echo: printf()"));
+			return (g_exit_code = 1U, internal_error("echo: printf()"));
 		token = token->next;
 		if (token && printf(" ") < 0)
-			return (internal_error("echo: printf()"));
+			return (g_exit_code = 1U, internal_error("echo: printf()"));
 	}
 	if (!(opt & 1 << OPT_N) && printf("\n") < 0)
-		return (internal_error("echo: printf()"));
-	return (EXIT_SUCCESS);
+		return (g_exit_code = 1U, internal_error("echo: printf()"));
+	return (g_exit_code = 0U, EXIT_SUCCESS);
 }

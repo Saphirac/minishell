@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/27 00:04:23 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 04:53:21 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	builtin_exit(t_env_lst *const env, t_token const *token)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (token)
 	{
-		str = ft_strtrim(token->str, " \t");
+		str = ft_strtrim(token->str, " \t\n");
 		if (!str)
 			return (internal_error("exit: ft_strtrim()"));
 		if (!__is_positive(str))
@@ -67,10 +67,7 @@ int	builtin_exit(t_env_lst *const env, t_token const *token)
 			exit(2);
 		}
 		if (token->next)
-		{
-			free(str);
-			return (too_many_arguments_error("exit"));
-		}
+			return (free(str), too_many_arguments_error("exit"));
 		g_exit_code = ft_atohhu(str);
 		free(str);
 	}

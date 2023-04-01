@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 02:55:12 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 04:28:06 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	signal_handle_interactive(void);
 void	signal_handle_non_interactive(void);
 
 // Tokens //
+
 int		ft_is_sep(char c);
 int		ft_is_op(char c);
 char	*ft_get_operator(t_shell *shell, int *i, int j);
@@ -81,6 +82,7 @@ int		append_to_ret(char **ret, char const *const tmp,
 void	final_classification(t_token_lst *token_lst, bool *is_pipeline);
 
 // Execution //
+
 int		execution(t_shell *const shell)
 		__attribute__((nonnull));
 int		redirections(t_token_lst *const tokens, int const fd)
@@ -89,6 +91,7 @@ int		run(t_shell *const shell)
 		__attribute__((nonnull));
 
 // Builtins //
+
 int		canonicalize(char *const curpath)
 		__attribute__((nonnull));
 int		surprise(void);
@@ -100,6 +103,7 @@ char	*raw_curpath(t_env_lst const *const env, char const *const dir)
 		__attribute__((nonnull));
 
 // Errors //
+
 int		command_not_found_error(char const *const cmd)
 		__attribute__((nonnull));
 int		home_not_set_error(char const *const str)
@@ -120,6 +124,7 @@ int		usage_error(char const *const prog_name)
 		__attribute__((nonnull));
 
 // Heredoc
+
 char	*stock_hd(t_shell *shell);
 void	signal_handle_heredoc(void);
 char	*get_hd(t_shell *shell, char *stop_signal);

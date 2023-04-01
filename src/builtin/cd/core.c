@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:04:44 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/31 06:14:23 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 04:42:48 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
  * 
  * @param	curpath The path that was given to chdir.
  * 
- * @return	Always EXIT_FAILURE.
+ * @return	Always EXIT_SUCCESS.
  */
 inline static int	__chdir_error(char const *const curpath)
 {
 	ft_dprintf(STDERR_FILENO, "cd: %s: %s\n", curpath, strerror(errno));
 	free((void *)curpath);
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -105,7 +105,7 @@ inline static int	__chdir_error(char const *const curpath)
  * @param	env The linked list containing the environment variables.
  * @param	dir The new working directory to go to.
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
 inline static int	__goto_specific_directory(
 	t_env_lst *const env,
@@ -115,20 +115,23 @@ inline static int	__goto_specific_directory(
 	t_env		*pwd;
 	t_env		*oldpwd;
 
-	if (!curpath || canonicalize(curpath))
-		return (free(curpath), EXIT_FAILURE);
+	if (!curpath)
+		return (g_exit_code = 1U, free(curpath), EXIT_FAILURE);
+	if (canonicalize(curpath))
+		return (g_exit_code = 1U, free(curpath), EXIT_SUCCESS);
 	if (chdir(curpath))
-		return (__chdir_error(curpath));
+		return (g_exit_code = 1U, __chdir_error(curpath));
 	pwd = env_lst_get_one(env, "PWD");
 	!pwd && (pwd = env_lst_add_back(env, "PWD", NULL));
 	oldpwd = env_lst_get_one(env, "OLDPWD");
 	!oldpwd && (oldpwd = env_lst_add_back(env, "OLDPWD", NULL));
 	if (!pwd || !oldpwd)
-		return (free(curpath), internal_error("cd: env_lst_add_back"));
+		return (g_exit_code = 1U, free(curpath),
+			internal_error("cd: env_lst_add_back"));
 	free((void *)oldpwd->value);
 	oldpwd->value = pwd->value;
 	pwd->value = curpath;
-	return (EXIT_SUCCESS);
+	return (g_exit_code = 0U, EXIT_SUCCESS);
 }
 
 /**
@@ -142,7 +145,7 @@ inline static int	__goto_specific_directory(
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
 int	builtin_cd(t_env_lst *const env, t_token const *token)
 {
@@ -150,15 +153,15 @@ int	builtin_cd(t_env_lst *const env, t_token const *token)
 	t_env	*node;
 
 	if (__get_opt(&token, &opt))
-		return (invalid_option_error("cd", token->str));
+		return (g_exit_code = 1U, invalid_option_error("cd", token->str));
 	if (token)
 	{
 		if (token->next)
-			return (too_many_arguments_error("cd"));
+			return (g_exit_code = 1U, too_many_arguments_error("cd"));
 		return (__goto_specific_directory(env, token->str));
 	}
 	node = env_lst_get_one(env, "HOME");
 	if (!node || !*node->value)
-		return (home_not_set_error("cd"));
+		return (g_exit_code = 1U, home_not_set_error("cd"));
 	return (__goto_specific_directory(env, node->value));
 }

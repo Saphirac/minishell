@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:44:32 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/31 06:15:22 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 04:58:07 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ inline static bool	__is_valid_identifier(char const **const ptr)
  * 
  * @param	id The invalid identifier.
  * 
- * @return	Always EXIT_FAILURE.
+ * @return	Always EXIT_SUCCESS.
  */
 inline static int	__invalid_identifier_error(char const *const id)
 {
 	ft_putstr_fd("export: `", STDERR_FILENO);
 	ft_putstr_fd(id, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -63,7 +63,7 @@ inline static int	__modify_ones_value(t_env *const node, char const *value)
 {
 	value = ft_strdup(value);
 	if (!value)
-		return (internal_error("export: ft_strdup()"), EXIT_FAILURE);
+		return (internal_error("export: ft_strdup()"));
 	free((void *)node->value);
 	node->value = value;
 	return (EXIT_SUCCESS);
@@ -77,7 +77,7 @@ inline static int	__modify_ones_value(t_env *const node, char const *value)
  * @param	str The variable to add/modify and its new value as a raw string,
  * 			formatted as "identifier=value".
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
 int	process_one(t_env_lst *const env, char const *const str)
 {

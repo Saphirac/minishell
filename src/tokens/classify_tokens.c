@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 05:28:05 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 02:07:54 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:08:51 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	classify_tokens(t_shell *shell)
 	if (!tmp || !tmp->str)
 		return (EXIT_ERROR);
 	if (tmp->str[0] == '|')
-		return (printf("syntax error.\n"),
+		return (printf("Syntax error.\n"),
 			EXIT_ERROR);
 	if (tmp->type == T_WORD)
 	{

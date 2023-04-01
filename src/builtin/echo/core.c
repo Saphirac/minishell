@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 17:39:49 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 03:30:36 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ int	builtin_echo(
 	__get_opt(&token, &opt);
 	while (token)
 	{
-		if (printf("%s", token->str) < 0)
-			return (internal_error("echo: printf()"));
+		if (write(STDOUT_FILENO, token->str, ft_strlen(token->str)) == -1)
+			return (internal_error("echo: write()"));
 		token = token->next;
-		if (token && printf(" ") < 0)
-			return (internal_error("echo: printf()"));
+		if (token && write(STDOUT_FILENO, " ", 1LU) == -1)
+			return (internal_error("echo: write()"));
 	}
-	if (!(opt & 1 << OPT_N) && printf("\n") < 0)
-		return (internal_error("echo: printf()"));
+	if (!(opt & 1 << OPT_N) && write(STDOUT_FILENO, "\n", 1LU) == -1)
+		return (internal_error("echo: write()"));
 	return (EXIT_SUCCESS);
 }

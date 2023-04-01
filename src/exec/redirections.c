@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:41:10 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/31 05:15:00 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 03:16:27 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ static inline int	__redirect_stdout_to_file_in_append_mode(
 {
 	int	fd;
 
-	if (access(str, F_OK) || access(str, W_OK))
+	if (!access(str, F_OK) && access(str, W_OK))
 		return (perror(str), EXIT_FAILURE);
 	fd = open(str, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)

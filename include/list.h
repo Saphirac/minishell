@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/01 00:36:12 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 01:03:21 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,6 @@ struct s_pid
 /* functions for token list and token nodes */
 
 void	token_lst_clear(t_token_lst *const list)
-		__attribute__((nonnull));
-
-bool	token_lst_is_first_builtin(t_token_lst const *const list)
 		__attribute__((nonnull));
 
 t_token	*token_lst_add_back(

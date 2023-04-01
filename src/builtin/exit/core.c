@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 04:53:21 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:09:35 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
  */
 inline static bool	__is_positive(char const *str)
 {
+	while (ft_isspace(*str))
+		++str;
 	if (*str == '+')
 		++str;
 	while (*str)
@@ -50,26 +52,17 @@ inline static bool	__is_positive(char const *str)
  */
 int	builtin_exit(t_env_lst *const env, t_token const *token)
 {
-	char	*str;
-
 	if (!env_lst_get_one(env, "QUIET_EXIT"))
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-	if (token)
+	if (!token)
+		exit(g_exit_code);
+	if (!__is_positive(token->str))
 	{
-		str = ft_strtrim(token->str, " \t\n");
-		if (!str)
-			return (internal_error("exit: ft_strtrim()"));
-		if (!__is_positive(str))
-		{
-			ft_dprintf(STDERR_FILENO, "exit: %s: numeric argument required\n",
-				str);
-			free(str);
-			exit(2);
-		}
-		if (token->next)
-			return (free(str), too_many_arguments_error("exit"));
-		g_exit_code = ft_atohhu(str);
-		free(str);
+		ft_dprintf(STDERR_FILENO, "exit: %s: numeric argument required\n",
+			token->str);
+		exit(2);
 	}
-	exit(g_exit_code);
+	if (token->next)
+		return (g_exit_code = 1U, too_many_arguments_error("exit"));
+	exit(ft_atohhu(token->str));
 }

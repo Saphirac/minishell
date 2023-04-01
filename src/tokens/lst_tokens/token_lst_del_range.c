@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 01:51:11 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/26 01:44:01 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/03/31 03:49:28 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
  * @param	list The list to remove the range from.
  * @param	begin The first node of the range to remove.
  * @param	end The post-last node of the range to remove.
+ * 
+ * @return	The given `end` node.
  */
-void	token_lst_del_range(
+t_token	*token_lst_del_range(
 	t_token_lst *const list,
 	t_token const *begin,
 	t_token const *const end)
@@ -37,4 +39,5 @@ void	token_lst_del_range(
 		token_lst_del_one(list, begin);
 		begin = next;
 	}
+	return ((t_token *)end);
 }

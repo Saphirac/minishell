@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/01 18:44:25 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:51:18 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ int		too_many_arguments_error(char const *const str)
 		__attribute__((nonnull));
 
 // Heredoc
-char	*stock_hd(t_shell *shell);
+int		stock_hd(char *line, char **ret);
 void	signal_handle_heredoc(void);
-char	*get_hd(t_shell *shell, char *stop_signal);
+int		get_hd(t_token *token);
 
 #endif

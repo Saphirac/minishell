@@ -3,44 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:32:38 by maparigi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:04:40 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:51:47 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-
 #include "minishell.h"
 
-// static int	czeck_hd(char *str)
-// {
-// 	char	hd[2] = "<<";
-
-// 	if (ft_strncmp(str, hd, 2) == 0)
-// 		return (1);
-// 	return (0);
-// }
-
-char	*get_hd(t_shell *shell, char *stop_signal)
+int	get_hd(t_token *token)
 {	
-	shell->line_hd = readline("> ");
-	if (!shell->line_hd)
-	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		exit(EXIT_FAILURE);
-	}
-	while (shell->line_hd && ft_strncmp(shell->line_hd,
-			stop_signal, ft_strlen(shell->line_hd)))
-	{
-		//signal_handle_heredoc();
-		shell->stock_hd = stock_hd(shell);
-		free(shell->line_hd);
-		shell->line_hd = readline("> ");
-	}
-	free(shell->line_hd);
-	return (shell->stock_hd);
-}
+	char	*ret;
+	char	*line;
 
-*/
+	line = readline("> ");
+	if (!line)
+		return (write(STDOUT_FILENO, "exit\n", 5), EXIT_FAILURE);
+	while (line && ft_strcmp(line, token->str))
+	{
+		if (!stock_hd(line, &ret))
+			return (free(line), EXIT_FAILURE);
+		free(line);
+		line = readline("> ");
+	}
+	if (token->type != T_DELIMITER_QUOTED)
+		if (expand_heredoc(&ret) == EXIT_FAILURE)
+			return (free(line), EXIT_FAILURE);
+	free(token->str);
+	token->str = ret;
+	return (free(line), EXIT_SUCCESS);
+}

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:01 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 20:02:15 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:07:35 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ int	builtin_pwd(
 		return (g_exit_code = 1U, internal_error("pwd: getcwd()"));
 	if (printf("%s\n", cwd) < 0)
 		return (g_exit_code = 1U, free(cwd), internal_error("pwd: printf()"));
-	return (g_exit_code = 0U, free(cwd), EXIT_SUCCESS);
+	return (free(cwd), EXIT_SUCCESS);
 }

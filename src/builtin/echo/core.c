@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 20:23:09 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:06:58 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,5 @@ int	builtin_echo(
 	}
 	if (!(opt & 1 << OPT_N) && write(STDOUT_FILENO, "\n", 1LU) == -1)
 		return (g_exit_code = 1U, internal_error("echo: write()"));
-	return (g_exit_code = 0U, EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

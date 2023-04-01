@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/01 20:21:52 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/01 21:39:24 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ void	final_classification(t_token_lst *token_lst, bool *is_pipeline);
 
 int		execution(t_shell *const shell)
 		__attribute__((nonnull));
-int		redirections(t_token_lst *const tokens, int const fd)
+int		file_redirections(t_token_lst *const tokens)
 		__attribute__((nonnull));
+int		pipe_redirection(int const pd);
 int		run(t_shell *const shell)
 		__attribute__((nonnull));
 

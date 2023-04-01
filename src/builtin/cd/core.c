@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:04:44 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 04:42:48 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:06:50 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ inline static int	__goto_specific_directory(
 	free((void *)oldpwd->value);
 	oldpwd->value = pwd->value;
 	pwd->value = curpath;
-	return (g_exit_code = 0U, EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 /**

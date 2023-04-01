@@ -6,18 +6,11 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/31 00:41:51 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:05:38 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-inline static void	__make_tests(t_shell *const shell)
-{
-	print_tokens(&shell->tokens);
-	if (execution(shell))
-		exit(EXIT_FAILURE);
-}
 
 /**
  * @brief	Display the prompt and get the user input.
@@ -45,7 +38,8 @@ void	prompt(t_shell *const shell)
 		if (exit_code == EXIT_SUCCESS)
 		{
 			final_classification(&shell->tokens, &shell->is_pipeline);
-			__make_tests(shell);
+			if (execution(shell))
+				exit(EXIT_FAILURE);
 		}
 	}
 	token_lst_clear(&shell->tokens);

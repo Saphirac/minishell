@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:34:59 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 18:49:36 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:07:06 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,5 @@ int	builtin_env(t_env_lst *const env, t_token const *token)
 	if (token)
 		return (g_exit_code = 1U, too_many_arguments_error("env"));
 	env_lst_print_assigned(env);
-	return (g_exit_code = 0U, EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

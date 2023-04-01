@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:19 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 20:03:55 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:07:44 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,5 @@ int	builtin_unset(t_env_lst *const env, t_token const *token)
 			env_lst_del_one(env, node);
 		token = token->next;
 	}
-	return (g_exit_code = 0U, EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

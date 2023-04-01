@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:47 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 19:48:39 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:07:25 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	builtin_export(t_env_lst *const env, t_token const *token)
 	bool	is_ok;
 
 	if (!token)
-		return (g_exit_code = 0U, surprise());
+		return (surprise());
 	if (__get_opt(&token, &opt))
 		return (g_exit_code = 2U, invalid_option_error("export", token->str));
 	is_ok = true;
@@ -112,5 +112,5 @@ int	builtin_export(t_env_lst *const env, t_token const *token)
 	}
 	if (!is_ok)
 		return (g_exit_code = 1U, EXIT_SUCCESS);
-	return (g_exit_code = 0U, EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

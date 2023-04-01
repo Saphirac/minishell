@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/04/01 01:03:46 by jodufour         ###   ########.fr        #
+#    Updated: 2023/04/01 21:38:37 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,8 @@ SRC					=							\
 			}									\
 		}										\
 		core.c									\
-		redirections.c							\
+		file_redirections.c						\
+		pipe_redirection.c						\
 		run.c									\
 	}											\
 	${addprefix here_doc/,						\

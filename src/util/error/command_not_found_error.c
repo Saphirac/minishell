@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 05:13:29 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/26 06:47:42 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 03:58:43 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * @brief	Output an error message related to a command
- * 			which has not been found.
+ * 			which has not been found. Also set the exit status accordingly.
  * 
  * @param	cmd The name of the command which has not been found.
  * 
@@ -22,6 +22,7 @@
  */
 int	command_not_found_error(char const *const cmd)
 {
-	ft_dprintf(STDERR_FILENO, "%s: command not found\n", cmd);
-	return (EXIT_FAILURE);
+	g_exit_code = 127U;
+	return (ft_dprintf(STDERR_FILENO, "%s: command not found\n", cmd),
+		EXIT_FAILURE);
 }

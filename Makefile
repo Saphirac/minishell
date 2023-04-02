@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/04/01 21:38:37 by jodufour         ###   ########.fr        #
+#    Updated: 2023/04/02 03:57:13 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -160,8 +160,11 @@ SRC					=							\
 			home_not_set_error.c				\
 			internal_error.c					\
 			invalid_option_error.c				\
+			is_a_directory_error.c				\
 			no_such_file_or_directory_error.c	\
+			not_a_directory_error.c				\
 			permission_denied_error.c			\
+			syntax_error.c						\
 			too_many_arguments_error.c			\
 		}										\
 		is_directory.c							\

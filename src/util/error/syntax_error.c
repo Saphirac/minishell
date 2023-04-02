@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   invalid_option_error.c                             :+:      :+:    :+:   */
+/*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 02:28:09 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 03:22:25 by jodufour         ###   ########.fr       */
+/*   Created: 2023/04/02 03:52:52 by jodufour          #+#    #+#             */
+/*   Updated: 2023/04/02 03:56:56 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Output an invalid option error message.
+ * @brief	Output a syntax error message.
+ * 			Also set the exit status accordingly.
  * 
- * @param	str The details to output before the invalid option error message.
- * @param	opt The invalid option.
+ * @param	str The details to output before the error message.
  * 
- * @return	Always EXIT_SUCCESS.
+ * @return	Always EXIT_ERROR.
  */
-int	invalid_option_error(char const *const str, char const *const opt)
+int	syntax_error(char const *const str)
 {
-	return (ft_dprintf(STDERR_FILENO, "%s: %s: invalid option\n", str, opt),
-		EXIT_SUCCESS);
+	g_exit_code = 2U;
+	if (str)
+		return (ft_dprintf(STDERR_FILENO, "%s: Syntax error\n", str),
+			EXIT_ERROR);
+	return (ft_dprintf(STDERR_FILENO, "Syntax error\n"), EXIT_ERROR);
 }

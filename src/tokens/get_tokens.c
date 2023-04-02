@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:35:35 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 21:17:51 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 03:56:22 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_add_quotes(t_shell *shell, int *i, int *j)
 	while (shell->line[*i] && shell->line[*i] != type)
 		++*i;
 	if (shell->line[*i] != type)
-		return (printf("Syntax error.\n"), EXIT_ERROR);
+		return (syntax_error(NULL));
 	++*i;
 	if (shell->line[*i] == '\0' || shell->line[*i] == ' '
 		|| ft_is_op(shell->line[*i]) == 0)

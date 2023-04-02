@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:04:44 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 00:06:50 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 04:03:47 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int	builtin_cd(t_env_lst *const env, t_token const *token)
 	if (token)
 	{
 		if (token->next)
-			return (g_exit_code = 1U, too_many_arguments_error("cd"));
+			return (too_many_arguments_error("cd"));
 		return (__goto_specific_directory(env, token->str));
 	}
 	node = env_lst_get_one(env, "HOME");

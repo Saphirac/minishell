@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:27:35 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/24 22:10:31 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 03:22:12 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
  */
 int	internal_error(char const *const str)
 {
-	ft_dprintf(STDERR_FILENO, "%s: %s\n", str, strerror(errno));
-	return (EXIT_FAILURE);
+	return (ft_dprintf(STDERR_FILENO, "%s: %s\n", str, strerror(errno)),
+		EXIT_FAILURE);
 }

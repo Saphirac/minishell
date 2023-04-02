@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 02:28:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 04:27:05 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 03:21:56 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@
  */
 int	home_not_set_error(char const *const str)
 {
-	ft_dprintf(STDERR_FILENO, "%s: HOME not set\n", str);
-	return (EXIT_SUCCESS);
+	return (ft_dprintf(STDERR_FILENO, "%s: HOME not set\n", str), EXIT_SUCCESS);
 }

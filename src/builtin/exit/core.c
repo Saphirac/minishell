@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 19:09:35 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 04:04:19 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int	builtin_exit(t_env_lst *const env, t_token const *token)
 		exit(2);
 	}
 	if (token->next)
-		return (g_exit_code = 1U, too_many_arguments_error("exit"));
+		return (too_many_arguments_error("exit"));
 	exit(ft_atohhu(token->str));
 }

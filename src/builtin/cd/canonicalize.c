@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 17:36:17 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/23 01:51:00 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 03:33:56 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ inline static int	__remove_trailing_dot_dot_component(
 	if (curpath < *end)
 	{
 		(*end)[1] = 0;
-		if (!is_directory(curpath))
+		if (access(curpath, F_OK))
 			return (no_such_file_or_directory_error("cd", curpath));
+		if (!is_directory(curpath))
+			return (not_a_directory_error("cd", curpath));
 		while (*end > curpath && **end != '/')
 			--*end;
 	}
@@ -100,11 +102,10 @@ inline static int	__remove_trailing_dot_dot_component(
  */
 inline static int	__remove_dot_dot_components(
 	char *const curpath,
-	char **const end)
+	char **const end,
+	char *ptr0,
+	char *ptr1)
 {
-	char	*ptr0;
-	char	*ptr1;
-
 	ptr0 = ft_strstr(curpath, "/../");
 	while (ptr0)
 	{
@@ -116,8 +117,10 @@ inline static int	__remove_dot_dot_components(
 		if (ptr1 < ptr0)
 		{
 			*ptr0 = 0;
-			if (!is_directory(curpath))
+			if (access(curpath, F_OK))
 				return (no_such_file_or_directory_error("cd", curpath));
+			if (!is_directory(curpath))
+				return (not_a_directory_error("cd", curpath));
 		}
 		ptr0 += 3;
 		while (*ptr0 == '/')
@@ -179,7 +182,7 @@ int	canonicalize(char *const curpath)
 
 	end = curpath + ft_strlen(curpath) + 1;
 	__remove_dot_components(curpath, &end);
-	if (__remove_dot_dot_components(curpath, &end))
+	if (__remove_dot_dot_components(curpath, &end, NULL, NULL))
 		return (EXIT_FAILURE);
 	__remove_unnecessary_slash_characters(curpath, &end);
 	return (EXIT_SUCCESS);

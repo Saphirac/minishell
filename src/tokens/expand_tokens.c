@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 19:43:53 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/29 17:54:38 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:40:24 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,24 @@ static inline bool	__need_to_expand(char *str)
 		i++;
 	}
 	return (false);
+}
+
+inline static void	__need_to_delete(t_token *token, t_str_lst *str)
+{
+	t_token_type	tmp;
+
+	tmp = token->type;
+	if (str->size == 1 && !str->head->is_quoted && !*str->head->str)
+	{
+		token->type = T_TO_SUPPR;
+		if (tmp == T_COMMAND)
+		{
+			while (token && token->type != T_PIPE && token->type != T_ARGUMENT)
+				token = token->next;
+			if (token && token->type == T_ARGUMENT)
+				token->type = T_COMMAND;
+		}
+	}
 }
 
 inline static void	__clean_final_lst(t_token_lst *token_lst)
@@ -58,6 +76,7 @@ int	final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst)
 				return (str_lst_clear(&str), EXIT_FAILURE);
 			if (add_str_to_tokens(token_lst, &tmp, &str) == EXIT_FAILURE)
 				return (str_lst_clear(&str), EXIT_FAILURE);
+			__need_to_delete(tmp, &str);
 			str_lst_clear(&str);
 		}
 		tmp = tmp->next;

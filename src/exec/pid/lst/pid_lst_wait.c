@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 01:56:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/31 00:23:58 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 00:50:28 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,24 @@ inline static int	__signaled_suprocess(int const status)
 }
 
 /**
- * @brief	Wait for all the processe ids contained in the given pid list.
+ * @brief	Wait for all the processe ids contained in the given pid list,
+ * 			and clear it at the same time. The exit code is set to the
+ * 			exit code of the last process waited.
  * 			If an error occurs, an error message is output on stderr.
  * 
  * @param	list The list to wait processe ids from.
  * 
  * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
  */
-int	pid_lst_wait(t_pid_lst const *const list)
+int	pid_lst_wait(t_pid_lst *const list)
 {
-	t_pid const	*node = list->head;
-	int			status;
+	int	status;
 
-	while (node)
+	while (list->size)
 	{
-		if (waitpid(node->pid, &status, 0) == -1)
-			return (internal_error("waitpid()"));
-		node = node->next;
+		if (waitpid(list->head->pid, &status, 0) == -1)
+			return (g_exit_code = 1U, internal_error("waitpid()"));
+		pid_lst_del_one(list, list->head);
 	}
 	if (WIFEXITED(status))
 		g_exit_code = (uint8_t)WEXITSTATUS(status);

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 00:12:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 04:01:12 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 00:36:57 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ inline static int	__run_command(t_shell *const shell)
 	token_lst_clear(&shell->tokens);
 	env_lst_clear(&shell->env);
 	execve(av[0], av, ep);
-	return (internal_error("execve()"));
+	return (free((void *)av), free((void *)ep), internal_error("execve()"));
 }
 
 /**

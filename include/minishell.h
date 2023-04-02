@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 05:04:02 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 01:21:23 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int		execution(t_shell *const shell)
 int		file_redirections(t_token_lst *const tokens)
 		__attribute__((nonnull));
 int		pipe_redirection(int const pd);
+int		pipeline(t_shell *const shell, t_token const *node)
+		__attribute__((nonnull (1)));
 int		run(t_shell *const shell)
 		__attribute__((nonnull));
 

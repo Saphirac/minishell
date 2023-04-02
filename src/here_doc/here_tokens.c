@@ -12,36 +12,34 @@
 
 #include "minishell.h"
 
-char	*get_eof(char *ret)
+static inline char	*__strjoin_hd(
+	char const *const a,
+	char const *const b,
+	char const *const c)
 {
-	char	*tmp_ptr;
+	size_t const	len_a = ft_strlen(a);
+	size_t const	len_b = ft_strlen(b);
+	size_t const	len_c = ft_strlen(c) + 1;
+	char *const		ret = malloc(sizeof(char) * (len_a + len_b + len_c));
 
-	tmp_ptr = ret;
-	ret = ft_strjoin(ret, "\n");
 	if (!ret)
-		return (free(tmp_ptr), NULL);
-	return (free(tmp_ptr), ret);
+		return (NULL);
+	ft_memcpy(ret, a, len_a);
+	ft_memcpy(ret + len_a, b, len_b);
+	ft_memcpy(ret + len_a + len_b, c, len_c);
+	return (ret);
 }
 
-int	stock_hd(char *line, char **ret)
+int	stock_hd(char const *const line, char **const ret)
 {
 	char	*tmp_ptr;
-	if (!*ret)
-	{
-		*ret = ft_strdup(line);
-		if (!*ret)
-			return (EXIT_FAILURE);
-	}
+
+	tmp_ptr = *ret;
+	if (!**ret)
+		*ret = ft_strjoin(line, "\n");
 	else
-	{
-		tmp_ptr = *ret;
-		*ret = ft_strjoin(*ret, line);
-		if (!*ret)
-			return (free(tmp_ptr), EXIT_FAILURE);
-		free(tmp_ptr);
-	}
-	ret = get_eof(ret);
-	if (!ret)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		*ret = __strjoin_hd(*ret, line, "\n");
+	if (!*ret)
+		return (*ret = tmp_ptr, EXIT_FAILURE);
+	return (free(tmp_ptr), EXIT_SUCCESS);
 }

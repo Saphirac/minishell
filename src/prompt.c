@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 18:44:19 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/02 02:21:02 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void	prompt(t_shell *const shell)
 		if (exit_code == EXIT_SUCCESS)
 		{
 			final_classification(&shell->tokens, &shell->is_pipeline);
-			__make_tests(shell);
+			exit_code = do_here_doc(&shell->tokens, &shell->env);
+			if (exit_code == EXIT_SUCCESS)
+				__make_tests(shell);
 		}
 	}
 	token_lst_clear(&shell->tokens);

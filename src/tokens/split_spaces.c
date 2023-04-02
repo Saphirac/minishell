@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:50:26 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/01 00:07:22 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/02 03:00:54 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	split_is_null(t_token_lst *const token_lst,
 	{
 		if (tmp->next)
 		{
-			if (token_lst_add_after(token_lst, (*token), T_ARGUMENT, ""))
+			if (!token_lst_add_after(token_lst, (*token), T_ARGUMENT, ""))
 				return (EXIT_FAILURE);
 			(*token) = (*token)->next;
 		}
@@ -42,7 +42,7 @@ int	add_spaces(t_token_lst *const token_lst, t_token **token,
 	{
 		if (tmp->next && *(*token)->str)
 		{
-			if (token_lst_add_after(token_lst, (*token), T_ARGUMENT, ""))
+			if (!token_lst_add_after(token_lst, (*token), T_ARGUMENT, ""))
 				return (free(split), EXIT_FAILURE);
 			(*token) = (*token)->next;
 		}
@@ -69,7 +69,7 @@ int	add_spaces_new_token(t_token_lst *const token_lst,
 	{
 		if (tmp->next && ft_strlen((*token)->str))
 		{
-			if (token_lst_add_after(token_lst, (*token), T_ARGUMENT, ""))
+			if (!token_lst_add_after(token_lst, (*token), T_ARGUMENT, ""))
 				return (free(split), EXIT_FAILURE);
 			(*token) = (*token)->next;
 		}

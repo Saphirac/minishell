@@ -11,62 +11,35 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-char	*ft_strjoin_hd(char const *s1, char const *s2)
-{
-	char	*dest;
-	size_t	ma;
-	size_t	i;
-	size_t	j;
 
-	if (!s1 || !s2)
+static inline char	*__strjoin_hd(
+	char const *const a,
+	char const *const b,
+	char const *const c)
+{
+	size_t const	len_a = ft_strlen(a);
+	size_t const	len_b = ft_strlen(b);
+	size_t const	len_c = ft_strlen(c) + 1;
+	char *const		ret = malloc(sizeof(char) * (len_a + len_b + len_c));
+
+	if (!ret)
 		return (NULL);
-	ma = ft_strlen(s1) + ft_strlen(s2) + 1;
-	dest = malloc(sizeof(char) * (ma + 1));
-	if (!dest)
-		return (NULL);
-	i = -1;
-	while (s1[++i])
-		dest[i] = s1[i];
-	j = -1;
-	while (s2[++j])
-		dest[i++] = s2[j];
-	dest[i] = '\n';
-	dest[i + 1] = '\0';
-	return (dest);
+	ft_memcpy(ret, a, len_a);
+	ft_memcpy(ret + len_a, b, len_b);
+	ft_memcpy(ret + len_a + len_b, c, len_c);
+	return (ret);
 }
 
-char	*ft_strdup_hd(const char *s)
+int	stock_hd(char const *const line, char **const ret)
 {
-	size_t	i;
-	char	*cpy;
+	char	*tmp_ptr;
 
-	cpy = malloc(sizeof(const char) * (ft_strlen(s) + 2));
-	if (!cpy)
-		return (NULL);
-	i = -1;
-	while (s[++i])
-		cpy[i] = ((char *)s)[i];
-	cpy[i] = '\n';
-	cpy[i + 1] = '\0';
-	return (cpy);
+	tmp_ptr = *ret;
+	if (!**ret)
+		*ret = ft_strjoin(line, "\n");
+	else
+		*ret = __strjoin_hd(*ret, line, "\n");
+	if (!*ret)
+		return (*ret = tmp_ptr, EXIT_FAILURE);
+	return (free(tmp_ptr), EXIT_SUCCESS);
 }
-
-char	*stock_hd(t_shell *shell)
-{
-	if (!shell->stock_hd && shell->line_hd)
-	{
-		shell->stock_hd = ft_strdup_hd(shell->line_hd);
-		if (!shell->stock_hd)
-			return (NULL);
-		return (shell->stock_hd);
-	}
-	else if (shell->stock_hd && shell->line_hd)
-	{
-		shell->stock_hd = ft_strjoin_hd(shell->stock_hd, shell->line_hd);
-		if (!shell->stock_hd)
-			return (NULL);
-		return (shell->stock_hd);
-	}
-	return (NULL);
-}*/

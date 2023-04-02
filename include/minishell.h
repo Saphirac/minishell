@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/01 18:44:25 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/02 03:26:41 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ int		strdup_or_join(t_token *const *const token,
 int		add_split(t_token_lst *const token_lst,
 			t_token **const token, char **split, int i);
 int		append_to_ret(char **ret, char const *const tmp,
-			t_str *str, t_tmp_i_start *i);
+			char *str, t_tmp_i_start *i);
 void	final_classification(t_token_lst *token_lst, bool *is_pipeline);
+int		search_env(t_env_lst *env, char **str);
 
 // Execution //
 int		execution(t_shell *const shell)
@@ -121,8 +122,8 @@ int		too_many_arguments_error(char const *const str)
 		__attribute__((nonnull));
 
 // Heredoc
-char	*stock_hd(t_shell *shell);
+int		stock_hd(char const *const line, char **const ret);
 void	signal_handle_heredoc(void);
-char	*get_hd(t_shell *shell, char *stop_signal);
+int		do_here_doc(t_token_lst *token_lst, t_env_lst *env);
 
 #endif

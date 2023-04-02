@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:56:16 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/29 02:33:03 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/02 04:37:36 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ Check if name between that corresponds to an env value
 If true, copy the value 
 else return a NULL chain */
 
-int	append_if_exit_code(char **ret, t_str *str, t_tmp_i_start *i)
+inline static int	__append_if_exit_code(
+	char **ret,
+	char *str,
+	t_tmp_i_start *i)
 {
 	char	*tmp;
 
@@ -31,22 +34,26 @@ int	append_if_exit_code(char **ret, t_str *str, t_tmp_i_start *i)
 	return (free(tmp), EXIT_SUCCESS);
 }
 
-int	ft_get_dollars(t_env_lst *env, t_str *str, char **ret, t_tmp_i_start *i)
+inline static int	__ft_get_dollars(
+	t_env_lst *env,
+	char *str,
+	char **ret,
+	t_tmp_i_start *i)
 {
 	t_env	*tmp_env;
 	char	c;
 
 	++i->i;
 	i->start = i->i;
-	while (str->str[i->i] && (ft_isalnum(str->str[i->i]) == true
-			|| str->str[i->i] == '_'))
+	while (str[i->i] && (ft_isalnum(str[i->i]) == true
+			|| str[i->i] == '_'))
 		++i->i;
-	c = str->str[i->i];
-	str->str[i->i] = 0;
-	if (c == '?' && str->str[i->i - 1] == '$')
-		return (append_if_exit_code(ret, str, i));
-	tmp_env = env_lst_get_one(env, str->str + i->start);
-	str->str[i->i] = c;
+	c = str[i->i];
+	str[i->i] = 0;
+	if (c == '?' && str[i->i - 1] == '$')
+		return (__append_if_exit_code(ret, str, i));
+	tmp_env = env_lst_get_one(env, str + i->start);
+	str[i->i] = c;
 	if (tmp_env && append_to_ret(ret, tmp_env->value, str, i) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -58,40 +65,40 @@ Then check if the name after the dollar is correct
 Append correct value if exists in the env 
 Else append NULL 
 Copy or append everything even the dollar if next character not correct */
-int	search_env_process_one(t_env_lst *env, t_str *str,
+inline static int	__search_env_process_one(t_env_lst *env, char *str,
 		t_tmp_i_start *i, char **ret)
 {
 	i->start = i->i;
-	while (str->str[i->i] && str->str[i->i] != '$')
+	while (str[i->i] && str[i->i] != '$')
 		++i->i;
-	if (str->str[i->i] == '\0')
+	if (str[i->i] == '\0')
 		return (append_to_ret(ret, NULL, str, i));
-	else if (str->str[i->i + 1] == '\0'
-		|| (ft_isalnum(str->str[i->i + 1]) == false
-			&& str->str[i->i + 1] != '_' && str->str[i->i + 1] != '?'))
+	else if (str[i->i + 1] == '\0'
+		|| (ft_isalnum(str[i->i + 1]) == false
+			&& str[i->i + 1] != '_' && str[i->i + 1] != '?'))
 	{
 		++i->i;
 		return (append_to_ret(ret, NULL, str, i));
 	}
 	else if (append_to_ret(ret, NULL, str, i) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	else if (ft_get_dollars(env, str, ret, i) == EXIT_FAILURE)
+	else if (__ft_get_dollars(env, str, ret, i) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int	search_env(t_env_lst *env, t_str *str)
+int	search_env(t_env_lst *env, char **str)
 {
 	char			*ret;
 	t_tmp_i_start	i;
 
 	i.i = 0;
 	ret = NULL;
-	while (str->str[i.i])
-		if (search_env_process_one(env, str, &i, &ret) == EXIT_FAILURE)
+	while ((*str)[i.i])
+		if (__search_env_process_one(env, *str, &i, &ret) == EXIT_FAILURE)
 			return (ft_memdel(&ret), EXIT_FAILURE);
-	free(str->str);
-	str->str = ret;
+	free(*str);
+	*str = ret;
 	return (EXIT_SUCCESS);
 }
 
@@ -118,7 +125,7 @@ int	expand_dollars_str_lst(t_env_lst *env_lst,
 			while (tmp->str[i] && tmp->str[i] != '$')
 				i++;
 			if (tmp->str[i] == '$')
-				if (search_env(env_lst, tmp) == EXIT_FAILURE)
+				if (search_env(env_lst, &tmp->str) == EXIT_FAILURE)
 					return (EXIT_FAILURE);
 		}
 		tmp = tmp->next;

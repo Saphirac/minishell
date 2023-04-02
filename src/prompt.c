@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 04:06:09 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 05:05:49 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	prompt(t_shell *const shell)
 		if (exit_code == EXIT_SUCCESS)
 		{
 			final_classification(&shell->tokens, &shell->is_pipeline);
-			if (execution(shell))
+			exit_code = do_here_doc(&shell->tokens, &shell->env);
+			if (exit_code == EXIT_SUCCESS && execution(shell))
 				exit(EXIT_FAILURE);
 		}
 	}

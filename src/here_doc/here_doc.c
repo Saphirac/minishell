@@ -3,44 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:32:38 by maparigi          #+#    #+#             */
-/*   Updated: 2023/03/10 20:04:40 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 04:50:58 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-
 #include "minishell.h"
 
-// static int	czeck_hd(char *str)
-// {
-// 	char	hd[2] = "<<";
+inline static int	__expand_hd(t_env_lst *env, char **ret)
+{
+	int	i;
 
-// 	if (ft_strncmp(str, hd, 2) == 0)
-// 		return (1);
-// 	return (0);
-// }
-
-char	*get_hd(t_shell *shell, char *stop_signal)
-{	
-	shell->line_hd = readline("> ");
-	if (!shell->line_hd)
+	i = 0;
+	while ((*ret)[i])
 	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		exit(EXIT_FAILURE);
+		if ((*ret)[i] == '$')
+			return (search_env(env, ret));
+		i++;
 	}
-	while (shell->line_hd && ft_strncmp(shell->line_hd,
-			stop_signal, ft_strlen(shell->line_hd)))
-	{
-		//signal_handle_heredoc();
-		shell->stock_hd = stock_hd(shell);
-		free(shell->line_hd);
-		shell->line_hd = readline("> ");
-	}
-	free(shell->line_hd);
-	return (shell->stock_hd);
+	return (EXIT_SUCCESS);
 }
 
-*/
+inline static int	__get_hd(t_token *token, t_env_lst *env)
+{
+	char	*ret;
+	char	*line;
+
+	ret = ft_ctoa(0);
+	if (!ret)
+		return (EXIT_FAILURE);
+	line = readline("> ");
+	if (!line)
+		return (write(STDERR_FILENO, "Unexpected eof\n", 15), EXIT_FAILURE);
+	while (line && ft_strcmp(line, token->str))
+	{
+		if (stock_hd(line, &ret) == EXIT_FAILURE)
+			return (free(line), free(ret), EXIT_FAILURE);
+		free(line);
+		line = readline("> ");
+	}
+	if (!line)
+		return (free(ret),
+			write(STDERR_FILENO, "Unexpected eof\n", 15), EXIT_FAILURE);
+	free(line);
+	if (ret && token->type != T_DELIMITER_QUOTED)
+		if (__expand_hd(env, &ret) == EXIT_FAILURE)
+			return (free(ret), EXIT_FAILURE);
+	return (free(token->str), token->str = ret, EXIT_SUCCESS);
+}
+
+int	do_here_doc(t_token_lst *token_lst, t_env_lst *env)
+{
+	t_token	*tmp;
+
+	tmp = token_lst->head;
+	while (tmp)
+	{
+		if (tmp->type == T_DELIMITER || tmp->type == T_DELIMITER_QUOTED)
+			if (__get_hd(tmp, env) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		tmp = tmp->next;
+	}
+	return (EXIT_SUCCESS);
+}

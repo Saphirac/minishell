@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:41:10 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 00:03:39 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 04:27:15 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ int	file_redirections(t_token_lst *const tokens)
 			++i;
 		if (g_redirect[i].func)
 		{
+			if (!node->next || node->next->type != T_FILE)
+				return (ambiguous_redirect_error(NULL));
 			if (g_redirect[i].func(node->next->str))
 				return (EXIT_FAILURE);
 			if (g_exit_code)

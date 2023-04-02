@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 03:18:53 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/11 03:22:09 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:08:59 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_if_pipe(t_token *tmp, bool *cmd)
 {
 	tmp->type = T_PIPE;
 	if (!tmp->next || tmp->next->str[0] == '|')
-		return (printf("syntax error.\n"),
+		return (printf("Syntax error.\n"),
 			EXIT_ERROR);
 	tmp = tmp->next;
 	*cmd = false;
@@ -85,7 +85,7 @@ int	ft_if_output_input(t_token *tmp, bool *cmd)
 int	ft_if_operator(t_token *tmp, bool *cmd)
 {
 	if (!tmp->next || tmp->next->type != T_WORD)
-		return (printf("syntax error.\n"), EXIT_ERROR);
+		return (printf("Syntax error.\n"), EXIT_ERROR);
 	if (ft_strcmp(tmp->str, "<<") == 0)
 		return (ft_if_heredoc(tmp, cmd));
 	else

@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:50:26 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 00:55:26 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/01 00:07:22 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,9 @@ int	split_is_null(t_token_lst *const token_lst,
 			(*token) = (*token)->next;
 		}
 	}
-	else if (!tmp->next)
-		(*token)->type = T_TO_SUPPR;
 	return (EXIT_SUCCESS);
 }
 
-// If first chain is empty, doesn't join to it.
 int	add_spaces(t_token_lst *const token_lst, t_token **token,
 		t_str *tmp, char **split)
 {

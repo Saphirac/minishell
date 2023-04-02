@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:32:38 by maparigi          #+#    #+#             */
-/*   Updated: 2023/04/02 04:50:58 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 00:07:32 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,49 @@ inline static int	__get_hd(t_token *token, t_env_lst *env)
 	if (!ret)
 		return (EXIT_FAILURE);
 	line = readline("> ");
-	if (!line)
-		return (write(STDERR_FILENO, "Unexpected eof\n", 15), EXIT_FAILURE);
-	while (line && ft_strcmp(line, token->str))
+	while (line && ft_strcmp(line, token->str) && g_exit_code != 42)
 	{
 		if (stock_hd(line, &ret) == EXIT_FAILURE)
 			return (free(line), free(ret), EXIT_FAILURE);
 		free(line);
 		line = readline("> ");
 	}
+	if (g_exit_code == 42)
+		return (free(ret), g_exit_code = 130, EXIT_ERROR);
 	if (!line)
-		return (free(ret),
-			write(STDERR_FILENO, "Unexpected eof\n", 15), EXIT_FAILURE);
-	free(line);
+		return (free(token->str), token->str = ret,
+			write(STDERR_FILENO, "Unexpected eof\n", 15),
+			token->type = T_CONTENT, EXIT_SUCCESS);
 	if (ret && token->type != T_DELIMITER_QUOTED)
 		if (__expand_hd(env, &ret) == EXIT_FAILURE)
-			return (free(ret), EXIT_FAILURE);
-	return (free(token->str), token->str = ret, EXIT_SUCCESS);
+			return (free(ret), free(line), EXIT_FAILURE);
+	return (free(line), free(token->str), token->str = ret,
+		token->type = T_CONTENT, EXIT_SUCCESS);
 }
 
 int	do_here_doc(t_token_lst *token_lst, t_env_lst *env)
 {
-	t_token	*tmp;
+	t_token		*tmp;
+	int			exit_code;
+	int const	fd = dup(STDIN_FILENO);
 
+	if (fd == -1)
+		return (perror("dup() failed.\n"), EXIT_FAILURE);
 	tmp = token_lst->head;
+	signal_heredoc();
 	while (tmp)
 	{
 		if (tmp->type == T_DELIMITER || tmp->type == T_DELIMITER_QUOTED)
-			if (__get_hd(tmp, env) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+		{
+			exit_code = __get_hd(tmp, env);
+			if (exit_code != EXIT_SUCCESS)
+				return (dup2(fd, STDIN_FILENO), exit_code);
+		}
 		tmp = tmp->next;
 	}
+	if (dup2(fd, STDIN_FILENO) == -1)
+		return (perror("dup2() failed\n"), EXIT_FAILURE);
+	if (close(fd))
+		return (perror("close() failed\n"), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

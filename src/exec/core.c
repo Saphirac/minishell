@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 23:08:53 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 01:20:45 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 01:45:00 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	execution(t_shell *const shell)
 	if (!shell->is_pipeline
 		&& !token_lst_find_first_by_type(&shell->tokens, T_COMMAND))
 	{
-		if (__execute_in_place(shell))
+		if (signal_default() || __execute_in_place(shell))
 			return (__restore_std(STDIN_FILENO, &shell->stdin_backup,
 					EXIT_FAILURE));
 	}

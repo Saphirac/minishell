@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 00:53:48 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 01:00:29 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 01:51:01 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,66 @@
 
 void	handle_signal(int sig)
 {
-	if (sig == SIGINT)
-	{
-		write(STDOUT_FILENO, "\nminishell $> ", 14);
-		g_exit_code = 128 + sig;
-	}
+
+	g_exit_code = 128 + sig;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	if (rl_on_new_line())
+		printf("Readline error\n");
+	rl_redisplay();
 }
 
-void	handle_signal_2(int sig)
+void	handle_signal_hd(int const sig __attribute__((unused)))
 {
-	if (sig == SIGINT)
-	{
-		//write(STDOUT_FILENO, "\nminishell $> ", 14);
-		g_exit_code = 128 + sig;
-	}
-	if (sig == SIGTSTP)
-	{
-		write(STDOUT_FILENO, "Quit\n", 5);
-		g_exit_code = 128 + sig;
-	}
+	g_exit_code = 42;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	if (close(STDIN_FILENO))
+		perror("close() failed.\n");
 }
 
-void	handle_signal_3(int sig)
+int	signal_handle_interactive(void)
 {
-	if (sig == SIGINT)
+	if (signal(SIGINT, &handle_signal) == SIG_ERR)
+		return (EXIT_FAILURE);
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	signal_heredoc(void)
+{
+	if (signal(SIGINT, &handle_signal_hd) == SIG_ERR)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	signal_default(void)
+{
+	int	i;
+
+	i = 1;
+	while (i < __SIGRTMIN)
 	{
-		write(STDOUT_FILENO, "\nminishell $> ", 14);
+		if (i != SIGKILL && i != SIGSTOP
+			&& signal(i, SIG_DFL) == SIG_ERR)
+			return (g_exit_code = 1U, EXIT_FAILURE);
+		i++;
 	}
-	if (sig == SIGTSTP)
+	return (EXIT_SUCCESS);
+}
+
+int	signal_ignore(void)
+{
+	int	i;
+
+	i = 1;
+	while (i < __SIGRTMIN)
 	{
-		write(STDOUT_FILENO, "Here-document at line 2 delimited by end-of-file\n", 50);
+		if (i != SIGKILL && i != SIGSTOP
+			&& signal(i, SIG_IGN) == SIG_ERR)
+			return (g_exit_code = 1U, EXIT_FAILURE);
+		i++;
 	}
-}
-
-void	signal_handle_interactive(void)
-{
-	signal(SIGINT, &handle_signal);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	signal_handle_non_interactive(void)
-{
-	signal(SIGINT, &handle_signal_2);
-	signal(SIGQUIT, &handle_signal_2);
-}
-
-void	signal_handle_heredoc(void)
-{
-	signal(SIGINT, &handle_signal_3);
-	signal(SIGQUIT, &handle_signal_3);
+	return (EXIT_SUCCESS);
 }

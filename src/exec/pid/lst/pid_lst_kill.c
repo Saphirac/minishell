@@ -6,14 +6,16 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:49:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 20:50:49 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 00:45:15 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Iterate over a pid list and kill every process it contains.
+ * @brief	Iterate over a pid list, kill every process it contains,
+ * 			and clear it at the same time. Also set the exit status accordingly.
+ * 			If an error occurs, an error message is output on stderr.
  * 
  * @param	list The list to iterate over.
  * @param	sig The signal to send to the processes.
@@ -22,13 +24,11 @@
  */
 int	pid_lst_kill(t_pid_lst *const list, int const sig)
 {
-	t_pid const	*node = list->head;
-
-	while (node)
+	while (list->size)
 	{
-		if (kill(node->pid, sig))
-			return (EXIT_FAILURE);
-		node = node->next;
+		if (kill(list->head->pid, sig))
+			return (g_exit_code = 1U, perror("kill()"), EXIT_FAILURE);
+		pid_lst_del_one(list, list->head);
 	}
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:23:54 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/01 01:03:21 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 00:50:59 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	pid_lst_clear(t_pid_lst *const list)
 
 int		pid_lst_kill(t_pid_lst *const list, int const sig)
 		__attribute__((nonnull));
-int		pid_lst_wait(t_pid_lst const *const list)
+int		pid_lst_wait(t_pid_lst *const list)
 		__attribute__((nonnull));
 
 t_pid	*pid_lst_add_back(t_pid_lst *const list, int const pid)

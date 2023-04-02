@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   final_classification.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:25:05 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 04:14:05 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/02 05:06:16 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ int	final_syntax(t_token_lst *token_lst)
 		return (EXIT_SUCCESS);
 	if (token_lst->head->type == T_PIPE || token_lst->tail->type == T_PIPE
 		|| __is_redirection(token_lst->tail->type) == true)
-		return (printf("Syntax error.\n"), EXIT_ERROR);
+		return (syntax_error(NULL));
 	tmp = token_lst->head;
 	while (tmp)
 	{
 		if (tmp->type == T_PIPE && tmp->next->type == T_PIPE)
-			return (printf("Syntax error.\n"), EXIT_ERROR);
+			return (syntax_error(NULL));
 		if (__is_redirection(tmp->type) == true
 			&& tmp->next && tmp->next->type != T_FILE)
-			return (printf("Syntax error.\n"), EXIT_ERROR);
+			return (syntax_error(NULL));
 		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);

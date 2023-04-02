@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 03:30:36 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:06:58 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
 int	builtin_echo(
 	t_env_lst *const env __attribute__((unused)),
@@ -103,12 +103,12 @@ int	builtin_echo(
 	while (token)
 	{
 		if (write(STDOUT_FILENO, token->str, ft_strlen(token->str)) == -1)
-			return (internal_error("echo: write()"));
+			return (g_exit_code = 1U, internal_error("echo: write()"));
 		token = token->next;
 		if (token && write(STDOUT_FILENO, " ", 1LU) == -1)
-			return (internal_error("echo: write()"));
+			return (g_exit_code = 1U, internal_error("echo: write()"));
 	}
 	if (!(opt & 1 << OPT_N) && write(STDOUT_FILENO, "\n", 1LU) == -1)
-		return (internal_error("echo: write()"));
+		return (g_exit_code = 1U, internal_error("echo: write()"));
 	return (EXIT_SUCCESS);
 }

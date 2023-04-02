@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   permission_denied_error.c                          :+:      :+:    :+:   */
+/*   not_a_directory_error.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/26 22:51:39 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 03:18:00 by jodufour         ###   ########.fr       */
+/*   Created: 2023/04/02 03:00:04 by jodufour          #+#    #+#             */
+/*   Updated: 2023/04/02 03:28:23 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief	Output a permission denied error message.
- * 			Also set the exit status accordingly.
+ * @brief	Output an error message related to a path
+ * 			which does not refer to a directory whereas it should.
  * 
- * @param	str The details to output before the permission denied error message.
+ * @param	str The details to output before the error message.
+ * @param	path The path which does not refer to a directory.
  * 
  * @return	Always EXIT_FAILURE.
  */
-int	permission_denied_error(char const *const str)
+int	not_a_directory_error(char const *const str, char const *const path)
 {
-	g_exit_code = 126U;
-	return (ft_dprintf(STDERR_FILENO, "%s: Permission denied\n", str),
+	if (str)
+		return (ft_dprintf(STDERR_FILENO, "%s: %s: Not a directory\n",
+				str, path), EXIT_FAILURE);
+	return (ft_dprintf(STDERR_FILENO, "%s: %s: Not a directory\n", str, path),
 		EXIT_FAILURE);
 }

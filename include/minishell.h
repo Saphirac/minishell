@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 03:26:41 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/02 05:04:02 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	signal_handle_interactive(void);
 void	signal_handle_non_interactive(void);
 
 // Tokens //
+
 int		ft_is_sep(char c);
 int		ft_is_op(char c);
 char	*ft_get_operator(t_shell *shell, int *i, int j);
@@ -85,14 +86,17 @@ void	final_classification(t_token_lst *token_lst, bool *is_pipeline);
 int		search_env(t_env_lst *env, char **str);
 
 // Execution //
+
 int		execution(t_shell *const shell)
 		__attribute__((nonnull));
-int		redirections(t_token_lst *const tokens, int const fd)
+int		file_redirections(t_token_lst *const tokens)
 		__attribute__((nonnull));
+int		pipe_redirection(int const pd);
 int		run(t_shell *const shell)
 		__attribute__((nonnull));
 
 // Builtins //
+
 int		canonicalize(char *const curpath)
 		__attribute__((nonnull));
 int		surprise(void);
@@ -104,6 +108,8 @@ char	*raw_curpath(t_env_lst const *const env, char const *const dir)
 		__attribute__((nonnull));
 
 // Errors //
+
+int		ambiguous_redirect_error(char const *const str);
 int		command_not_found_error(char const *const cmd)
 		__attribute__((nonnull));
 int		home_not_set_error(char const *const str)
@@ -112,16 +118,22 @@ int		internal_error(char const *const str)
 		__attribute__((nonnull));
 int		invalid_option_error(char const *const str, char const *const opt)
 		__attribute__((nonnull));
+int		is_a_directory_error(char const *const str, char const *const path)
+		__attribute__((nonnull (2)));
 int		no_such_file_or_directory_error(
 			char const *const str,
 			char const *const path)
 		__attribute__((nonnull (2)));
+int		not_a_directory_error(char const *const str, char const *const path)
+		__attribute__((nonnull (2)));
 int		permission_denied_error(char const *const str)
 		__attribute__((nonnull));
+int		syntax_error(char const *const str);
 int		too_many_arguments_error(char const *const str)
 		__attribute__((nonnull));
 
 // Heredoc
+
 int		stock_hd(char const *const line, char **const ret);
 void	signal_handle_heredoc(void);
 int		do_here_doc(t_token_lst *token_lst, t_env_lst *env);

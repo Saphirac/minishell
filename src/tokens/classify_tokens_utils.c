@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   classify_tokens_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 03:18:53 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/30 20:08:59 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/02 04:06:46 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	ft_if_pipe(t_token *tmp, bool *cmd)
 {
 	tmp->type = T_PIPE;
 	if (!tmp->next || tmp->next->str[0] == '|')
-		return (printf("Syntax error.\n"),
-			EXIT_ERROR);
+		return (syntax_error(NULL));
 	tmp = tmp->next;
 	*cmd = false;
 	if (tmp && tmp->type == T_WORD)
@@ -85,7 +84,7 @@ int	ft_if_output_input(t_token *tmp, bool *cmd)
 int	ft_if_operator(t_token *tmp, bool *cmd)
 {
 	if (!tmp->next || tmp->next->type != T_WORD)
-		return (printf("Syntax error.\n"), EXIT_ERROR);
+		return (syntax_error(NULL));
 	if (ft_strcmp(tmp->str, "<<") == 0)
 		return (ft_if_heredoc(tmp, cmd));
 	else

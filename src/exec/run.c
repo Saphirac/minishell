@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 00:12:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/31 06:15:31 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 04:01:12 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ inline static int	__run_command(t_shell *const shell)
  */
 int	run(t_shell *const shell)
 {
+	if (!*shell->tokens.head->str)
+		return (command_not_found_error(shell->tokens.head->str));
 	if (!ft_strchr(shell->tokens.head->str, '/'))
 	{
 		if (shell->tokens.head->type == T_BUILTIN)
@@ -152,13 +154,12 @@ int	run(t_shell *const shell)
 	else if (__search_from_cwd((char const **)&shell->tokens.head->str))
 		return (EXIT_FAILURE);
 	if (*shell->tokens.head->str != '/')
-		return (g_exit_code = 127U,
-			command_not_found_error(shell->tokens.head->str));
+		return (command_not_found_error(shell->tokens.head->str));
 	if (access(shell->tokens.head->str, F_OK))
-		return (g_exit_code = 127U,
-			no_such_file_or_directory_error(NULL, shell->tokens.head->str));
+		return (no_such_file_or_directory_error(NULL, shell->tokens.head->str));
+	if (is_directory(shell->tokens.head->str))
+		return (is_a_directory_error(NULL, shell->tokens.head->str));
 	if (access(shell->tokens.head->str, X_OK))
-		return (g_exit_code = 126U,
-			permission_denied_error(shell->tokens.head->str));
+		return (permission_denied_error(shell->tokens.head->str));
 	return (__run_command(shell));
 }

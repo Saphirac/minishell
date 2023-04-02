@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 12:46:31 by mcourtoi          #+#    #+#              #
-#    Updated: 2023/04/01 01:03:46 by jodufour         ###   ########.fr        #
+#    Updated: 2023/04/02 04:27:46 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,8 @@ SRC					=							\
 			}									\
 		}										\
 		core.c									\
-		redirections.c							\
+		file_redirections.c						\
+		pipe_redirection.c						\
 		run.c									\
 	}											\
 	${addprefix here_doc/,						\
@@ -155,12 +156,16 @@ SRC					=							\
 	}											\
 	${addprefix util/,							\
 		${addprefix error/,						\
+			ambiguous_redirect_error.c			\
 			command_not_found_error.c			\
 			home_not_set_error.c				\
 			internal_error.c					\
 			invalid_option_error.c				\
+			is_a_directory_error.c				\
 			no_such_file_or_directory_error.c	\
+			not_a_directory_error.c				\
 			permission_denied_error.c			\
+			syntax_error.c						\
 			too_many_arguments_error.c			\
 		}										\
 		is_directory.c							\

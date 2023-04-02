@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:34:59 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 17:35:33 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 04:04:00 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
  * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
+ * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
 int	builtin_env(t_env_lst *const env, t_token const *token)
 {
 	uint8_t	opt;
 
 	if (__get_opt(&token, &opt))
-		return (invalid_option_error("env", token->str));
+		return (g_exit_code = 125U, invalid_option_error("env", token->str));
 	if (token)
 		return (too_many_arguments_error("env"));
 	env_lst_print_assigned(env);

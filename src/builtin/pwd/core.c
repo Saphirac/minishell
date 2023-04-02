@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:01 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 17:56:51 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:07:35 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,11 @@ int	builtin_pwd(
 	uint8_t	opt;
 
 	if (__get_opt(&token, &opt) == EXIT_FAILURE)
-		return (invalid_option_error("pwd", token->str));
-	if (token)
-		return (too_many_arguments_error("pwd"));
+		return (g_exit_code = 2U, invalid_option_error("pwd", token->str));
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		return (internal_error("pwd: getcwd()"));
+		return (g_exit_code = 1U, internal_error("pwd: getcwd()"));
 	if (printf("%s\n", cwd) < 0)
-		return (free(cwd), internal_error("pwd: printf()"));
+		return (g_exit_code = 1U, free(cwd), internal_error("pwd: printf()"));
 	return (free(cwd), EXIT_SUCCESS);
 }

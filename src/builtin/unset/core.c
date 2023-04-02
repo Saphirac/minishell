@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:19 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/25 17:30:13 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:07:44 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	builtin_unset(t_env_lst *const env, t_token const *token)
 	t_env	*node;
 
 	if (__get_opt(&token, &opt) == EXIT_FAILURE)
-		return (invalid_option_error("unset", token->str));
+		return (g_exit_code = 2U, invalid_option_error("unset", token->str));
 	while (token)
 	{
 		node = env_lst_get_one(env, token->str);

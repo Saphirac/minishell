@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/01 00:33:48 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/02 00:33:25 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ uint8_t	g_exit_code = 0U;
 
 inline static t_shell	*__shell(void)
 {
-	static t_shell	shell;
+	static t_shell	shell = {{0}, {0}, {0}, NULL, false, -1, -1};
 
 	return (&shell);
 }
@@ -69,6 +69,8 @@ inline static void	__clear_shell(void)
 	token_lst_clear(&shell->tokens);
 	pid_lst_clear(&shell->pids);
 	ft_memdel(&shell->line);
+	ft_fddel(&shell->stdin_backup);
+	ft_fddel(&shell->stdout_backup);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);

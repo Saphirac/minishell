@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:46:52 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 02:21:02 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/02 05:05:49 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-inline static void	__make_tests(t_shell *const shell)
-{
-	print_tokens(&shell->tokens);
-	if (execution(shell))
-		exit(EXIT_FAILURE);
-}
 
 /**
  * @brief	Display the prompt and get the user input.
@@ -46,8 +39,8 @@ void	prompt(t_shell *const shell)
 		{
 			final_classification(&shell->tokens, &shell->is_pipeline);
 			exit_code = do_here_doc(&shell->tokens, &shell->env);
-			if (exit_code == EXIT_SUCCESS)
-				__make_tests(shell);
+			if (exit_code == EXIT_SUCCESS && execution(shell))
+				exit(EXIT_FAILURE);
 		}
 	}
 	token_lst_clear(&shell->tokens);

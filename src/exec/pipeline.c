@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:10:16 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 02:09:46 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 04:24:29 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ inline static int	__subprocess(
 	pid_lst_clear(&shell->pids);
 	if (close(shell->stdin_backup) || (pds[0] != STDIN_FILENO && close(pds[0])))
 		return (internal_error("close()"));
-	if (!signal_default() && !pipe_redirection(pds[1]) && !file_redirections(&shell->tokens)
+	if (!signal_default()
+		&& !pipe_redirection(pds[1])
+		&& !file_redirections(&shell->tokens)
 		&& !g_exit_code && shell->tokens.size)
 		run(shell);
 	exit(g_exit_code);

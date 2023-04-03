@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 01:21:23 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 05:27:21 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ int		ambiguous_redirect_error(char const *const str);
 int		command_not_found_error(char const *const cmd)
 		__attribute__((nonnull));
 int		home_not_set_error(char const *const str)
-		__attribute__((nonnull));
-int		internal_error(char const *const str)
 		__attribute__((nonnull));
 int		invalid_option_error(char const *const str, char const *const opt)
 		__attribute__((nonnull));

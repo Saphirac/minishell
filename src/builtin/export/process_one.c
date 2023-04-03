@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:44:32 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/01 19:46:34 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 05:31:03 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ inline static int	__modify_ones_value(t_env *const node, char const *value)
 {
 	value = ft_strdup(value);
 	if (!value)
-		return (internal_error("export: ft_strdup()"));
+		return (perror("export: ft_strdup()"), EXIT_FAILURE);
 	free((void *)node->value);
 	node->value = value;
 	return (EXIT_SUCCESS);
@@ -91,7 +91,7 @@ int	process_one(t_env_lst *const env, char const *const str, bool *const is_ok)
 		return (*is_ok = false, __invalid_identifier_error(str));
 	id = ft_strndup(str, ptr - str);
 	if (!id)
-		return (internal_error("export: ft_strndup()"));
+		return (perror("export: ft_strndup()"), EXIT_FAILURE);
 	node = env_lst_get_one(env, id);
 	if (node)
 	{
@@ -102,6 +102,7 @@ int	process_one(t_env_lst *const env, char const *const str, bool *const is_ok)
 	}
 	(*ptr && ++ptr) || (ptr = NULL);
 	if (!env_lst_add_back(env, id, ptr))
-		return (free((void *)id), internal_error("export: env_lst_add_back()"));
+		return (free((void *)id), perror("export: env_lst_add_back()"),
+			EXIT_FAILURE);
 	return (free((void *)id), EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 00:12:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 00:36:57 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 05:48:01 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ inline static int	__run_builtin(t_shell *const shell)
 	unsigned int	i;
 
 	if (!env_lst_add_back(&shell->env, "QUIET_EXIT", NULL))
-		return (internal_error("env_lst_add_back()"));
+		return (g_exit_code = 1U, perror("env_lst_add_back()"), EXIT_FAILURE);
 	i = 0U;
 	while (ft_strcmp(shell->tokens.head->str, g_builtin[i].name))
 		++i;
@@ -58,13 +58,14 @@ inline static int	__search_in_path(
 		return (EXIT_SUCCESS);
 	paths = (char const **)ft_split(node->value, ":");
 	if (!paths)
-		return (internal_error("ft_split()"));
+		return (g_exit_code = 1U, perror("ft_split()"), EXIT_FAILURE);
 	dent = paths;
 	while (*paths)
 	{
 		abs_path = ft_strlink((char const *const []){*paths, *cmd, NULL}, "/");
 		if (!abs_path)
-			return (free(dent), internal_error("ft_strlink()"));
+			return (g_exit_code = 1U, free(dent), perror("ft_strlink()"),
+				EXIT_FAILURE);
 		if (!access(abs_path, F_OK))
 			return (free(dent), free((void *)*cmd), *cmd = abs_path,
 				EXIT_SUCCESS);
@@ -90,10 +91,11 @@ inline static int	__search_from_cwd(char const **const cmd)
 	char const			*abs_path;
 
 	if (!cwd)
-		return (internal_error("getcwd()"));
+		return (g_exit_code = 1U, perror("getcwd()"), EXIT_FAILURE);
 	abs_path = ft_strlink((char const *const []){cwd, *cmd, NULL}, "/");
 	if (!abs_path)
-		return (free((void *)cwd), internal_error("ft_strlink()"));
+		return (g_exit_code = 1U, free((void *)cwd), perror("ft_strlink()"),
+			EXIT_FAILURE);
 	free((void *)cwd);
 	if (!access(abs_path, F_OK))
 	{
@@ -120,14 +122,16 @@ inline static int	__run_command(t_shell *const shell)
 	char *const *const	ep = env_lst_to_string_array(&shell->env);
 
 	if (!av)
-		return (free((void *)ep),
-			internal_error("token_lst_to_string_array()"));
+		return (g_exit_code = 1U, free((void *)ep),
+			perror("token_lst_to_string_array()"), EXIT_FAILURE);
 	if (!ep)
-		return (free((void *)av), internal_error("env_lst_to_string_array()"));
+		return (g_exit_code = 1U, free((void *)av),
+			perror("env_lst_to_string_array()"), EXIT_FAILURE);
 	token_lst_clear(&shell->tokens);
 	env_lst_clear(&shell->env);
 	execve(av[0], av, ep);
-	return (free((void *)av), free((void *)ep), internal_error("execve()"));
+	return (g_exit_code = 1U, free((void *)av), free((void *)ep),
+		perror("execve()"), EXIT_FAILURE);
 }
 
 /**

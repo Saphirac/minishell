@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 01:56:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 00:50:28 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 05:48:24 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ inline static int	__signaled_suprocess(int const status)
 		if (g_signaled_str[i].sig == WTERMSIG(status))
 		{
 			if (ft_putendl_fd(g_signaled_str[i].str, STDERR_FILENO) == -1)
-				return (internal_error("ft_putendl_fd()"));
+				return (g_exit_code = 1U, perror("ft_putendl_fd()"),
+					EXIT_FAILURE);
 			break ;
 		}
 		++i;
@@ -72,7 +73,7 @@ int	pid_lst_wait(t_pid_lst *const list)
 	while (list->size)
 	{
 		if (waitpid(list->head->pid, &status, 0) == -1)
-			return (g_exit_code = 1U, internal_error("waitpid()"));
+			return (g_exit_code = 1U, perror("waitpid()"), EXIT_FAILURE);
 		pid_lst_del_one(list, list->head);
 	}
 	if (WIFEXITED(status))

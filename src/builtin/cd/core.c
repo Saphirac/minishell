@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:04:44 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 04:03:47 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 05:27:39 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ inline static int	__goto_specific_directory(
 	oldpwd = env_lst_get_one(env, "OLDPWD");
 	!oldpwd && (oldpwd = env_lst_add_back(env, "OLDPWD", NULL));
 	if (!pwd || !oldpwd)
-		return (g_exit_code = 1U, free(curpath),
-			internal_error("cd: env_lst_add_back"));
+		return (g_exit_code = 1U, free(curpath), perror("cd: env_lst_add_back"),
+			EXIT_FAILURE);
 	free((void *)oldpwd->value);
 	oldpwd->value = pwd->value;
 	pwd->value = curpath;

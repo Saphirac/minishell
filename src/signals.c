@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 00:53:48 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 04:25:20 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:03:14 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handle_signal(int sig)
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	if (rl_on_new_line())
-		printf("Readline error\n");
+		perror("rl_on_new_line()");
 	rl_redisplay();
 }
 

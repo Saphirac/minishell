@@ -6,12 +6,19 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 19:43:53 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 05:03:53 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:11:42 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Checks if the given string contains a ', a " or a $.
+ * 
+ * @param str to check.
+ * @return true if string contain the mentionned char.
+ * @return false if string doesn't contain the mentionned char.
+ */
 static inline bool	__need_to_expand(char *str)
 {
 	int	i;
@@ -26,6 +33,17 @@ static inline bool	__need_to_expand(char *str)
 	return (false);
 }
 
+/**
+ * @brief Attributes the token_type T_TO_SUPPR
+ * to a token if it is empty and not quoted.
+ * If the soon-to-be deleted token was a T_COMMAND,
+ * parse the rest of the list to re-attribute
+ * the T_COMMAND type to the next found T_ARGUMENT.
+ * (No problem if arg is never found).
+ * 
+ * @param token to eventually retype.
+ * @param str str_lst used to see if token needs to be retyped or not.
+ */
 inline static void	__need_to_delete(t_token *token, t_str_lst *str)
 {
 	t_token_type	tmp;
@@ -44,6 +62,11 @@ inline static void	__need_to_delete(t_token *token, t_str_lst *str)
 	}
 }
 
+/**
+ * @brief Delete all the tokens with T_TO_SUPPR type from token_lst.
+ * 
+ * @param token_lst list we need to delete from.
+ */
 inline static void	__clean_final_lst(t_token_lst *token_lst)
 {
 	t_token	*tmp;
@@ -59,6 +82,15 @@ inline static void	__clean_final_lst(t_token_lst *token_lst)
 	}
 }
 
+/**
+ * @brief After recuperation of tokens, expand $,
+ * delete the quotes and retypes if necessary.
+ * 
+ * @param token_lst list to expand / clean.
+ * @param env_lst contains every variable of the env, necessary to expand $.
+ * @return EXIT_FAILURE if str_lst creation fails or a malloc fails,
+ * EXIT_SUCCESS else.
+ */
 int	final_token_lst(t_token_lst *token_lst, t_env_lst *env_lst)
 {
 	t_token		*tmp;

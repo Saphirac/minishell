@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:35:35 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 03:56:22 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:14:30 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* All functions ft_add are there to protect
-from alloc errors and fit the norm */
 
 int	ft_add_operator(t_shell *shell, int *i, int *j)
 {
@@ -47,9 +44,6 @@ int	ft_add_word(t_shell *shell, int *i, int *j)
 	return (free(tmp), EXIT_SUCCESS);
 }
 
-/* ft_quotes iters i until encounter with the second quote.
-return (2) : exit syntax. */
-
 int	ft_add_quotes(t_shell *shell, int *i, int *j)
 {
 	char	type;
@@ -79,10 +73,19 @@ int	use_add_tokens_functions(t_shell *shell, int *i, int *j)
 	return (EXIT_SUCCESS);
 }
 
-/* Function browse line until it gets to a quote,
-an operator or a space.
-It then calls the right function to get the corresponding tokens
-and then continue to browse */
+/**
+ * @brief Function browse line until it gets to a quote,
+ * an operator or a space.
+ * It then calls the right function to get the corresponding tokens
+ * and then continue to browse
+ * 
+ * @details Calls all function above depending on the char encountered.
+ * (Double / single quotes, operator or just simple char).
+ * 
+ * @param shell struct containing tokens list.
+ * @return EXIT_FAILURE if a malloc fails,
+ * EXIT_ERROR if syntax error and EXIT_SUCCESS else.
+ */
 
 int	tokens_get(t_shell *shell)
 {

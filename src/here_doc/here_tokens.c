@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+/**
+ * @brief Modified strjoin() that can take 3 strings.
+ * Uses ft_memcpy() to concatenate them.
+ * Useful to add the '\n' of heredoc.
+ * 
+ * @param a 1st string to concatenate to.
+ * @param b 2nd string added to a.
+ * @param c last string add to a and b.
+ * @return result of the join.
+ */
 static inline char	*__strjoin_hd(
 	char const *const a,
 	char const *const b,
@@ -30,6 +40,13 @@ static inline char	*__strjoin_hd(
 	return (ret);
 }
 
+/**
+ * @brief Copy or append the received line to ret.
+ * 
+ * @param line result from readline.
+ * @param ret result to be added in token.
+ * @return EXIT_FAILURE if malloc fail, EXIT_SUCCESS else.
+ */
 int	stock_hd(char const *const line, char **const ret)
 {
 	char	*tmp_ptr;

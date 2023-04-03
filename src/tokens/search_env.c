@@ -6,18 +6,21 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:56:16 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 04:37:36 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:14:05 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Iters in the chain from a dollar to the next "stop" characters 
-(non alphanumeric character and non '_') 
-Check if name between that corresponds to an env value 
-If true, copy the value 
-else return a NULL chain */
-
+/**
+ * @brief If $? is encountered,
+ * remplaces it with g_exit_code value instead of an env_lst variable.
+ * 
+ * @param ret string we ft_strjoin() / ft_strdup() to.
+ * @param str string in search for $ and expand it.
+ * @param i struct containing start and i for ft_strndup().
+ * @return EXIT_FAILURE or EXIT_SUCCESS.
+ */
 inline static int	__append_if_exit_code(
 	char **ret,
 	char *str,
@@ -34,6 +37,18 @@ inline static int	__append_if_exit_code(
 	return (free(tmp), EXIT_SUCCESS);
 }
 
+/**
+ * @brief Iters in the chain from a dollar to the next "stop" characters 
+ * (non alphanumeric character and non '_').
+ * Check if name between that corresponds to an env value 
+ * If true, copy the value else return a NULL chain and appends it.
+ * 
+ * @param env env_lst containing all env variables to remplace $ with.
+ * @param str string we search for $ in.
+ * @param ret string we ft_strjoin() / ft_strdup() in append to ret.
+ * @param i struct containing start and end for ft_strndup().
+ * @return EXIT_FAILURE or EXIT_SUCCESS.
+ */
 inline static int	__ft_get_dollars(
 	t_env_lst *env,
 	char *str,
@@ -59,12 +74,6 @@ inline static int	__ft_get_dollars(
 	return (EXIT_SUCCESS);
 }
 
-/* Iters trough chain until finding a dollar 
-Append or copy everything before that dollar 
-Then check if the name after the dollar is correct 
-Append correct value if exists in the env 
-Else append NULL 
-Copy or append everything even the dollar if next character not correct */
 inline static int	__search_env_process_one(t_env_lst *env, char *str,
 		t_tmp_i_start *i, char **ret)
 {
@@ -87,6 +96,22 @@ inline static int	__search_env_process_one(t_env_lst *env, char *str,
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @brief Iters trough chain until finding a dollar.
+ * Append or copy everything before that dollar.
+ * Then check if the name after the dollar is correct : 
+ * Append correct value if exists in the env else append NULL 
+ * Copy or append everything even the dollar if next character not correct.
+ * 
+ * @details use search_env_process_one for the norm.
+ * 
+ * @param env list containing all variable to remplace $.
+ * @param str string we parse to find the $ to remplace.
+ * @param i struct containing iterator i to parse str,
+ * and start to ft_strndup() correctly.
+ * @param ret string we copy or append to get the final str result.
+ * @return EXIT_FAILURE or EXIT_SUCCESS.
+ */
 int	search_env(t_env_lst *env, char **str)
 {
 	char			*ret;
@@ -102,13 +127,17 @@ int	search_env(t_env_lst *env, char **str)
 	return (EXIT_SUCCESS);
 }
 
-/* Function parse a str_lst node and expand it via search_env
-after doing that with every node copy it without the quotes
-separate between two tokens on special case 
-if separated, new token will need to be re-classifyied 
-command token will become command + argument 
-argument token will become 2 arguments 
-will need to make a function to do that with every tokens*/
+/**
+ * @brief Function parse a str_lst node and expand it via search_env.
+ * Copies node without the quotes.
+ * Separate between two tokens if space in an unquoted str_lst node.
+ * if separated, new token will need automatically be classifyed as T_ARGUMENT.
+ * 
+ * @param env_lst list containing the env variables.
+ * @param str_lst list with each part to expand.
+ * @param token node being expanded.
+ * @return EXIT_FAILURE or EXIT_SUCCESS. 
+ */
 
 int	expand_dollars_str_lst(t_env_lst *env_lst,
 	t_str_lst *str_lst, t_token *token)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_str_lst.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:11:30 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 21:16:01 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:10:36 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ int	ft_cpy_quotes(t_token *token, t_str_lst *str_lst, int *i, int *j)
 	return (free(tmp), EXIT_SUCCESS);
 }
 
+/**
+ * @brief Create a str_lst list with the original t_token *token.
+ * Separates token in unquoted / quoted portions
+ * and put each portion in str_lst node.
+ * 
+ * @param token we use to create str_lst.
+ * @param str_lst str_lst we add nodes to.
+ * @return EXIT_FAILURE if malloc fails or EXIT_SUCCESS else.
+ */
 int	create_str_lst(t_token *token, t_str_lst *str_lst)
 {
 	int		i;

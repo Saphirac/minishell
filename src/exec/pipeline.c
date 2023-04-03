@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:10:16 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 04:24:29 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:12:36 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,18 @@ inline static int	__subprocess(
 	int const	pid = fork();
 
 	if (pid == -1)
-		return (internal_error("fork()"));
+		return (g_exit_code = 1U, perror("fork()"), EXIT_FAILURE);
 	if (pid)
 	{
 		if (!pid_lst_add_back(&shell->pids, pid))
-			return (kill(pid, SIGTERM), internal_error("pid_lst_add_back()"));
+			return (g_exit_code = 1U, kill(pid, SIGTERM),
+				perror("pid_lst_add_back()"), EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	token_lst_del_range(&shell->tokens, node, NULL);
 	pid_lst_clear(&shell->pids);
 	if (close(shell->stdin_backup) || (pds[0] != STDIN_FILENO && close(pds[0])))
-		return (internal_error("close()"));
+		return (g_exit_code = 1U, perror("close()"), EXIT_FAILURE);
 	if (!signal_default()
 		&& !pipe_redirection(pds[1])
 		&& !file_redirections(&shell->tokens)
@@ -98,17 +99,18 @@ int	pipeline(t_shell *const shell, t_token const *node)
 	while (node)
 	{
 		if (pipe(pds))
-			return (pid_lst_kill(&shell->pids, SIGTERM),
-				internal_error("pipe()"));
+			return (g_exit_code = 1U, pid_lst_kill(&shell->pids, SIGTERM),
+				perror("pipe()"), EXIT_FAILURE);
 		if (__subprocess(shell, node, pds))
 			return (close(pds[0]), close(pds[1]),
 				pid_lst_kill(&shell->pids, SIGTERM), EXIT_FAILURE);
 		if (dup2(pds[0], STDIN_FILENO) == -1)
-			return (close(pds[0]), close(pds[1]),
-				pid_lst_kill(&shell->pids, SIGTERM), internal_error("dup2()"));
+			return (g_exit_code = 1U, close(pds[0]), close(pds[1]),
+				pid_lst_kill(&shell->pids, SIGTERM), perror("dup2()"),
+					EXIT_FAILURE);
 		if (close(pds[0]) || close(pds[1]))
-			return (pid_lst_kill(&shell->pids, SIGTERM),
-				internal_error("close()"));
+			return (g_exit_code = 1U,pid_lst_kill(&shell->pids, SIGTERM),
+				perror("close()"), EXIT_FAILURE);
 		token_lst_del_range(&shell->tokens, shell->tokens.head, node->next);
 		node = token_lst_find_first_by_type(&shell->tokens, T_PIPE);
 	}

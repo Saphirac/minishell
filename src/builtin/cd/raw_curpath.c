@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 03:42:21 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/31 01:38:18 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 05:28:34 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ inline static char	*__prepend_cdpath_pathname(
 	{
 		path = malloc((2LU + suffix_len + 1LU) * sizeof(char));
 		if (!path)
-			return (internal_error("cd: malloc()"), NULL);
+			return (perror("cd: malloc()"), NULL);
 		ft_memcpy(path, "./", 2LU);
 		ft_memcpy(path + 2LU, suffix, suffix_len);
 		path[2LU + suffix_len] = 0;
@@ -62,7 +62,7 @@ inline static char	*__prepend_cdpath_pathname(
 	}
 	path = malloc((prefix_len + 1LU + suffix_len + 1LU) * sizeof(char));
 	if (!path)
-		return (internal_error("cd: malloc()"), NULL);
+		return (perror("cd: malloc()"), NULL);
 	ft_memcpy(path, prefix, prefix_len);
 	path[prefix_len] = '/';
 	ft_memcpy(path + prefix_len + 1LU, suffix, suffix_len);
@@ -142,11 +142,11 @@ inline static char	*__prepend_cwd_pathname(
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		return (internal_error("cd: getcwd()"), NULL);
+		return (perror("cd: getcwd()"), NULL);
 	cwd_len = ft_strlen(cwd);
 	*curpath = malloc((cwd_len + 1LU + dir_len + 1LU) * sizeof(char));
 	if (!*curpath)
-		return (internal_error("cd: malloc()"), NULL);
+		return (perror("cd: malloc()"), NULL);
 	ft_memcpy(*curpath, cwd, cwd_len);
 	free((void *)cwd);
 	(*curpath)[cwd_len] = '/';
@@ -179,7 +179,7 @@ char	*raw_curpath(
 	{
 		curpath = ft_strdup(dir);
 		if (!curpath)
-			return (internal_error("cd: ft_strdup()"), NULL);
+			return (perror("cd: ft_strdup()"), NULL);
 		return (curpath);
 	}
 	if (__is_possibly_cdpath(dir) && __try_cdpath(env, dir, dir_len, &curpath))

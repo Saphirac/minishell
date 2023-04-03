@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 23:08:53 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 01:45:00 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:11:47 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ inline static int	__restore_std(
 	int const status)
 {
 	if (dup2(*backup, std) == -1)
-		return (ft_fddel(backup), perror("dup2()"), EXIT_FAILURE);
+		return (g_exit_code = 1U, ft_fddel(backup), perror("dup2()"),
+			EXIT_FAILURE);
 	if (ft_fddel(backup))
-		return (perror("ft_fddel()"), EXIT_FAILURE);
+		return (g_exit_code = 1U, perror("ft_fddel()"), EXIT_FAILURE);
 	return (status);
 }
 
@@ -52,7 +53,7 @@ inline static int	__execute_in_place(t_shell *const shell)
 
 	shell->stdout_backup = dup(STDOUT_FILENO);
 	if (shell->stdout_backup == -1)
-		return (perror("dup()"), EXIT_FAILURE);
+		return (g_exit_code = 1U, perror("dup()"), EXIT_FAILURE);
 	if (file_redirections(&shell->tokens))
 		return (__restore_std(STDOUT_FILENO, &shell->stdout_backup,
 				EXIT_FAILURE));
@@ -84,7 +85,7 @@ int	execution(t_shell *const shell)
 {
 	shell->stdin_backup = dup(STDIN_FILENO);
 	if (shell->stdin_backup == -1)
-		return (internal_error("dup()"));
+		return (g_exit_code = 1U, perror("dup()"), EXIT_FAILURE);
 	g_exit_code = 0U;
 	if (!shell->is_pipeline
 		&& !token_lst_find_first_by_type(&shell->tokens, T_COMMAND))

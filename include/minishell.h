@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 06:11:39 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:56:53 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ int		run(t_shell *const shell)
 
 int		canonicalize(char *const curpath)
 		__attribute__((nonnull));
-int		surprise(void);
+
+void	surprise(void);
 
 bool	is_directory(char const *const pathname)
 		__attribute__((nonnull));

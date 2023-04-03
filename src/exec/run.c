@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 00:12:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 05:48:01 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 07:00:17 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ inline static int	__run_builtin(t_shell *const shell)
 	i = 0U;
 	while (ft_strcmp(shell->tokens.head->str, g_builtin[i].name))
 		++i;
-	return (g_builtin[i].func(&shell->env, shell->tokens.head->next));
+	return (g_builtin[i].func(&shell->env, shell->tokens.head->next),
+		EXIT_SUCCESS);
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:01 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 05:31:39 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:41:44 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,8 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
  * 
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
- * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
  */
-int	builtin_pwd(
+void	builtin_pwd(
 	t_env_lst *const env __attribute__((unused)),
 	t_token const *token)
 {
@@ -99,12 +97,22 @@ int	builtin_pwd(
 	uint8_t	opt;
 
 	if (__get_opt(&token, &opt) == EXIT_FAILURE)
-		return (g_exit_code = 2U, invalid_option_error("pwd", token->str));
+	{
+		g_exit_code = 2U;
+		invalid_option_error("pwd", token->str);
+		return ;
+	}
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		return (g_exit_code = 1U, perror("pwd: getcwd()"), EXIT_FAILURE);
+	{
+		g_exit_code = 1U;
+		perror("pwd: getcwd()");
+		return ;
+	}
 	if (printf("%s\n", cwd) < 0)
-		return (g_exit_code = 1U, free(cwd), perror("pwd: printf()"),
-			EXIT_FAILURE);
-	return (free(cwd), EXIT_SUCCESS);
+	{
+		g_exit_code = 1U;
+		perror("pwd: printf()");
+	}
+	free(cwd);
 }

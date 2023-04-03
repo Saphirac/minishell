@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 23:08:53 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 06:11:47 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:58:28 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ inline static int	__execute_in_place(t_shell *const shell)
 	while (g_builtin[i].name
 		&& ft_strcmp(g_builtin[i].name, shell->tokens.head->str))
 		++i;
-	if (g_builtin[i].func
-		&& g_builtin[i].func(&shell->env, shell->tokens.head->next))
-		return (__restore_std(STDOUT_FILENO, &shell->stdout_backup,
-				EXIT_FAILURE));
+	if (g_builtin[i].func)
+		g_builtin[i].func(&shell->env, shell->tokens.head->next);
 	return (__restore_std(STDOUT_FILENO, &shell->stdout_backup, EXIT_SUCCESS));
 }
 

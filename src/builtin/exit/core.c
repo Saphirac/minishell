@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 04:04:19 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 07:02:33 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ inline static bool	__is_positive(char const *str)
  * 
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
- * 
- * @return	The function calls `exit()`, and therefore never returns,
- * 			except if an error occured, and then EXIT_FAILURE is returned.
  */
-int	builtin_exit(t_env_lst *const env, t_token const *token)
+void	builtin_exit(t_env_lst *const env, t_token const *token)
 {
-	if (!env_lst_get_one(env, "QUIET_EXIT"))
-		ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (!env_lst_get_one(env, "QUIET_EXIT")
+		&& ft_putstr_fd("exit\n", STDERR_FILENO) == -1)
+		return (perror("exit: ft_pustr_fd"));
 	if (!token)
 		exit(g_exit_code);
 	if (!__is_positive(token->str))
@@ -63,6 +61,9 @@ int	builtin_exit(t_env_lst *const env, t_token const *token)
 		exit(2);
 	}
 	if (token->next)
-		return (too_many_arguments_error("exit"));
+	{
+		too_many_arguments_error("exit");
+		return ;
+	}
 	exit(ft_atohhu(token->str));
 }

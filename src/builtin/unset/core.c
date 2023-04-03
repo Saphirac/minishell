@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:36:19 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 00:07:44 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:55:09 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,18 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
  * 
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
- * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if an error occured.
  */
-int	builtin_unset(t_env_lst *const env, t_token const *token)
+void	builtin_unset(t_env_lst *const env, t_token const *token)
 {
 	uint8_t	opt;
 	t_env	*node;
 
 	if (__get_opt(&token, &opt) == EXIT_FAILURE)
-		return (g_exit_code = 2U, invalid_option_error("unset", token->str));
+	{
+		g_exit_code = 2U;
+		invalid_option_error("unset", token->str);
+		return ;
+	}
 	while (token)
 	{
 		node = env_lst_get_one(env, token->str);
@@ -106,5 +108,4 @@ int	builtin_unset(t_env_lst *const env, t_token const *token)
 			env_lst_del_one(env, node);
 		token = token->next;
 	}
-	return (EXIT_SUCCESS);
 }

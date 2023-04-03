@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:04:44 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 05:27:39 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:45:22 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,24 +144,32 @@ inline static int	__goto_specific_directory(
  * 
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
- * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
-int	builtin_cd(t_env_lst *const env, t_token const *token)
+void	builtin_cd(t_env_lst *const env, t_token const *token)
 {
 	uint8_t	opt;
 	t_env	*node;
 
 	if (__get_opt(&token, &opt))
-		return (g_exit_code = 1U, invalid_option_error("cd", token->str));
+	{
+		g_exit_code = 1U;
+		invalid_option_error("cd", token->str);
+		return ;
+	}
 	if (token)
 	{
 		if (token->next)
-			return (too_many_arguments_error("cd"));
-		return (__goto_specific_directory(env, token->str));
+			too_many_arguments_error("cd");
+		else
+			__goto_specific_directory(env, token->str);
+		return ;
 	}
 	node = env_lst_get_one(env, "HOME");
 	if (!node || !*node->value)
-		return (g_exit_code = 1U, home_not_set_error("cd"));
-	return (__goto_specific_directory(env, node->value));
+	{
+		g_exit_code = 1U;
+		home_not_set_error("cd");
+		return ;
+	}
+	__goto_specific_directory(env, node->value);
 }

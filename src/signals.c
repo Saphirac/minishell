@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 00:53:48 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 02:23:34 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 02:55:37 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ int	signal_default(void)
 	i = 1;
 	while (i < __SIGRTMIN)
 	{
-		if (signal(i, SIG_DFL) == SIG_ERR)
-			return (g_exit_code = 1U, EXIT_FAILURE);
+		if (i != SIGKILL && i != SIGSTOP && i != SIGCHLD
+			&& signal(i, SIG_DFL) == SIG_ERR)
+			return (g_exit_code = 1U, perror("signal()"), EXIT_FAILURE);
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -71,7 +72,7 @@ int	signal_ignore(void)
 	{
 		if (i != SIGKILL && i != SIGSTOP && i != SIGCHLD
 			&& signal(i, SIG_IGN) == SIG_ERR)
-			return (g_exit_code = 1U, EXIT_FAILURE);
+			return (g_exit_code = 1U, perror("signal()"), EXIT_FAILURE);
 		i++;
 	}
 	return (EXIT_SUCCESS);

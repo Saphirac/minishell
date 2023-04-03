@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 00:33:25 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 04:07:53 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ inline static int	__init_env(t_env_lst *const env, char const *const *ep)
 		else
 		{
 			*ptr = 0;
-			++ptr;
-			if (!env_lst_add_back(env, *ep, ptr))
+			if (!env_lst_add_back(env, *ep, ptr + 1))
 				return (EXIT_FAILURE);
+			*ptr = '=';
 		}
 		++ep;
 	}

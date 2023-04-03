@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   str_lst_add_front.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 19:35:03 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 21:07:46 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:57:07 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Add a new node to the beginning of str_lst list.
+ * 
+ * @param list the list we add a node to.
+ * @param str string of the new node.
+ * @param is_quoted bool determining if node is quoted or not.
+ * @return t_str* pointer to the new node.
+ */
 t_str	*str_lst_add_front(
 	t_str_lst *const list,
 	char *const str,

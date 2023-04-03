@@ -3,18 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_operators.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 01:48:49 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/31 07:15:09 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:11:06 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Get double op get '<<' or '>>' operators */
+/**
+ * @brief Get '<<' or '>>' operators
+ * 
+ * @param shell struct containing the readline result.
+ * @param i iterator in line.
+ * @return Found operator.
+ */
 
-char	*ft_get_double_op(t_shell *shell, int *i)
+inline static char	*__ft_get_double_op(t_shell *shell, int *i)
 {
 	char	*ret;
 
@@ -29,8 +35,16 @@ char	*ft_get_double_op(t_shell *shell, int *i)
 	return (ret);
 }
 
-/* get_operator create a token corresponding to the operator found in the line
-also create a token for the word before if it exists */
+/**
+ * @brief ft_get_operator creates a token corresponding
+ * to the operator found in the line.
+ * Also creates a token for the word before if it exists
+ * 
+ * @param shell struct containing readline result.
+ * @param i iterator in line.
+ * @param j start of ft_strndup() copy.
+ * @return operator found.
+ */
 
 char	*ft_get_operator(t_shell *shell, int *i, int j)
 {
@@ -50,7 +64,7 @@ char	*ft_get_operator(t_shell *shell, int *i, int j)
 		ret = ft_strdup("|");
 	else if ((shell->line[*i] == '<' && shell->line[*i + 1] == '<')
 		|| (shell->line[*i] == '>' && shell->line[*i + 1] == '>'))
-		ret = ft_get_double_op(shell, i);
+		ret = __ft_get_double_op(shell, i);
 	else if (shell->line[*i] == '<')
 		ret = ft_strdup("<");
 	else if (shell->line[*i] == '>')

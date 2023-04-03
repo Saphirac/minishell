@@ -6,16 +6,18 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 00:29:36 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/22 17:36:27 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:15:54 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Check if character is a POSIX operator 
-return 0 if true 
-return 1 if false */
-
+/**
+ * @brief Check if character is a POSIX operator.
+ * 
+ * @param c char to check.
+ * @return 0 if true, 1 if false.
+ */
 int	ft_is_op(char c)
 {
 	if (c == '|' || c == '<' || c == '>')
@@ -23,9 +25,13 @@ int	ft_is_op(char c)
 	return (1);
 }
 
-/* Check if character is a space, an operator, EOF or a single / double quotes 
-return 0 if true 
-return 1 if false */
+/**
+ * @brief Check if character is :
+ * a space, an operator, EOF or a single / double quotes.
+ * 
+ * @param c char to check.
+ * @return 0 if true, 1 if false. 
+ */
 
 int	ft_is_sep(char c)
 {
@@ -36,6 +42,11 @@ int	ft_is_sep(char c)
 	return (1);
 }
 
+/**
+ * @brief Print all tokens of token_lst and their types.
+ * 
+ * @param tokens list containing each token.
+ */
 void	print_tokens(t_token_lst *tokens)
 {
 	t_token const	*tmp = tokens->head;

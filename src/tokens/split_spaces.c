@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:50:26 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 03:00:54 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:12:56 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,16 @@ int	add_spaces(t_token_lst *const token_lst, t_token **token,
 	return (free(split), EXIT_SUCCESS);
 }
 
+/**
+ * @brief If token being expanded is unquoted and contains space,
+ * separates between as many tokens needed.
+ * Uses t_token_lst_add_after() to do that.
+ * 
+ * @param token_lst list containing all t_token.
+ * @param token token being expanded.
+ * @param tmp t_str containing the part of token.
+ * @return EXIT_FAILURE or EXIT_SUCCESS.
+ */
 int	add_spaces_new_token(t_token_lst *const token_lst,
 		t_token **token, t_str *tmp)
 {

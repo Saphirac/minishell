@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:15:18 by jodufour          #+#    #+#             */
-/*   Updated: 2023/03/12 16:20:30 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:57:37 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ static char const	g_surprise[] = "\
 /**
  * @brief	This is our own undefined behavior of builtin export
  * 			when called without any argument. Try it yourself! ;D
- * 
- * @return	Always EXIT_SUCCESS.
  */
-int	surprise(void)
+void	surprise(void)
 {
-	printf("%s", g_surprise);
-	return (EXIT_SUCCESS);
+	if (printf("%s", g_surprise) < 0)
+		return (perror("export: printf()"));
 }

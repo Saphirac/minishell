@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:33:56 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 05:30:22 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:49:49 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
 	}
 }
 
+inline static void	__write_error(void)
+{
+	g_exit_code = 1U;
+	perror("echo: write()");
+}
+
 /**
  * @brief	Print the given arguments to the standard output.
  * 			If an unknown option is given, it shall be considered
@@ -90,10 +96,8 @@ inline static void	__get_opt(t_token const **const token, uint8_t *const opt)
  * 
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments.
- * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
-int	builtin_echo(
+void	builtin_echo(
 	t_env_lst *const env __attribute__((unused)),
 	t_token const *token)
 {
@@ -103,12 +107,11 @@ int	builtin_echo(
 	while (token)
 	{
 		if (write(STDOUT_FILENO, token->str, ft_strlen(token->str)) == -1)
-			return (g_exit_code = 1U, perror("echo: write()"), EXIT_FAILURE);
+			return (__write_error());
 		token = token->next;
 		if (token && write(STDOUT_FILENO, " ", 1LU) == -1)
-			return (g_exit_code = 1U, perror("echo: write()"), EXIT_FAILURE);
+			return (__write_error());
 	}
 	if (!(opt & 1 << OPT_N) && write(STDOUT_FILENO, "\n", 1LU) == -1)
-		return (g_exit_code = 1U, perror("echo: write()"), EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (__write_error());
 }

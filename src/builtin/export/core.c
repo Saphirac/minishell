@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 16:35:47 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 00:07:25 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:53:59 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,8 @@ inline static int	__get_opt(t_token const **const token, uint8_t *const opt)
  * 
  * @param	env The linked list containing the environment variables.
  * @param	token The first node of the linked list containing the arguments. 
- * 
- * @return	EXIT_SUCCESS, or EXIT_FAILURE if a fatal error occured.
  */
-int	builtin_export(t_env_lst *const env, t_token const *token)
+void	builtin_export(t_env_lst *const env, t_token const *token)
 {
 	uint8_t	opt;
 	bool	is_ok;
@@ -102,15 +100,21 @@ int	builtin_export(t_env_lst *const env, t_token const *token)
 	if (!token)
 		return (surprise());
 	if (__get_opt(&token, &opt))
-		return (g_exit_code = 2U, invalid_option_error("export", token->str));
+	{
+		g_exit_code = 2U;
+		invalid_option_error("export", token->str);
+		return ;
+	}
 	is_ok = true;
 	while (token)
 	{
 		if (process_one(env, token->str, &is_ok))
-			return (g_exit_code = 1U, EXIT_FAILURE);
+		{
+			g_exit_code = 1U;
+			return ;
+		}
 		token = token->next;
 	}
 	if (!is_ok)
-		return (g_exit_code = 1U, EXIT_SUCCESS);
-	return (EXIT_SUCCESS);
+		g_exit_code = 1U;
 }

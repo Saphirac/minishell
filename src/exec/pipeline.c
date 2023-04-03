@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:10:16 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 06:12:36 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 07:03:10 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ int	pipeline(t_shell *const shell, t_token const *node)
 		if (dup2(pds[0], STDIN_FILENO) == -1)
 			return (g_exit_code = 1U, close(pds[0]), close(pds[1]),
 				pid_lst_kill(&shell->pids, SIGTERM), perror("dup2()"),
-					EXIT_FAILURE);
+				EXIT_FAILURE);
 		if (close(pds[0]) || close(pds[1]))
-			return (g_exit_code = 1U,pid_lst_kill(&shell->pids, SIGTERM),
+			return (g_exit_code = 1U, pid_lst_kill(&shell->pids, SIGTERM),
 				perror("close()"), EXIT_FAILURE);
 		token_lst_del_range(&shell->tokens, shell->tokens.head, node->next);
 		node = token_lst_find_first_by_type(&shell->tokens, T_PIPE);

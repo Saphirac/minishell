@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 00:53:48 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 02:55:37 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 04:25:20 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	handle_signal(int sig)
 {
-
 	g_exit_code = 128 + sig;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
@@ -23,27 +22,11 @@ void	handle_signal(int sig)
 	rl_redisplay();
 }
 
-void	handle_signal_hd(int const sig __attribute__((unused)))
-{
-	g_exit_code = 42;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	if (close(STDIN_FILENO))
-		perror("close() failed.\n");
-}
-
 int	signal_handle_interactive(void)
 {
 	if (signal(SIGINT, &handle_signal) == SIG_ERR)
 		return (EXIT_FAILURE);
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-int	signal_heredoc(void)
-{
-	if (signal(SIGINT, &handle_signal_hd) == SIG_ERR)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

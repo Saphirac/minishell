@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:48:12 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 04:07:53 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 04:21:35 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ inline static void	__clear_shell(void)
 	token_lst_clear(&shell->tokens);
 	pid_lst_clear(&shell->pids);
 	ft_memdel(&shell->line);
+	rl_clear_history();
 	ft_fddel(&shell->stdin_backup);
 	ft_fddel(&shell->stdout_backup);
 	close(STDIN_FILENO);

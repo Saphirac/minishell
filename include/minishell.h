@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 01:42:09 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 04:26:15 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	prompt(t_shell *const shell)
 // Signals //
 
 int		signal_handle_interactive(void);
-int		signal_heredoc(void);
 int		signal_default(void);
 int		signal_ignore(void);
 
@@ -69,7 +68,6 @@ int		ft_if_heredoc(t_token *tmp, bool *cmd);
 int		ft_if_output_input(t_token *tmp, bool *cmd);
 int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
-int		ft_env_cpy(char *env_value, char *tmp, char *cmp);
 int		create_str_lst(t_token *token, t_str_lst *str_lst);
 int		expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst,
 			t_token *token);

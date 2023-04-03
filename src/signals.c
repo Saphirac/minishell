@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 00:53:48 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 01:51:01 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 02:23:34 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ int	signal_default(void)
 	i = 1;
 	while (i < __SIGRTMIN)
 	{
-		if (i != SIGKILL && i != SIGSTOP
-			&& signal(i, SIG_DFL) == SIG_ERR)
+		if (signal(i, SIG_DFL) == SIG_ERR)
 			return (g_exit_code = 1U, EXIT_FAILURE);
 		i++;
 	}
@@ -70,7 +69,7 @@ int	signal_ignore(void)
 	i = 1;
 	while (i < __SIGRTMIN)
 	{
-		if (i != SIGKILL && i != SIGSTOP
+		if (i != SIGKILL && i != SIGSTOP && i != SIGCHLD
 			&& signal(i, SIG_IGN) == SIG_ERR)
 			return (g_exit_code = 1U, EXIT_FAILURE);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:10:16 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 05:45:06 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:12:36 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ inline static int	__subprocess(
 				perror("pid_lst_add_back()"), EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
-	if (close(shell->stdin_backup) || (pds[0] != STDIN_FILENO && close(pds[0])))
-		return (g_exit_code = 1U, perror("close()"), EXIT_FAILURE);
 	token_lst_del_range(&shell->tokens, node, NULL);
 	pid_lst_clear(&shell->pids);
-	if (!pipe_redirection(pds[1]) && !file_redirections(&shell->tokens)
+	if (close(shell->stdin_backup) || (pds[0] != STDIN_FILENO && close(pds[0])))
+		return (g_exit_code = 1U, perror("close()"), EXIT_FAILURE);
+	if (!signal_default()
+		&& !pipe_redirection(pds[1])
+		&& !file_redirections(&shell->tokens)
 		&& !g_exit_code && shell->tokens.size)
 		run(shell);
 	exit(g_exit_code);
@@ -74,7 +76,7 @@ inline static int	__last_command(t_shell *const shell, int pds[2])
 	if (close(STDIN_FILENO))
 		return (g_exit_code = 1U, pid_lst_kill(&shell->pids, SIGTERM),
 			perror("close()"), EXIT_FAILURE);
-	if (pid_lst_wait(&shell->pids))
+	if (signal_ignore() || pid_lst_wait(&shell->pids))
 		return (pid_lst_kill(&shell->pids, SIGTERM), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

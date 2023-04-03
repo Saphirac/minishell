@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 12:55:28 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/03 05:27:21 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:11:39 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ typedef struct s_tmp_i_start
 
 void	prompt(t_shell *const shell)
 		__attribute__((nonnull));
-void	handle_signal(int sig);
-void	signal_handle_interactive(void);
-void	signal_handle_non_interactive(void);
+
+// Signals //
+
+int		signal_handle_interactive(void);
+int		signal_default(void);
+int		signal_ignore(void);
 
 // Tokens //
 
@@ -65,7 +68,6 @@ int		ft_if_heredoc(t_token *tmp, bool *cmd);
 int		ft_if_output_input(t_token *tmp, bool *cmd);
 int		ft_if_operator(t_token *tmp, bool *cmd);
 int		ft_if_command(t_token *tmp, bool *cmd);
-int		ft_env_cpy(char *env_value, char *tmp, char *cmp);
 int		create_str_lst(t_token *token, t_str_lst *str_lst);
 int		expand_dollars_str_lst(t_env_lst *env_lst, t_str_lst *str_lst,
 			t_token *token);
@@ -135,7 +137,6 @@ int		too_many_arguments_error(char const *const str)
 // Heredoc
 
 int		stock_hd(char const *const line, char **const ret);
-void	signal_handle_heredoc(void);
 int		do_here_doc(t_token_lst *token_lst, t_env_lst *env);
 
 #endif

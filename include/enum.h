@@ -6,7 +6,7 @@
 /*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:22:24 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/03/29 17:44:38 by mcourtoi         ###   ########.fr       */
+/*   Updated: 2023/04/03 00:00:25 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ enum	e_token_type
 	T_ARGUMENT,
 	T_DELIMITER,
 	T_DELIMITER_QUOTED,
+	T_CONTENT,
 	T_UNDEFINED,
 	T_TO_SUPPR,
 };

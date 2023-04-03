@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:41:10 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/02 04:27:15 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 00:03:14 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ typedef int					(*t_func1)(char const *const str);
 
 struct	s_redirect
 {
-	t_token_type	type;
+	t_token_type	curr_type;
+	t_token_type	next_type;
 	t_func1			func;
 };
 
@@ -33,10 +34,10 @@ static inline int	__redirect_stdout_to_file_in_append_mode(
 					__attribute__((nonnull));
 
 static t_redirect const		g_redirect[] = {
-{T_INPUT, &__redirect_stdin_from_file},
-{T_HEREDOC, &__redirect_stdin_from_heredoc},
-{T_OUTPUT_TRUNCATE, &__redirect_stdout_to_file_in_truncate_mode},
-{T_OUTPUT_APPEND, &__redirect_stdout_to_file_in_append_mode},
+{T_INPUT, T_FILE, &__redirect_stdin_from_file},
+{T_HEREDOC, T_CONTENT, &__redirect_stdin_from_heredoc},
+{T_OUTPUT_TRUNCATE, T_FILE, &__redirect_stdout_to_file_in_truncate_mode},
+{T_OUTPUT_APPEND, T_FILE, &__redirect_stdout_to_file_in_append_mode},
 {0}
 };
 
@@ -161,11 +162,11 @@ int	file_redirections(t_token_lst *const tokens)
 	while (node)
 	{
 		i = 0U;
-		while (g_redirect[i].func && node->type != g_redirect[i].type)
+		while (g_redirect[i].func && node->type != g_redirect[i].curr_type)
 			++i;
 		if (g_redirect[i].func)
 		{
-			if (!node->next || node->next->type != T_FILE)
+			if (!node->next || node->next->type != g_redirect[i].next_type)
 				return (ambiguous_redirect_error(NULL));
 			if (g_redirect[i].func(node->next->str))
 				return (EXIT_FAILURE);

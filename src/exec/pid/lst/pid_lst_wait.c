@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 01:56:23 by jodufour          #+#    #+#             */
-/*   Updated: 2023/04/03 00:50:28 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 02:43:08 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,11 @@ int	pid_lst_wait(t_pid_lst *const list)
 	}
 	if (WIFEXITED(status))
 		g_exit_code = (uint8_t)WEXITSTATUS(status);
-	else if (WIFSIGNALED(status) && __signaled_suprocess(status))
-		return (EXIT_FAILURE);
+	else if (WIFSIGNALED(status))
+	{
+		if (__signaled_suprocess(status))
+			return (EXIT_FAILURE);
+	}
 	else if (WIFSTOPPED(status))
 		g_exit_code = (uint8_t)WSTOPSIG(status);
 	else

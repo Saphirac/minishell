@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcourtoi <mcourtoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 00:53:48 by mcourtoi          #+#    #+#             */
-/*   Updated: 2023/04/02 01:00:29 by jodufour         ###   ########.fr       */
+/*   Updated: 2023/04/03 06:03:14 by mcourtoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,49 @@
 
 void	handle_signal(int sig)
 {
-	if (sig == SIGINT)
-	{
-		write(STDOUT_FILENO, "\nminishell $> ", 14);
-		g_exit_code = 128 + sig;
-	}
+	g_exit_code = 128 + sig;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	if (rl_on_new_line())
+		perror("rl_on_new_line()");
+	rl_redisplay();
 }
 
-void	handle_signal_2(int sig)
+int	signal_handle_interactive(void)
 {
-	if (sig == SIGINT)
-	{
-		//write(STDOUT_FILENO, "\nminishell $> ", 14);
-		g_exit_code = 128 + sig;
-	}
-	if (sig == SIGTSTP)
-	{
-		write(STDOUT_FILENO, "Quit\n", 5);
-		g_exit_code = 128 + sig;
-	}
+	if (signal(SIGINT, &handle_signal) == SIG_ERR)
+		return (EXIT_FAILURE);
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-void	handle_signal_3(int sig)
+int	signal_default(void)
 {
-	if (sig == SIGINT)
+	int	i;
+
+	i = 1;
+	while (i < __SIGRTMIN)
 	{
-		write(STDOUT_FILENO, "\nminishell $> ", 14);
+		if (i != SIGKILL && i != SIGSTOP && i != SIGCHLD
+			&& signal(i, SIG_DFL) == SIG_ERR)
+			return (g_exit_code = 1U, perror("signal()"), EXIT_FAILURE);
+		i++;
 	}
-	if (sig == SIGTSTP)
+	return (EXIT_SUCCESS);
+}
+
+int	signal_ignore(void)
+{
+	int	i;
+
+	i = 1;
+	while (i < __SIGRTMIN)
 	{
-		write(STDOUT_FILENO, "Here-document at line 2 delimited by end-of-file\n", 50);
+		if (i != SIGKILL && i != SIGSTOP && i != SIGCHLD
+			&& signal(i, SIG_IGN) == SIG_ERR)
+			return (g_exit_code = 1U, perror("signal()"), EXIT_FAILURE);
+		i++;
 	}
-}
-
-void	signal_handle_interactive(void)
-{
-	signal(SIGINT, &handle_signal);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	signal_handle_non_interactive(void)
-{
-	signal(SIGINT, &handle_signal_2);
-	signal(SIGQUIT, &handle_signal_2);
-}
-
-void	signal_handle_heredoc(void)
-{
-	signal(SIGINT, &handle_signal_3);
-	signal(SIGQUIT, &handle_signal_3);
+	return (EXIT_SUCCESS);
 }
